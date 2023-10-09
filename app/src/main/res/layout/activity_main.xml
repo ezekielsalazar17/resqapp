@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/burger"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/border_radius"
+            android:drawableStart="@drawable/baseline_table_rows_24"
+            android:padding="7dp"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/profile_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="320dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/profile_button"
+            android:src="@drawable/profile_final"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="410dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:padding="20dp"
+            app:srcCompat="@drawable/img3"
+            tools:ignore="ContentDescription" />
+
+        <Button
+            android:id="@+id/location_tracking"
+            android:layout_width="330dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="4dp"
+            android:background="#15224B"
+            android:drawableStart="@drawable/baseline_location_on_24"
+            android:fontFamily="@font/oswald"
+            android:hint="@string/location_tracking"
+            android:paddingStart="100dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            tools:ignore="MissingConstraints,RtlSymmetry,TextContrastCheck,TouchTargetSizeCheck,VisualLintButtonSize" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="411dp"
+            android:layout_height="170dp">
+            <ImageButton
+                android:id="@+id/fire_button"
+                android:layout_width="160dp"
+                android:layout_height="147dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/fire_border"
+                android:padding="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/firetruck"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
+
+            <ImageButton
+                android:id="@+id/police_button"
+                android:layout_width="160dp"
+                android:layout_height="147dp"
+                android:layout_marginStart="210dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/police_border"
+                android:padding="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/police"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="411dp"
+            android:layout_height="25dp"
+            tools:ignore="TextSizeCheck">
+
+            <TextView
+                android:id="@+id/fire_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/oswald"
+                android:letterSpacing="0.05"
+                android:text="@string/fire_department"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/police_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="233dp"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/oswald"
+                android:letterSpacing="0.05"
+                android:text="@string/police_department"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <androidx.cardview.widget.CardView
+            android:layout_width="411dp"
+            android:layout_height="157dp">
+            <ImageButton
+                android:id="@+id/ambulance_button"
+                android:layout_width="160dp"
+                android:layout_height="147dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ambulance_border"
+                android:padding="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ambulance"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
+
+            <ImageButton
+                android:id="@+id/coastguard_button"
+                android:layout_width="160dp"
+                android:layout_height="147dp"
+                android:layout_marginStart="210dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/coast_button"
+                android:padding="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/boat"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="411dp"
+            android:layout_height="25dp"
+            tools:ignore="TextSizeCheck">
+
+            <TextView
+                android:id="@+id/ambulance_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="47dp"
+                android:fontFamily="@font/oswald"
+                android:letterSpacing="0.05"
+                android:text="@string/ambulance_department"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/coast_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="213dp"
+                android:fontFamily="@font/oswald"
+                android:letterSpacing="0.05"
+                android:text="@string/coast_guard_department"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+
+</LinearLayout>

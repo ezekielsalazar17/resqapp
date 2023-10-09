@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">resqapp</string>
+    <string name="id1">ID</string>
+    <string name="id">id</string>
+    <string name="first_name1">First Name</string>
+    <string name="firstname">first name</string>
+    <string name="last_name1">Last Name</string>
+    <string name="lastname">last name</string>
+    <string name="password1">Password</string>
+    <string name="password">password</string>
+    <string name="confirm_password1">Confirm Password</string>
+    <string name="confirmpassword">confirm password</string>
+    <string name="email_or_phone_number1">Email or Phone Number</string>
+    <string name="emailorphonenumber">email or phone number</string>
+    <string name="register">REGISTER</string>
+    <string name="location_tracking">LOCATION TRACKING</string>
+    <string name="fire_department">FIRE DEPARTMENT</string>
+    <string name="police_department">POLICE DEPARTMENT</string>
+    <string name="ambulance_department">AMBULANCE DEPARTMENT</string>
+    <string name="coast_guard_department">COASTGUARD DEPARTMENT</string>
+    <string name="don_t_have_an_account">Dont have an account?</string>
+    <string name="sign_up_now">Sign up now!</string>
+    <string name="login">LOGIN</string>
+    <string name="loading">Loading...</string>
+    <string name="version">version 1.0</string>
+</resources>
