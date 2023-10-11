@@ -1,8 +1,10 @@
 package com.example.resqapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,10 +15,21 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class Register extends AppCompatActivity {
 
@@ -29,6 +42,8 @@ public class Register extends AppCompatActivity {
     FirebaseAuth fAuth;
 
     ProgressBar progressBar;
+
+    int code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +82,7 @@ public class Register extends AppCompatActivity {
                 }
 
                 if(password.length() < 10){
-                    Password.setError("Password must be Greater the or Equal to 10");
+                    Password.setError("Password must be Less than or Equal to 10");
                     return;
                 }
 
@@ -85,6 +100,8 @@ public class Register extends AppCompatActivity {
 
                     }
                 });
+
+
             }
         });
     }
