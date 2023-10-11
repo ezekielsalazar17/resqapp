@@ -115,7 +115,7 @@
                             android:text="@string/name"
                             android:textColor="@color/black"
                             android:fontFamily="@font/oswald_light"
-                            tools:ignore="RtlSymmetry" />
+                            tools:ignore="RtlSymmetry,VisualLintOverlap" />
                         <TextView
                             android:id="@+id/contact_number"
                             android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                             android:text="@string/contact_number"
                             android:textColor="@color/black"
                             android:fontFamily="@font/oswald_light"
-                            tools:ignore="RtlSymmetry" />
+                            tools:ignore="RtlSymmetry,VisualLintOverlap" />
                         <TextView
                             android:id="@+id/gps_location"
                             android:layout_width="match_parent"
