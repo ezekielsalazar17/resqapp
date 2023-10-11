@@ -42,4 +42,11 @@
     <string name="ambulance_department_offline">AMBULANCE\nDEPARTMENT</string>
     <string name="coast_guard_department_offline">COAST GUARD \nDEPARTMENT</string>
     <string name="fire_department_admin">FIRE DEPARTMENT</string>
+    <string name="dashboard">DASHBOARD</string>
+    <string name="name">NAME:</string>
+    <string name="contact_number">"CONTACT NUMBER: "</string>
+    <string name="gps_location">GPS LOCATION:</string>
+    <string name="police_department_admin">POLICE DEPARTMENT</string>
+    <string name="ambulance_department_admin">AMBULANCE DEPARTMENT</string>
+    <string name="coast_guard_department_admin">COAST GUARD DEPARTMENT</string>
 </resources>

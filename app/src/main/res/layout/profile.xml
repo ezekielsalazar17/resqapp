@@ -24,22 +24,22 @@
             android:background="@drawable/border_radius"
             android:drawableStart="@drawable/baseline_arrow_back_24"
             android:padding="7dp"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="120dp"
             android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:paddingStart="23dp"
             android:layout_marginStart="95dp"
-            android:paddingTop="5dp"
-            android:textSize="20sp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/oswald_bold"
             android:letterSpacing="0.03"
-            android:textColor="#FAFAFA"
+            android:paddingStart="23dp"
+            android:paddingTop="5dp"
             android:text="@string/settings"
-            tools:ignore="RtlSymmetry" />
+            android:textColor="#FAFAFA"
+            android:textSize="20sp"
+            tools:ignore="RtlSymmetry,TextSizeCheck" />
 
 
 
@@ -155,7 +155,8 @@
                     android:text="@string/juan_dela_cruz1"
                     android:textAlignment="center"
                     android:textColor="#15224B"
-                    android:textSize="25sp" />
+                    android:textSize="25sp"
+                    tools:ignore="VisualLintOverlap" />
 
                 <TextView
                     android:id="@+id/contact_number"
@@ -170,17 +171,17 @@
                     android:textAlignment="center"
                     android:textColor="#15224B"
                     android:textSize="18sp"
-                    tools:ignore="TextContrastCheck"
+                    tools:ignore="TextContrastCheck,VisualLintOverlap"
                     />
 
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@drawable/baseline_edit_24"
-                    android:layout_marginTop="53dp"
                     android:layout_marginStart="169dp"
-                    tools:ignore="ContentDescription" />
+                    android:layout_marginTop="53dp"
+                    android:background="@drawable/baseline_edit_24"
+                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <TextView
                     android:id="@+id/id_num"
@@ -194,7 +195,8 @@
                     android:text="@string/id_number_123123"
                     android:textAlignment="center"
                     android:textColor="#15224B"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:ignore="VisualLintOverlap" />
 
                 <TextView
                     android:id="@+id/id_pres"
@@ -208,7 +210,8 @@
                     android:text="@string/id_presented_philhealth"
                     android:textAlignment="center"
                     android:textColor="#15224B"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:ignore="VisualLintOverlap" />
 
                 <TextView
                     android:id="@+id/user_number"
@@ -222,7 +225,8 @@
                     android:text="@string/user_number"
                     android:textAlignment="center"
                     android:textColor="#15224B"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:ignore="VisualLintOverlap" />
 
                 <TextView
                     android:id="@+id/birthday"
@@ -251,31 +255,32 @@
 
         <Button
             android:id="@+id/sign_out"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="145dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="15dp"
+            android:layout_height="48dp"
             android:layout_marginStart="55dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/sign_out"
-            android:textColor="@color/white"
-            android:text="@string/sign_out"
             android:padding="10dp"
+            android:text="@string/sign_out"
             android:textAlignment="center"
-            android:textSize="15sp"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/about_us"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="145dp"
             android:layout_height="40dp"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/sign_out"
-            android:textColor="@color/white"
-            android:text="@string/about_us"
             android:padding="10dp"
+            android:text="@string/about_us"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="15sp"
-            style="?android:attr/buttonBarButtonStyle" />
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
 </LinearLayout>
