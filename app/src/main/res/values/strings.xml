@@ -49,4 +49,7 @@
     <string name="police_department_admin">POLICE DEPARTMENT</string>
     <string name="ambulance_department_admin">AMBULANCE DEPARTMENT</string>
     <string name="coast_guard_department_admin">COAST GUARD DEPARTMENT</string>
+    <string name="logout">Logout</string>
+    <string name="remember_me">Remember Me?</string>
+    <string name="forgot_password">Forgot Password?</string>
 </resources>

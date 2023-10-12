@@ -22,16 +22,16 @@
             android:layout_weight="1"
             android:padding="40dp"
             app:srcCompat="@drawable/img3"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,ImageContrastCheck" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="220dp"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/email1"
+            android:id="@+id/user1"
             android:layout_width="205dp"
             android:layout_height="43dp"
             android:layout_marginStart="100dp"
@@ -43,13 +43,14 @@
             android:drawablePadding="10dp"
             android:ems="10"
             android:fontFamily="@font/oswald"
-            android:hint="Email"
+            android:hint="Username"
             android:inputType="text"
             android:paddingStart="10sp"
             android:paddingEnd="10sp"
             android:textColorHint="@color/black"
             android:textSize="15sp"
-            tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
+            tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/pw1"
@@ -69,7 +70,40 @@
             android:paddingEnd="10sp"
             android:textColorHint="@color/black"
             android:textSize="15sp"
-            tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
+            tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck"
+            android:autofillHints="" />
+
+        <CheckBox
+            android:id="@+id/remember_me_checkbox"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="93dp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/remember_me"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="-20dp"
+            android:fontFamily="@font/oswald"
+            android:text="@string/remember_me"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            tools:ignore="TextSizeCheck" />
+
+        <TextView
+            android:id="@+id/forgotpass"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_password"
+            android:textColor="@color/black"
+            android:fontFamily="@font/oswald"
+            android:textSize="12sp"
+            android:layout_marginTop="-20dp"
+            android:layout_marginStart="225dp"
+            tools:ignore="TextSizeCheck" />
+
 
     </LinearLayout>
     <LinearLayout
@@ -108,18 +142,18 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_height="150dp"
-        android:layout_width="match_parent"
+        android:layout_width="240dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginTop="90dp"
         android:orientation="horizontal"
-        >
+        tools:ignore="TextSizeCheck,VisualLintBounds">
 
         <TextView
             android:id="@+id/donthaveaccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="76dp"
-            android:layout_marginTop="125dp"
-            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="5dp"
             android:text="@string/don_t_have_an_account"
             android:textColor="@color/black"
             android:textStyle="normal"
@@ -129,33 +163,13 @@
             android:id="@+id/signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="125dp"
-            android:layout_marginEnd="95dp"
-            android:layout_marginBottom="1dp"
             android:contextClickable="true"
             android:text="@string/sign_up_now"
             android:textColor="@color/black"
             android:textStyle="bold"
             tools:ignore="TextSizeCheck" />
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        >
-
-
-        <TextView
-            android:id="@+id/forgotpass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Forgot Password?"
-            android:layout_marginStart="150dp"
-            android:contextClickable="true"
-            android:textColor="@color/black"/>
     </LinearLayout>
 
 
