@@ -31,7 +31,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/user1"
+            android:id="@+id/email1"
             android:layout_width="205dp"
             android:layout_height="43dp"
             android:layout_marginStart="100dp"
@@ -43,13 +43,13 @@
             android:drawablePadding="10dp"
             android:ems="10"
             android:fontFamily="@font/oswald"
-            android:hint="Username"
+            android:hint="Email"
             android:inputType="text"
             android:paddingStart="10sp"
             android:paddingEnd="10sp"
             android:textColorHint="@color/black"
             android:textSize="15sp"
-            tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck"
+            tools:ignore="HardcodedText,TextContrastCheck,TextFields,TouchTargetSizeCheck"
             android:autofillHints="" />
 
         <EditText
@@ -59,6 +59,7 @@
             android:layout_marginStart="100dp"
             android:layout_marginEnd="100dp"
             android:layout_marginBottom="8dp"
+            android:autofillHints=""
             android:background="@drawable/border"
             android:drawableStart="@drawable/baseline_lock_24"
             android:drawablePadding="10dp"
@@ -70,8 +71,8 @@
             android:paddingEnd="10sp"
             android:textColorHint="@color/black"
             android:textSize="15sp"
-            tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck"
-            android:autofillHints="" />
+            android:visibility="invisible"
+            tools:ignore="HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
 
         <CheckBox
             android:id="@+id/remember_me_checkbox"
