@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#9BBEE6"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/white1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/white_circle"
+            tools:ignore="ContentDescription,ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/white2"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginStart="-19dp"
+            android:layout_marginTop="75dp"
+            android:src="@drawable/white_circle"
+            tools:ignore="ContentDescription,ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/white3"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginStart="-7.3dp"
+            android:layout_marginTop="83dp"
+            android:src="@drawable/white_circle"
+            tools:ignore="ContentDescription,ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/white4"
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:layout_marginStart="-7.3dp"
+            android:layout_marginTop="91dp"
+            android:src="@drawable/white_circle"
+            tools:ignore="ContentDescription,ImageContrastCheck" />
+
+        <ImageView
+            android:id="@+id/location_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="-21.3dp"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/baseline_location_on_24"
+            tools:ignore="ContentDescription,ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/admin_loc"
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/white_border"
+            android:fontFamily="@font/oswald"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/admin_location"
+            android:textColor="@color/black"
+            tools:ignore="RtlSymmetry,TextSizeCheck" />
+
+        <TextView
+            android:id="@+id/user_loc"
+            android:layout_width="280dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="-280dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/white_border"
+            android:fontFamily="@font/oswald"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:text="@string/user_location"
+            android:textColor="@color/black"
+            tools:ignore="RtlSymmetry,TextSizeCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="480dp"
+        android:orientation="horizontal"
+        >
+
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            tools:ignore="SpeakableTextPresentCheck">
+
+        </com.google.android.gms.maps.MapView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+
+        >
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+             />
+    </LinearLayout>
+</LinearLayout>

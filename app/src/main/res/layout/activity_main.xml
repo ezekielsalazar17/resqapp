@@ -17,7 +17,7 @@
             android:id="@+id/profile_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="360dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/profile_button"
@@ -37,8 +37,8 @@
             android:id="@+id/imageView2"
             android:layout_width="410dp"
             android:layout_height="180dp"
-            android:padding="20dp"
-            app:srcCompat="@drawable/img3"
+            android:padding="10dp"
+            app:srcCompat="@drawable/resqapplogo"
             tools:ignore="ContentDescription" />
 
         <Button
@@ -77,9 +77,9 @@
                 android:layout_marginEnd="13dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/fire_border"
-                android:padding="15dp"
+                android:padding="20dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/firetruck"
+                android:src="@drawable/firefighter"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
 
             <ImageButton
@@ -90,7 +90,7 @@
                 android:layout_marginEnd="13dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/police_border"
-                android:padding="15dp"
+                android:padding="20dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/police"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
@@ -143,15 +143,16 @@
         <androidx.cardview.widget.CardView
             android:layout_width="411dp"
             android:layout_height="157dp">
+
             <ImageButton
                 android:id="@+id/ambulance_button"
                 android:layout_width="160dp"
                 android:layout_height="147dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginEnd="13dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="13dp"
                 android:background="@drawable/ambulance_border"
-                android:padding="15dp"
+                android:padding="20dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ambulance"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
@@ -163,8 +164,8 @@
                 android:layout_marginStart="210dp"
                 android:layout_marginEnd="13dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/coast_button"
-                android:padding="15dp"
+                android:background="@drawable/ambulance_border"
+                android:padding="20dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/boat"
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
@@ -217,7 +218,7 @@
             android:layout_width="180dp"
             android:layout_height="50dp"
             android:text="@string/logout"
-            android:background="@drawable/coast_button"
+            android:background="@drawable/ambulance_border"
             android:textColor="@color/white"
             android:layout_marginStart="115dp"
             android:layout_marginTop="10dp"
