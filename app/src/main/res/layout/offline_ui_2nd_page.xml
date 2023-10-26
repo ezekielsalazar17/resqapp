@@ -180,7 +180,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/next_page"
+            android:id="@+id/previouspage"
             android:layout_width="100dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"

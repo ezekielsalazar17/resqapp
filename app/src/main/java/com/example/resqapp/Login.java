@@ -104,7 +104,7 @@ public class Login extends AppCompatActivity {
         }));
 
         signup.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), Register.class));
+            startActivity(new Intent(getApplicationContext(), useroradmin.class));
         });
 
         forgotpass.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +157,7 @@ public class Login extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
     }
+
 
     @Override
     protected void onStart() {

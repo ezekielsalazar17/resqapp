@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.resqapp.R;
+import com.example.resqapp.offline1;
 
 public class NetworkChangeListener extends BroadcastReceiver {
 
@@ -21,7 +23,8 @@ public class NetworkChangeListener extends BroadcastReceiver {
             View layout_dialog = LayoutInflater.from(context).inflate(R.layout.network_detection, null);
             builder.setView(layout_dialog);
 
-            AppCompatButton btnRetry = layout_dialog.findViewById(R.id.btnRetry);
+            Button btnRetry = layout_dialog.findViewById(R.id.btnRetry);
+            Button offlinemode = layout_dialog.findViewById(R.id.offlinemode);
 
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -36,6 +39,15 @@ public class NetworkChangeListener extends BroadcastReceiver {
                     onReceive(context, intent);
                 }
             });
-        }
+
+            offlinemode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent offlineIntent = new Intent(context, offline1.class);
+                    context.startActivity(offlineIntent);
+                }
+            });
+
     }
+}
 }

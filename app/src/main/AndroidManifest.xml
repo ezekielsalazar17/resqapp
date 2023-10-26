@@ -3,18 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
+        android:label="ResQApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:label="ResQApp"
         android:theme="@style/Theme.Resqapp"
         tools:targetApi="31">
+        <activity
+            android:name=".locationsharing"
+            android:exported="false" />
+        <activity
+            android:name=".offline2"
+            android:exported="false" />
+        <activity
+            android:name=".offline1"
+            android:exported="false" />
+        <activity
+            android:name=".AdminRegister"
+            android:exported="false" />
+        <activity
+            android:name=".useroradmin"
+            android:exported="false" />
         <activity
             android:name=".otp"
             android:exported="false" />
@@ -26,7 +41,7 @@
             android:exported="false" />
         <activity
             android:name=".Register"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
             android:exported="true"

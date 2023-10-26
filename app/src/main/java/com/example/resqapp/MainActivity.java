@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     public static final String SHARED_PREFS = "sharedPrefs";
 
+    Button locationsharing;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         setContentView(R.layout.activity_main);
+
+        locationsharing = findViewById(R.id.location_tracking);
+
+        locationsharing.setOnClickListener((v) -> {
+            startActivity(new Intent(getApplicationContext(), locationsharing.class));
+        });
+
+
 
     }
     public void logout(View view) {

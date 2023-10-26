@@ -41,7 +41,7 @@ import java.util.Random;
 public class Register extends AppCompatActivity {
 
     public static final String TAG = "TAG";
-    EditText FirstName, LastName, Email, Password, Conpass;
+    EditText Email, Password, Conpass;
 
     Button RegisterBtn;
 
@@ -64,8 +64,6 @@ public class Register extends AppCompatActivity {
 
         setContentView(R.layout.activity_register);
 
-        FirstName = findViewById(R.id.fname1);
-        LastName = findViewById(R.id.lname1);
         Email = findViewById(R.id.email1);
         Password = findViewById(R.id.pass1);
         Conpass = findViewById(R.id.conpass1);
@@ -85,8 +83,6 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
                 String email = Email.getText().toString().trim();
                 String password = Password.getText().toString().trim();
-                String firstname = FirstName.getText().toString();
-                String lastname = LastName.getText().toString();
 
 
                 if(TextUtils.isEmpty(email)){
@@ -114,8 +110,7 @@ public class Register extends AppCompatActivity {
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = firestore.collection("users").document(userID);
                             Map<String, Object> user = new HashMap<>();
-                            user.put("First Name", firstname);
-                            user.put("Last Name", lastname);
+
                             user.put("Email", email);
                             user.put("Password", password);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
