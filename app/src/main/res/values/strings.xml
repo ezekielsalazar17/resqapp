@@ -17,7 +17,7 @@
     <string name="fire_department">FIRE DEPARTMENT</string>
     <string name="police_department">POLICE DEPARTMENT</string>
     <string name="ambulance_department">AMBULANCE DEPARTMENT</string>
-    <string name="coast_guard_department">COASTGUARD DEPARTMENT</string>
+    <string name="coast_guard_department">COAST GUARD DEPARTMENT</string>
     <string name="don_t_have_an_account">Dont have an account?</string>
     <string name="sign_up_now">Sign up now!</string>
     <string name="login">LOGIN</string>
@@ -66,4 +66,9 @@
     <string name="prc">143</string>
     <string name="emergency_department_text">EMERGENCY DEPARTMENT</string>
     <string name="philippine_red_cross">PHILIPPINE RED CROSS</string>
+    <string name="what_department_are_you">What department are you?</string>
+    <string name="ambulance_department1">AMBULANCE</string>
+    <string name="police_department1">POLICE</string>
+    <string name="coastguard_department1">COAST GUARD</string>
+    <string name="fire_department1">FIRE</string>
 </resources>
