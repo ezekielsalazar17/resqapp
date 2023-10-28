@@ -71,4 +71,7 @@
     <string name="police_department1">POLICE</string>
     <string name="coastguard_department1">COAST GUARD</string>
     <string name="fire_department1">FIRE</string>
+    <string name="get_admin_location">Get Admin Location</string>
+    <string name="go_to_gmaps">Go To Google Maps</string>
+    <string name="ACCEPT">ACCEPT</string>
 </resources>
