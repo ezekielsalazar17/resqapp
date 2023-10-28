@@ -92,34 +92,12 @@
         android:layout_width="match_parent"
         android:layout_height="480dp"
         android:orientation="horizontal"
-        >
-
-
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            tools:ignore="SpeakableTextPresentCheck">
-
-        </com.google.android.gms.maps.MapView>
-
-    </LinearLayout>
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
 
-        >
-
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:layout_marginTop="15dp"
-             />
-    </LinearLayout>
+        />
 </LinearLayout>
