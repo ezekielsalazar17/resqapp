@@ -210,20 +210,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="20dp"
         android:orientation="horizontal"
         >
+
         <Button
             android:id="@+id/logout"
             android:layout_width="180dp"
             android:layout_height="50dp"
-            android:text="@string/logout"
-            android:background="@drawable/ambulance_border"
-            android:textColor="@color/white"
             android:layout_marginStart="115dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/ambulance_border"
             android:onClick="logout"
-            />
+            android:text="@string/logout"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal"
+        >
+
+    <TextView
+        android:id="@+id/currentloc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Current Location" />
 
     </LinearLayout>
 </LinearLayout>
