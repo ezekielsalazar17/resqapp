@@ -9,17 +9,16 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class
-MainActivity extends AppCompatActivity{
+dashboard_user extends AppCompatActivity{
     public static final String SHARED_PREFS = "sharedPrefs";
-    Button locationSharing;
+    Button locationSharing, firebutton;
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +31,17 @@ MainActivity extends AppCompatActivity{
 
 
         locationSharing = findViewById(R.id.location_tracking);
+        firebutton = findViewById(R.id.fire_button);
 
         locationSharing.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), accesslocuser.class));
         });
+
+        firebutton.setOnClickListener((v) -> {
+            ;
+        });
+
+
     }
 
     public void logout(View view) {
@@ -45,7 +51,7 @@ MainActivity extends AppCompatActivity{
         editor.apply();
 
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), Login.class));
+        startActivity(new Intent(getApplicationContext(), user_login.class));
     }
 
 }

@@ -76,4 +76,5 @@
     <string name="go_to_gmaps">Go To Google Maps</string>
     <string name="ACCEPT">ACCEPT</string>
     <string name="email">EMAIL:</string>
+    <string name="what_account_are_you_using">What account are you using?</string>
 </resources>

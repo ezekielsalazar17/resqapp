@@ -110,7 +110,7 @@
             android:textColor="@color/black"
             />
         <EditText
-            android:id="@+id/email1"
+            android:id="@+id/adminemail1"
             android:layout_width="212dp"
             android:layout_height="38dp"
             android:layout_marginStart="100dp"
@@ -146,7 +146,7 @@
             android:textSize="15sp"
             />
         <EditText
-            android:id="@+id/pass1"
+            android:id="@+id/adminpass1"
             android:layout_width="212dp"
             android:layout_height="38dp"
             android:layout_marginStart="100dp"
@@ -182,7 +182,7 @@
             />
 
         <EditText
-            android:id="@+id/conpass1"
+            android:id="@+id/adminconpass1"
             android:layout_width="212dp"
             android:layout_height="38dp"
             android:layout_marginStart="100dp"

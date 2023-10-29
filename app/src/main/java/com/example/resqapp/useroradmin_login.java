@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class useroradmin extends AppCompatActivity {
+public class useroradmin_login extends AppCompatActivity {
 
     Button user, admin;
 
@@ -20,17 +20,19 @@ public class useroradmin extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
-        setContentView(R.layout.useroradmin);
+        setContentView(R.layout.activity_useroradmin_login);
 
         user = findViewById(R.id.user_button);
         admin = findViewById(R.id.admin_button);
 
         user.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), Register.class));
+            startActivity(new Intent(getApplicationContext(), user_login.class));
         });
 
         admin.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), AdminRegister.class));
+            startActivity(new Intent(getApplicationContext(), admin_login.class));
         });
+
+
     }
 }

@@ -4,13 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,7 +16,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,18 +27,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Login extends AppCompatActivity {
+public class admin_login extends AppCompatActivity {
 
-    EditText Email, Password;
+    EditText Number, Password;
     Button Login;
     TextView createText, signup, forgotpass;
-    ProgressBar progressBar2;
     FirebaseAuth fAuth;
     public static final String SHARED_PREFS = "sharedPrefs";
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +45,9 @@ public class Login extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.admin_login);
 
-        Email = findViewById(R.id.email1);
+        Number = findViewById(R.id.number1);
         Password = findViewById(R.id.pw1);
         Login = findViewById(R.id.login_button);
         createText = findViewById(R.id.donthaveaccount);
@@ -65,11 +60,11 @@ public class Login extends AppCompatActivity {
         Login.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = Email.getText().toString().trim();
+                String email = Number.getText().toString().trim();
                 String password = Password.getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
-                    Email.setError("Email is Required ");
+                    Number.setError("Contact Number is Required ");
                     return;
                 }
 
@@ -93,10 +88,10 @@ public class Login extends AppCompatActivity {
                             editor.putString("name", "true");
                             editor.apply();
 
-                            Toast.makeText(Login.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            Toast.makeText(admin_login.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), choose_department.class));
                         }else{
-                            Toast.makeText(Login.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(admin_login.this, "Error " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -104,7 +99,7 @@ public class Login extends AppCompatActivity {
         }));
 
         signup.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), useroradmin.class));
+            startActivity(new Intent(getApplicationContext(), useroradmin_register.class));
         });
 
         forgotpass.setOnClickListener(new View.OnClickListener() {
@@ -124,12 +119,12 @@ public class Login extends AppCompatActivity {
                         fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Toast.makeText(Login.this, "Reset Link Sent To Your Mail.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(admin_login.this, "Reset Link Sent To Your Mail.", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(Login.this, "Error ! Reset Link is Not Sent " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(admin_login.this, "Error ! Reset Link is Not Sent " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -153,8 +148,8 @@ public class Login extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String check = sharedPreferences.getString("name", "");
         if(check.equals("true")){
-            Toast.makeText(Login.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            Toast.makeText(admin_login.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), choose_department.class));
         }
     }
 

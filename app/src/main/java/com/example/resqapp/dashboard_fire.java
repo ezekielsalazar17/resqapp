@@ -1,7 +1,6 @@
 package com.example.resqapp;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,7 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 
-public class Dashboard extends AppCompatActivity {
+public class dashboard_fire extends AppCompatActivity {
     TextView email;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
