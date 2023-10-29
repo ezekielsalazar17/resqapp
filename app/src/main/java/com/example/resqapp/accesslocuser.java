@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -82,21 +81,54 @@ public class accesslocuser extends AppCompatActivity {
                         permissionToken.continuePermissionRequest();
                     }
                 }).check();
+
         getlocationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                locationManager=(LocationManager)  getSystemService(Context.LOCATION_SERVICE);
+                locationManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
                     OnGPS();
-                }
-                else{
+                }else{
                     getCurrentLocation();
                 }
-
             }
         });
 
+    }
+
+    private void getCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(@NonNull GoogleMap googleMap) {
+                        if(location != null){
+                            LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+                            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location");
+                            googleMap.addMarker(markerOptions);
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+                        }else{
+                            Toast.makeText(accesslocuser.this, "Please On your location app permission", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
     }
 
     private void OnGPS() {
@@ -117,43 +149,4 @@ public class accesslocuser extends AppCompatActivity {
         final AlertDialog alertDialog=builder.create();
         alertDialog.show();
     }
-
-    private void getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-                    @Override
-                    public void onMapReady(@NonNull GoogleMap googleMap) {
-                        if(location !=null){
-                            LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-                            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("Current Location !");
-                            googleMap.addMarker(markerOptions);
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-
-                        }
-                        else {
-                            Toast.makeText(accesslocuser.this, "Please on your Location App Permission", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-            }
-        });
-    }
-
 }
