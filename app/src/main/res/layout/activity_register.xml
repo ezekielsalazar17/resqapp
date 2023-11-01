@@ -79,14 +79,14 @@
             android:textSize="12sp"
             tools:ignore="Autofill,MissingConstraints,SmallSp,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck"
             />
-        
+
         <ImageButton
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="280dp"
             android:layout_marginTop="-28dp"
             android:src="@drawable/baseline_folder_24"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </LinearLayout>
 
@@ -100,17 +100,17 @@
         android:orientation="vertical"
         >
         <TextView
-            android:id="@+id/email"
+            android:id="@+id/email1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
             android:fontFamily="@font/oswald"
             android:textSize="15sp"
-            android:text="@string/email_or_phone_number1"
+            android:text="Email"
             android:textColor="@color/black"
             />
         <EditText
-            android:id="@+id/email1"
+            android:id="@+id/useremail1"
             android:layout_width="212dp"
             android:layout_height="38dp"
             android:layout_marginStart="100dp"
@@ -118,7 +118,7 @@
             android:autofillHints="emailAddress"
             android:background="@drawable/border"
             android:ems="10"
-            android:hint="@string/emailorphonenumber"
+            android:hint="@string/email2"
             android:inputType="textEmailAddress"
             android:fontFamily="@font/oswald_light"
             android:letterSpacing="0.09"
@@ -136,7 +136,43 @@
         android:orientation="vertical"
         >
         <TextView
-            android:id="@+id/pass"
+            android:id="@+id/contactuser1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:fontFamily="@font/oswald"
+            android:textSize="15sp"
+            android:text="@string/contact1"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:id="@+id/contactuser2"
+            android:layout_width="212dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:autofillHints="emailAddress"
+            android:background="@drawable/border"
+            android:ems="10"
+            android:hint="@string/contact2"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/oswald_light"
+            android:letterSpacing="0.09"
+            android:paddingStart="10sp"
+            android:paddingEnd="10sp"
+            android:textAlignment="textStart"
+            android:textSize="12sp"
+            tools:ignore="DuplicateSpeakableTextCheck,MissingConstraints,TextContrastCheck,TouchTargetSizeCheck"
+            tools:layout_editor_absoluteY="572dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/userpass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
@@ -146,7 +182,7 @@
             android:textSize="15sp"
             />
         <EditText
-            android:id="@+id/pass1"
+            android:id="@+id/userpass1"
             android:layout_width="212dp"
             android:layout_height="38dp"
             android:layout_marginStart="100dp"
@@ -171,7 +207,7 @@
         android:orientation="vertical"
         >
         <TextView
-            android:id="@+id/conpass"
+            android:id="@+id/userconpass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
@@ -182,7 +218,7 @@
             />
 
         <EditText
-            android:id="@+id/conpass1"
+            android:id="@+id/userconpass1"
             android:layout_width="212dp"
             android:layout_height="38dp"
             android:layout_marginStart="100dp"
@@ -202,7 +238,6 @@
     </LinearLayout>
 
 
-    _____________________________
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"

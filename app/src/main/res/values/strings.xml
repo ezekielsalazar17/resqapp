@@ -10,8 +10,10 @@
     <string name="password">password</string>
     <string name="confirm_password1">Confirm Password</string>
     <string name="confirmpassword">confirm password</string>
-    <string name="email_or_phone_number1">Email or Phone Number</string>
-    <string name="emailorphonenumber">email or phone number</string>
+    <string name="email1">Email</string>
+    <string name="email2">email</string>
+    <string name="contact1">Contact Number</string>
+    <string name="contact2">contact number</string>
     <string name="register">REGISTER</string>
     <string name="location_tracking">LOCATION TRACKING</string>
     <string name="fire_department">FIRE DEPARTMENT</string>
@@ -77,4 +79,5 @@
     <string name="ACCEPT">ACCEPT</string>
     <string name="email">EMAIL:</string>
     <string name="what_account_are_you_using">What account are you using?</string>
+    <string name="choose_department">Choose Department</string>
 </resources>

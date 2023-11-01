@@ -100,13 +100,13 @@
         android:orientation="vertical"
         >
         <TextView
-            android:id="@+id/email"
+            android:id="@+id/email1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"
             android:fontFamily="@font/oswald"
             android:textSize="15sp"
-            android:text="@string/email_or_phone_number1"
+            android:text="Email"
             android:textColor="@color/black"
             />
         <EditText
@@ -118,7 +118,43 @@
             android:autofillHints="emailAddress"
             android:background="@drawable/border"
             android:ems="10"
-            android:hint="@string/emailorphonenumber"
+            android:hint="@string/email2"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/oswald_light"
+            android:letterSpacing="0.09"
+            android:paddingStart="10sp"
+            android:paddingEnd="10sp"
+            android:textAlignment="textStart"
+            android:textSize="12sp"
+            tools:ignore="DuplicateSpeakableTextCheck,MissingConstraints,TextContrastCheck,TouchTargetSizeCheck"
+            tools:layout_editor_absoluteY="572dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/admincontact1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:fontFamily="@font/oswald"
+            android:textSize="15sp"
+            android:text="@string/contact1"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:id="@+id/admincontact2"
+            android:layout_width="212dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:autofillHints="emailAddress"
+            android:background="@drawable/border"
+            android:ems="10"
+            android:hint="@string/contact2"
             android:inputType="textEmailAddress"
             android:fontFamily="@font/oswald_light"
             android:letterSpacing="0.09"
@@ -200,7 +236,6 @@
             tools:ignore="Autofill,MissingConstraints,TouchTargetSizeCheck,DuplicateSpeakableTextCheck,TextContrastCheck"
             />
     </LinearLayout>
-
 
 
     <LinearLayout

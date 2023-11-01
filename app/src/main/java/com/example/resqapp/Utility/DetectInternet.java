@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class detect_internet {
+public class DetectInternet {
 
     public static boolean isConnectedToInternet(Context context) {
 

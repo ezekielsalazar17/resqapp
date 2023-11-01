@@ -17,7 +17,7 @@ public class NetworkChangeListener extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!detect_internet.isConnectedToInternet(context)) {
+        if (!DetectInternet.isConnectedToInternet(context)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             View layout_dialog = LayoutInflater.from(context).inflate(R.layout.network_detection, null);
             builder.setView(layout_dialog);
