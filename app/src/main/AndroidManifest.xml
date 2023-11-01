@@ -40,7 +40,7 @@
             android:name=".AdminRegister"
             android:exported="false" />
         <activity
-            android:name=".Useroradmin_register"
+            android:name=".UserOrAdminRegister"
             android:exported="false" />
         <activity
             android:name=".Otp"
@@ -50,6 +50,9 @@
             android:exported="false" />
         <activity
             android:name=".UserLogin"
+            android:exported="false" />
+        <activity
+            android:name=".AdminLogin"
             android:exported="false" />
         <activity
             android:name=".UserRegister"
