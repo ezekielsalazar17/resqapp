@@ -28,7 +28,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="200dp"
         android:orientation="horizontal"
         >
 
@@ -38,10 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="41dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="41dp"
             android:layout_marginBottom="16dp"
-            android:padding="40dp"
+            android:padding="20dp"
             app:srcCompat="@drawable/resqapplogo"
             tools:ignore="ContentDescription" />
 
@@ -237,10 +237,41 @@
             />
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/dropdown_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:text="@string/choose_department"
+            android:fontFamily="@font/oswald"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            />
+
+        <Spinner
+            android:id="@+id/dropdown_menu1"
+            android:layout_width="212dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="101dp"
+            android:fontFamily="@font/oswald_light"
+            android:textAlignment="textStart"
+            android:textSize="12sp"
+            />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
         android:orientation="vertical">
 
         <Button
@@ -248,7 +279,6 @@
             android:layout_width="212dp"
             android:layout_height="38dp"
             android:layout_marginStart="100dp"
-            android:layout_marginTop="40dp"
             android:layout_marginEnd="172dp"
             android:background="@drawable/red_border"
             android:hint="@string/register"
