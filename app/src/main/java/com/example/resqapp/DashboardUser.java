@@ -37,6 +37,7 @@ DashboardUser extends AppCompatActivity{
 
         locationSharing.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), AccessLocUser.class));
+            finish();
         });
 
         firebutton.setOnClickListener((v) -> {
@@ -53,7 +54,7 @@ DashboardUser extends AppCompatActivity{
         editor.apply();
 
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), UserLogin.class));
+        startActivity(new Intent(getApplicationContext(), UserOrAdminLogin.class));
     }
 
 }

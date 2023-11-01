@@ -30,7 +30,7 @@ import java.util.Map;
 public class UserRegister extends AppCompatActivity {
 
     public static final String TAG = "TAG";
-    EditText Email, Password, Conpass;
+    EditText Email, Number, Password, Conpass;
 
     Button RegisterBtn;
 
@@ -51,9 +51,10 @@ public class UserRegister extends AppCompatActivity {
 
         setContentView(R.layout.activity_register);
 
-        Email = findViewById(R.id.email1);
-        Password = findViewById(R.id.pass1);
-        Conpass = findViewById(R.id.conpass1);
+        Email = findViewById(R.id.useremail1);
+        Number = findViewById(R.id.contactuser2);
+        Password = findViewById(R.id.userpass1);
+        Conpass = findViewById(R.id.userconpass1);
         RegisterBtn = findViewById(R.id.register);
 
         fAuth = FirebaseAuth.getInstance();
@@ -70,11 +71,15 @@ public class UserRegister extends AppCompatActivity {
             public void onClick(View view) {
                 String email = Email.getText().toString().trim();
                 String password = Password.getText().toString().trim();
+                String number = Number.getText().toString().trim();
 
 
                 if(TextUtils.isEmpty(email)){
                     Email.setError("Email is Required ");
                     return;
+                }
+                if(TextUtils.isEmpty(number)){
+                    Password.setError("Contact Number is Required ");
                 }
 
                 if(TextUtils.isEmpty(password)){
@@ -100,6 +105,7 @@ public class UserRegister extends AppCompatActivity {
 
                             user.put("Email", email);
                             user.put("Password", password);
+                            user.put("Contact Number", number);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

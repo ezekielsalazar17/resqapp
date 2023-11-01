@@ -43,19 +43,16 @@
             android:name=".UserOrAdminRegister"
             android:exported="false" />
         <activity
-            android:name=".Otp"
-            android:exported="false" />
-        <activity
             android:name=".DashboardUser"
             android:exported="false" />
         <activity
             android:name=".UserLogin"
             android:exported="false" />
         <activity
-            android:name=".AdminLogin"
+            android:name=".UserRegister"
             android:exported="false" />
         <activity
-            android:name=".UserRegister"
+            android:name=".AdminLogin"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

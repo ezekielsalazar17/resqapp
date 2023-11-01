@@ -66,7 +66,7 @@
             android:autofillHints="" />
 
         <EditText
-            android:id="@+id/pw1"
+            android:id="@+id/pw2"
             android:layout_width="205dp"
             android:layout_height="43dp"
             android:layout_marginStart="100dp"
@@ -156,7 +156,7 @@
 
 
         <Button
-            android:id="@+id/generate_otp"
+            android:id="@+id/generateotp"
             android:layout_width="204dp"
             android:layout_height="41dp"
             android:layout_marginStart="100dp"
@@ -170,7 +170,7 @@
             tools:ignore="HardcodedText,TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/login_button1"
             android:layout_width="204dp"
             android:layout_height="41dp"
             android:layout_marginStart="100dp"
