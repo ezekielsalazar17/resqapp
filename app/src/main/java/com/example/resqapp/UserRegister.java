@@ -27,7 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class user_register extends AppCompatActivity {
+public class UserRegister extends AppCompatActivity {
 
     public static final String TAG = "TAG";
     EditText Email, Password, Conpass;
@@ -61,7 +61,7 @@ public class user_register extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), dashboard_user.class));
+            startActivity(new Intent(getApplicationContext(), DashboardUser.class));
             finish();
         }
 
@@ -93,7 +93,7 @@ public class user_register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(user_register.this, "User Created", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserRegister.this, "User Created", Toast.LENGTH_SHORT).show();
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = firestore.collection("users").document(userID);
                             Map<String, Object> user = new HashMap<>();
@@ -111,9 +111,9 @@ public class user_register extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), user_login.class));
+                            startActivity(new Intent(getApplicationContext(), UserLogin.class));
                         }else{
-                            Toast.makeText(user_register.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserRegister.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     }

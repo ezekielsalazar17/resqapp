@@ -19,40 +19,40 @@
         tools:ignore="CoarseFineLocation"
         tools:targetApi="31">
         <activity
-            android:name=".useroradmin_login"
+            android:name=".UserOrAdminLogin"
             android:exported="false" />
         <activity
-            android:name=".choose_department"
+            android:name=".ChooseDepartment"
             android:exported="false" />
         <activity
-            android:name=".accesslocuser"
+            android:name=".AccessLocUser"
             android:exported="false" />
         <activity
-            android:name=".locationsharing"
+            android:name=".LocationSharing"
             android:exported="false" />
         <activity
-            android:name=".offline2"
+            android:name=".Offline2"
             android:exported="false" />
         <activity
-            android:name=".offline1"
+            android:name=".Offline1"
             android:exported="false" />
         <activity
-            android:name=".admin_register"
+            android:name=".AdminRegister"
             android:exported="false" />
         <activity
-            android:name=".useroradmin_register"
+            android:name=".Useroradmin_register"
             android:exported="false" />
         <activity
-            android:name=".otp"
+            android:name=".Otp"
             android:exported="false" />
         <activity
-            android:name=".dashboard_user"
+            android:name=".DashboardUser"
             android:exported="false" />
         <activity
-            android:name=".user_login"
+            android:name=".UserLogin"
             android:exported="false" />
         <activity
-            android:name=".user_register"
+            android:name=".UserRegister"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

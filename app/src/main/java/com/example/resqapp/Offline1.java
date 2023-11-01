@@ -8,9 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class useroradmin_login extends AppCompatActivity {
+public class Offline1 extends AppCompatActivity {
 
-    Button user, admin;
+    Button next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,19 +20,13 @@ public class useroradmin_login extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
-        setContentView(R.layout.activity_useroradmin_login);
+        setContentView(R.layout.offline_ui);
 
-        user = findViewById(R.id.user_button);
-        admin = findViewById(R.id.admin_button);
+        next = findViewById(R.id.next_page);
 
-        user.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), user_login.class));
+        next.setOnClickListener((v) -> {
+            startActivity(new Intent(getApplicationContext(), Offline2.class));
         });
-
-        admin.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), admin_login.class));
-        });
-
 
     }
 }

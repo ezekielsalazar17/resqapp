@@ -37,7 +37,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class accesslocuser extends AppCompatActivity {
+public class AccessLocUser extends AppCompatActivity {
     private static final int REQUEST_LOCATION = 1;
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -122,7 +122,7 @@ public class accesslocuser extends AppCompatActivity {
                             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
                         }else{
-                            Toast.makeText(accesslocuser.this, "Please On your location app permission", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AccessLocUser.this, "Please On your location app permission", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

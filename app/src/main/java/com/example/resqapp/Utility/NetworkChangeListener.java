@@ -9,10 +9,9 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.resqapp.R;
-import com.example.resqapp.offline1;
+import com.example.resqapp.Offline1;
 
 public class NetworkChangeListener extends BroadcastReceiver {
 
@@ -43,7 +42,7 @@ public class NetworkChangeListener extends BroadcastReceiver {
             offlinemode.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent offlineIntent = new Intent(context, offline1.class);
+                    Intent offlineIntent = new Intent(context, Offline1.class);
                     context.startActivity(offlineIntent);
                 }
             });

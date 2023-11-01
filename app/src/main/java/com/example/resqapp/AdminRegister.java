@@ -28,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class admin_register extends AppCompatActivity {
+public class AdminRegister extends AppCompatActivity {
     public static final String TAG = "TAG";
     EditText Email, Password, Conpass;
 
@@ -64,7 +64,7 @@ public class admin_register extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), dashboard_user.class));
+            startActivity(new Intent(getApplicationContext(), DashboardUser.class));
             finish();
         }
         RegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +95,7 @@ public class admin_register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(admin_register.this, "Admin Created", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminRegister.this, "Admin Created", Toast.LENGTH_SHORT).show();
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = firestore.collection("admins").document(userID);
                             Map<String, Object> user = new HashMap<>();
@@ -113,9 +113,9 @@ public class admin_register extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), admin_login.class));
+                            startActivity(new Intent(getApplicationContext(), AdminLogin.class));
                         }else{
-                            Toast.makeText(admin_register.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminRegister.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     }

@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 public class
-dashboard_user extends AppCompatActivity{
+DashboardUser extends AppCompatActivity{
     public static final String SHARED_PREFS = "sharedPrefs";
-    Button locationSharing, firebutton;
+    Button locationSharing;
+    ImageButton firebutton;
 
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
@@ -34,14 +36,14 @@ dashboard_user extends AppCompatActivity{
         firebutton = findViewById(R.id.fire_button);
 
         locationSharing.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), accesslocuser.class));
+            startActivity(new Intent(getApplicationContext(), AccessLocUser.class));
         });
 
         firebutton.setOnClickListener((v) -> {
             ;
         });
 
-
+        // Remove the call to the finish() method
     }
 
     public void logout(View view) {
@@ -51,7 +53,7 @@ dashboard_user extends AppCompatActivity{
         editor.apply();
 
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), user_login.class));
+        startActivity(new Intent(getApplicationContext(), UserLogin.class));
     }
 
 }

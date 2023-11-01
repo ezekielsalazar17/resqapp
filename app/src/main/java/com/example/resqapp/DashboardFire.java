@@ -14,7 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 
-public class dashboard_fire extends AppCompatActivity {
+public class DashboardFire extends AppCompatActivity {
     TextView email;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;

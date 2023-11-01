@@ -39,7 +39,7 @@ SplashActivity extends AppCompatActivity {
                     i++;
                 }else {
                     timer.cancel();
-                    Intent intent = new Intent(SplashActivity.this, useroradmin_login.class);
+                    Intent intent = new Intent(SplashActivity.this, UserOrAdminLogin.class);
                     startActivity(intent);
                     finish();
                 }

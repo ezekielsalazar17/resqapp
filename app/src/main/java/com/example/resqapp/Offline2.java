@@ -2,16 +2,18 @@ package com.example.resqapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class offline1 extends AppCompatActivity {
+public class Offline2 extends AppCompatActivity {
 
-    Button next;
+    Button previouspage;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,13 +22,12 @@ public class offline1 extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
-        setContentView(R.layout.offline_ui);
+        setContentView(R.layout.offline_ui_2nd_page);
 
-        next = findViewById(R.id.next_page);
+        previouspage = findViewById(R.id.previouspage);
 
-        next.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), offline2.class));
+        previouspage.setOnClickListener((v) -> {
+            startActivity(new Intent(getApplicationContext(), Offline1.class));
         });
-
     }
 }
