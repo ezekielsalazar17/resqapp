@@ -37,7 +37,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class AccessLocUser extends AppCompatActivity {
+public class AccessLocUser extends AppCompatActivity{
     private static final int REQUEST_LOCATION = 1;
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -46,16 +46,14 @@ public class AccessLocUser extends AppCompatActivity {
     TextView showLocationTxt;
 
     LocationManager locationManager;
-    String latitude, longitude;
+
+    GoogleMap gMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accesslocuser);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        ActivityCompat.requestPermissions(this, new String[]
-                {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         showLocationTxt = findViewById(R.id.show_location);
         getlocationBtn = findViewById(R.id.getLocation);
@@ -131,22 +129,23 @@ public class AccessLocUser extends AppCompatActivity {
         });
     }
 
-    private void OnGPS() {
-        final AlertDialog.Builder builder= new AlertDialog.Builder(this);
 
-        builder.setMessage("Enable GPS").setCancelable(false).setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        private void OnGPS () {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-                dialog.cancel();
-            }
-        });
-        final AlertDialog alertDialog=builder.create();
-        alertDialog.show();
+            builder.setMessage("Enable GPS").setCancelable(false).setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                }
+            }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.cancel();
+                }
+            });
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
     }
-}
