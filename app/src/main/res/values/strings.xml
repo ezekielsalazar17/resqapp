@@ -80,7 +80,7 @@
     <string name="email">EMAIL:</string>
     <string name="what_account_are_you_using">What account are you using?</string>
     <string name="choose_department">Choose Department</string>
-    <string-array name="department">
+    <string-array name="department1">
         <item>Fire</item>
         <item>Police</item>
         <item>Ambulance</item>

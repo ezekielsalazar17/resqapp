@@ -71,7 +71,7 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
         progressBar = findViewById(R.id.progressBar);
         spinner = findViewById(R.id.dropdown_menu1);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.department, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.department1, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
