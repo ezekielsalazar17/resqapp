@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ public class UserLogin extends AppCompatActivity {
 
     EditText email, password;
     Button login;
+    CheckBox rememberme;
     TextView createText, signup, forgotpass;
     FirebaseAuth fAuth;
     public static final String SHARED_PREFS = "sharedPrefs";
@@ -51,8 +54,40 @@ public class UserLogin extends AppCompatActivity {
         signup = findViewById(R.id.signup);
         fAuth = FirebaseAuth.getInstance();
         forgotpass = findViewById(R.id.forgotpass);
+        rememberme = findViewById(R.id.remember_me_checkbox);
 
-        checkBox();
+        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        String checkbox = preferences.getString("remember","");
+        if(checkbox.equals("true")){
+            Intent intent = new Intent(UserLogin.this, DashboardUser.class);
+            startActivity(intent);
+            finish();
+
+        } else if (checkbox.equals(false)) {
+            Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
+        }
+
+        rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "true");
+                    editor.apply();
+                    Toast.makeText(UserLogin.this, "Checked", Toast.LENGTH_SHORT).show();
+
+                }else if(!compoundButton.isChecked()){
+                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "true");
+                    editor.apply();
+                    Toast.makeText(UserLogin.this, "Unchecked", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +105,6 @@ public class UserLogin extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    saveLoginStatus();
                                     Toast.makeText(UserLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), DashboardUser.class));
                                 } else {
@@ -94,22 +128,6 @@ public class UserLogin extends AppCompatActivity {
                 showPasswordResetDialog();
             }
         });
-    }
-
-    private void saveLoginStatus() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("name", "true");
-        editor.apply();
-    }
-
-    private void checkBox() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String check = sharedPreferences.getString("name", "");
-        if (check.equals("true")) {
-            Toast.makeText(UserLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), DashboardUser.class));
-        }
     }
 
     private void showPasswordResetDialog() {

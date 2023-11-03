@@ -27,10 +27,12 @@ public class UserOrAdminLogin extends AppCompatActivity {
 
         user.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), UserLogin.class));
+            finish();
         });
 
         admin.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), AdminLogin.class));
+            finish();
         });
 
 

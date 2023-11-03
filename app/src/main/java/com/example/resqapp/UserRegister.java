@@ -3,6 +3,7 @@ package com.example.resqapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -34,6 +36,8 @@ public class UserRegister extends AppCompatActivity {
 
     Button RegisterBtn;
 
+    ImageButton Id;
+
     FirebaseAuth fAuth;
 
     ProgressBar progressBar;
@@ -41,6 +45,7 @@ public class UserRegister extends AppCompatActivity {
     FirebaseFirestore firestore;
     String userID;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +61,7 @@ public class UserRegister extends AppCompatActivity {
         Password = findViewById(R.id.userpass1);
         Conpass = findViewById(R.id.userconpass1);
         RegisterBtn = findViewById(R.id.register);
+        Id = findViewById(R.id.ocrid);
 
         fAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();

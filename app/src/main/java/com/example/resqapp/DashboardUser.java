@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class
 DashboardUser extends AppCompatActivity{
     public static final String SHARED_PREFS = "sharedPrefs";
-    Button locationSharing;
+    Button locationSharing, logout;
     ImageButton firebutton;
 
 
@@ -34,6 +34,7 @@ DashboardUser extends AppCompatActivity{
 
         locationSharing = findViewById(R.id.location_tracking);
         firebutton = findViewById(R.id.fire_button);
+        logout = findViewById(R.id.logout);
 
         locationSharing.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), AccessLocUser.class));
@@ -45,16 +46,18 @@ DashboardUser extends AppCompatActivity{
         });
 
         // Remove the call to the finish() method
-    }
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("remember", "false");
+                editor.apply();
+                finish();
+            }
+        });
 
-    public void logout(View view) {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("name", "");
-        editor.apply();
 
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), UserOrAdminLogin.class));
     }
 
 }
