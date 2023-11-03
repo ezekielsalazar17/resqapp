@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -110,14 +111,16 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(AdminRegister.this, "Admin Created", Toast.LENGTH_SHORT).show();
-                            userID = fAuth.getCurrentUser().getUid();
+                            FirebaseUser user = fAuth.getCurrentUser();
                             DocumentReference documentReference = firestore.collection("admins").document(userID);
-                            Map<String, Object> user = new HashMap<>();
+                            Map<String, Object> userInfo = new HashMap<>();
 
-                            user.put("Email", email);
-                            user.put("Password", password);
-                            user.put("Contact Number", number);
-                            user.put("Department", department);
+                            userInfo.put("Email", email);
+                            userInfo.put("Password", password);
+                            userInfo.put("Contact Number", number);
+                            userInfo.put("Department", department);
+
+                            documentReference.set(user);
 
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {

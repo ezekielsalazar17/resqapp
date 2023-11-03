@@ -28,7 +28,7 @@ public class UserOrAdminRegister extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        setContentView(R.layout.activity_user_or_admin_register);
+        setContentView(R.layout.useroradmin_creating);
 
         user = findViewById(R.id.user_button);
         admin = findViewById(R.id.admin_button);

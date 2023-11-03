@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,8 +42,10 @@ public class AdminLogin extends AppCompatActivity {
     Button Login, GenerateOtp;
     TextView createText, signup, forgotpass;
     FirebaseAuth fAuth;
+    CheckBox rememberme;
     public static final String SHARED_PREFS = "sharedPrefs";
     String verificationID;
+    CheckBox fire, ambulance, police, coastguard;
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
@@ -65,8 +69,11 @@ public class AdminLogin extends AppCompatActivity {
         signup = findViewById(R.id.signup);
         fAuth = FirebaseAuth.getInstance();
         forgotpass = findViewById(R.id.forgotpass);
-
-        checkBox();
+        rememberme = findViewById(R.id.remember_me_checkbox);
+        fire = findViewById(R.id.fire_checkbox);
+        ambulance = findViewById(R.id.ambulance_checkbox);
+        police = findViewById(R.id.police_checkbox);
+        coastguard = findViewById(R.id.coastguard_checkbox);
 
         GenerateOtp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,7 +158,7 @@ public class AdminLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(AdminLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(AdminLogin.this, ChooseDepartment.class));
+
                         }
                     }
                 });
@@ -193,16 +200,6 @@ public class AdminLogin extends AppCompatActivity {
 
         }
     };
-
-    private void checkBox() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String check = sharedPreferences.getString("name", "");
-        if(check.equals("true")){
-            Toast.makeText(AdminLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(getApplicationContext(), ChooseDepartment.class));
-        }
-    }
-
 
     @Override
     protected void onStart() {

@@ -80,7 +80,7 @@ public class UserLogin extends AppCompatActivity {
                 }else if(!compoundButton.isChecked()){
                     SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString("remember", "true");
+                    editor.putString("remember", "false");
                     editor.apply();
                     Toast.makeText(UserLogin.this, "Unchecked", Toast.LENGTH_SHORT).show();
 

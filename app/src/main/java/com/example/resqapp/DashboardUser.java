@@ -46,7 +46,6 @@ DashboardUser extends AppCompatActivity{
         });
         profilebutton.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), UserProfile.class));
-            finish();
         });
 
         // Remove the call to the finish() method
@@ -57,8 +56,9 @@ DashboardUser extends AppCompatActivity{
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("remember", "false");
                 editor.apply();
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext(), UserLogin.class));
-                finish();
+
             }
         });
 
