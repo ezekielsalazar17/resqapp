@@ -87,6 +87,10 @@
     <string name="upload">UPLOAD</string>
     <string name="capture">CAPTURE</string>
     <string name="submit">SUBMIT</string>
+    <string name="email3">Email: </string>
+    <string name="department">"Department: "</string>
+    <string name="profile">PROFILE</string>
+
     <string-array name="department1">
         <item>Fire</item>
         <item>Police</item>
