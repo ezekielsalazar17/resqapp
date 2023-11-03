@@ -84,6 +84,9 @@
     <string name="first_name2">first name</string>
     <string name="last_name">Last Name</string>
     <string name="last_name2">last name</string>
+    <string name="upload">UPLOAD</string>
+    <string name="capture">CAPTURE</string>
+    <string name="submit">SUBMIT</string>
     <string-array name="department1">
         <item>Fire</item>
         <item>Police</item>
