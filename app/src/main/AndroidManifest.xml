@@ -19,6 +19,9 @@
         tools:ignore="CoarseFineLocation"
         tools:targetApi="31">
         <activity
+            android:name=".UserProfile"
+            android:exported="false" />
+        <activity
             android:name=".UserOrAdminLogin"
             android:exported="false" />
         <activity

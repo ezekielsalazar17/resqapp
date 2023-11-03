@@ -17,7 +17,7 @@ public class
 DashboardUser extends AppCompatActivity{
     public static final String SHARED_PREFS = "sharedPrefs";
     Button locationSharing, logout;
-    ImageButton firebutton;
+    ImageButton firebutton,profilebutton;
 
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
@@ -35,14 +35,18 @@ DashboardUser extends AppCompatActivity{
         locationSharing = findViewById(R.id.location_tracking);
         firebutton = findViewById(R.id.fire_button);
         logout = findViewById(R.id.logout);
+        profilebutton = findViewById(R.id.profile_button);
 
         locationSharing.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), AccessLocUser.class));
-            finish();
         });
 
         firebutton.setOnClickListener((v) -> {
             ;
+        });
+        profilebutton.setOnClickListener((v) -> {
+            startActivity(new Intent(getApplicationContext(), UserProfile.class));
+            finish();
         });
 
         // Remove the call to the finish() method
@@ -53,9 +57,11 @@ DashboardUser extends AppCompatActivity{
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("remember", "false");
                 editor.apply();
+                startActivity(new Intent(getApplicationContext(), UserLogin.class));
                 finish();
             }
         });
+
 
 
     }
