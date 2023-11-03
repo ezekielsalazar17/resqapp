@@ -4,6 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        >
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/border_radius"
+            android:drawableStart="@drawable/baseline_arrow_back_24"
+            android:padding="7dp"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
+
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -13,11 +33,11 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="250dp"
+            android:layout_width="300dp"
             android:layout_height="250dp"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="55dp"
             android:layout_marginTop="25dp"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             tools:ignore="ContentDescription,ImageContrastCheck"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -60,12 +80,29 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="130dp"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         >
 
 
+        <EditText
+            android:id="@+id/ocrconverted"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:gravity="center"
+            android:text=""
+            android:textAlignment="center"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        >
         <Button
             android:id="@+id/submit"
             android:layout_width="160dp"
@@ -80,20 +117,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        >
 
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:text="" />
-    </LinearLayout>
 </LinearLayout>
