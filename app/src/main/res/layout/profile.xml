@@ -145,13 +145,10 @@
 
                 <TextView
                     android:id="@+id/name_profile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/oswald_bold"
-                    android:paddingStart="48dp"
-                    android:paddingTop="15dp"
-                    android:paddingEnd="42dp"
-                    android:paddingBottom="1dp"
+                    android:layout_marginTop="18dp"
                     android:text="@string/juan_dela_cruz1"
                     android:textAlignment="center"
                     android:textColor="#15224B"
@@ -160,13 +157,10 @@
 
                 <TextView
                     android:id="@+id/contact_number"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/oswald_light"
-                    android:paddingStart="74dp"
-                    android:paddingTop="48dp"
-                    android:paddingEnd="49dp"
-                    android:paddingBottom="1dp"
+                    android:layout_marginTop="49dp"
                     android:text="@string/_09123456789"
                     android:textAlignment="center"
                     android:textColor="#15224B"
@@ -179,19 +173,18 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="169dp"
-                    android:layout_marginTop="53dp"
+                    android:layout_marginTop="55dp"
                     android:background="@drawable/baseline_edit_24"
                     tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
                 <TextView
                     android:id="@+id/id_num"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:fontFamily="@font/oswald_light"
-                    android:paddingStart="10dp"
-                    android:paddingTop="128dp"
-                    android:paddingEnd="110dp"
-                    android:paddingBottom="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="128dp"
+                    android:layout_marginEnd="110dp"
                     android:text="@string/id_number_123123"
                     android:textAlignment="center"
                     android:textColor="#15224B"
@@ -199,16 +192,43 @@
                     tools:ignore="VisualLintOverlap" />
 
                 <TextView
+                    android:id="@+id/id_num1"
+                    android:layout_width="157dp"
+                    android:layout_height="25dp"
+                    android:fontFamily="@font/oswald_light"
+                    android:layout_marginStart="83dp"
+                    android:layout_marginTop="128dp"
+                    android:layout_marginEnd="110dp"
+                    android:paddingBottom="1dp"
+                    android:textAlignment="textStart"
+                    android:textColor="#15224B"
+                    android:textSize="18sp"
+                    tools:ignore="VisualLintOverlap" />
+
+                <TextView
                     android:id="@+id/id_pres"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:fontFamily="@font/oswald_light"
-                    android:paddingStart="10dp"
-                    android:paddingTop="148dp"
-                    android:paddingEnd="80dp"
-                    android:paddingBottom="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="152dp"
+                    android:layout_marginEnd="80dp"
+                    android:layout_marginBottom="1dp"
                     android:text="@string/id_presented_philhealth"
                     android:textAlignment="center"
+                    android:textColor="#15224B"
+                    android:textSize="18sp"
+                    tools:ignore="VisualLintOverlap" />
+
+                <TextView
+                    android:id="@+id/id_pres1"
+                    android:layout_width="147dp"
+                    android:layout_height="25dp"
+                    android:fontFamily="@font/oswald_light"
+                    android:layout_marginStart="92dp"
+                    android:layout_marginTop="152dp"
+                    android:layout_marginEnd="110dp"
+                    android:textAlignment="textStart"
                     android:textColor="#15224B"
                     android:textSize="18sp"
                     tools:ignore="VisualLintOverlap" />
@@ -218,10 +238,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/oswald_light"
-                    android:paddingStart="10dp"
-                    android:paddingTop="168dp"
-                    android:paddingEnd="80dp"
-                    android:paddingBottom="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="172dp"
+                    android:layout_marginEnd="80dp"
                     android:text="@string/user_number"
                     android:textAlignment="center"
                     android:textColor="#15224B"
@@ -229,18 +248,43 @@
                     tools:ignore="VisualLintOverlap" />
 
                 <TextView
+                    android:id="@+id/user_number1"
+                    android:layout_width="143dp"
+                    android:layout_height="25dp"
+                    android:fontFamily="@font/oswald_light"
+                    android:layout_marginStart="95dp"
+                    android:layout_marginTop="172dp"
+                    android:layout_marginEnd="110dp"
+                    android:textAlignment="textStart"
+                    android:textColor="#15224B"
+                    android:textSize="18sp"
+                    tools:ignore="VisualLintOverlap" />
+
+                <TextView
                     android:id="@+id/birthday"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:fontFamily="@font/oswald_light"
-                    android:paddingStart="10dp"
-                    android:paddingTop="188dp"
-                    android:paddingEnd="70dp"
-                    android:paddingBottom="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="194dp"
+                    android:layout_marginEnd="70dp"
                     android:text="@string/birthday"
                     android:textAlignment="center"
                     android:textColor="#15224B"
                     android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/birthday1"
+                    android:layout_width="170dp"
+                    android:layout_height="25dp"
+                    android:fontFamily="@font/oswald_light"
+                    android:layout_marginStart="68dp"
+                    android:layout_marginTop="194dp"
+                    android:layout_marginEnd="110dp"
+                    android:textAlignment="textStart"
+                    android:textColor="#15224B"
+                    android:textSize="18sp"
+                    tools:ignore="VisualLintOverlap" />
 
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>

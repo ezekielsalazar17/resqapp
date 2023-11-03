@@ -27,10 +27,10 @@
     <string name="version">version 1.0</string>
     <string name="juan_dela_cruz1">Juan Dela Cruz</string>
     <string name="_09123456789">09123456789</string>
-    <string name="id_number_123123">ID Number: 123123</string>
-    <string name="id_presented_philhealth">ID Presented: PhilHeath</string>
-    <string name="user_number">User Number: 123456</string>
-    <string name="birthday">Birthday: January 1, 2001</string>
+    <string name="id_number_123123">ID Number: </string>
+    <string name="id_presented_philhealth">ID Presented: </string>
+    <string name="user_number">User Number: </string>
+    <string name="birthday">Birthday: </string>
     <string name="edit_profile">Edit Profile</string>
     <string name="save">SAVE</string>
     <string name="settings">Settings</string>
