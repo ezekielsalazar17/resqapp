@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="120dp"
+            android:layout_width="145dp"
             android:layout_height="40dp"
             android:layout_marginStart="95dp"
             android:layout_marginTop="10dp"
@@ -36,11 +36,10 @@
             android:letterSpacing="0.03"
             android:paddingStart="23dp"
             android:paddingTop="5dp"
-            android:text="@string/profile"
+            android:text="ADMIN"
             android:textColor="#FAFAFA"
             android:textSize="20sp"
             tools:ignore="RtlSymmetry,TextSizeCheck" />
-
 
 
     </LinearLayout>

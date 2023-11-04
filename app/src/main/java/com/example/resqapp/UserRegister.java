@@ -67,14 +67,14 @@ public class UserRegister extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-        Id.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), Ocr.class));
-        });
-
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), DashboardUser.class));
             finish();
         }
+
+        Id.setOnClickListener((v) -> {
+            startActivity(new Intent(getApplicationContext(), Ocr.class));
+        });
 
         RegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override

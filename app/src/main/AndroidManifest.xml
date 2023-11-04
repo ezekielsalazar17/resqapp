@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.resqapp"
-    >
-
+    package="com.example.resqapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -24,13 +23,13 @@
         tools:ignore="CoarseFineLocation"
         tools:targetApi="31">
         <activity
+            android:name=".Fireprofile"
+            android:exported="false" />
+        <activity
             android:name=".UserProfile"
             android:exported="false" />
         <activity
             android:name=".UserOrAdminLogin"
-            android:exported="false" />
-        <activity
-            android:name=".ChooseDepartment"
             android:exported="false" />
         <activity
             android:name=".AccessLocUser"
@@ -66,6 +65,10 @@
             android:name=".Ocr"
             android:exported="false" />
         <activity
+            android:name=".DashboardFire"
+            android:exported="false" />
+
+        <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.NoActionBar">
@@ -78,8 +81,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC0suozjYPrGqvDFHR9cJJyEUwuq283cH4"
-            />
+            android:value="AIzaSyC0suozjYPrGqvDFHR9cJJyEUwuq283cH4" />
     </application>
 
 </manifest>

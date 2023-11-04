@@ -111,18 +111,16 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(AdminRegister.this, "Admin Created", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = fAuth.getCurrentUser();
+                            userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = firestore.collection("admins").document(userID);
-                            Map<String, Object> userInfo = new HashMap<>();
+                            Map<String, Object> user = new HashMap<>();
 
-                            userInfo.put("Email", email);
-                            userInfo.put("Password", password);
-                            userInfo.put("Contact Number", number);
-                            userInfo.put("Department", department);
+                            user.put("Email", email);
+                            user.put("Password", password);
+                            user.put("Contact Number", number);
+                            user.put("Department", department);
 
                             documentReference.set(user);
-
-
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

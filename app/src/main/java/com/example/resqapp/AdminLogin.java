@@ -12,9 +12,11 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -33,6 +35,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.concurrent.TimeUnit;
 
@@ -42,6 +47,7 @@ public class AdminLogin extends AppCompatActivity {
     Button Login, GenerateOtp;
     TextView createText, signup, forgotpass;
     FirebaseAuth fAuth;
+    FirebaseFirestore firestore;
     CheckBox rememberme;
     public static final String SHARED_PREFS = "sharedPrefs";
     String verificationID;
@@ -74,6 +80,17 @@ public class AdminLogin extends AppCompatActivity {
         ambulance = findViewById(R.id.ambulance_checkbox);
         police = findViewById(R.id.police_checkbox);
         coastguard = findViewById(R.id.coastguard_checkbox);
+        firestore = FirebaseFirestore.getInstance();
+
+        fire.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    fire.setChecked(true);
+                }
+
+            }
+        });
 
         GenerateOtp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +109,7 @@ public class AdminLogin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(TextUtils.isEmpty(Otp.getText().toString())){
-                    Toast.makeText(AdminLogin.this, "Wrong OTP Entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminLogin.this, "No OTP Entered", Toast.LENGTH_SHORT).show();
                 }else {
                     verifycode(Otp.getText().toString());
                 }
@@ -158,12 +175,11 @@ public class AdminLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             Toast.makeText(AdminLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-
+                            startActivity(new Intent(getApplicationContext(), DashboardFire.class));
                         }
                     }
                 });
     }
-
     private void sendVerificationcode(String phoneNumber) {
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(fAuth)
@@ -177,14 +193,14 @@ public class AdminLogin extends AppCompatActivity {
 
     }
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
-           final String code = credential.getSmsCode();
-           if(code!=null){
-               verifycode(code);
-           }
+            final String code = credential.getSmsCode();
+            if(code!=null){
+                verifycode(code);
+            }
         }
 
         @Override
@@ -194,9 +210,9 @@ public class AdminLogin extends AppCompatActivity {
 
         @Override
         public void onCodeSent(@NonNull String s,
-                @NonNull PhoneAuthProvider.ForceResendingToken token) {
-           super.onCodeSent(s, token);
-           verificationID = s;
+                               @NonNull PhoneAuthProvider.ForceResendingToken token) {
+            super.onCodeSent(s, token);
+            verificationID = s;
 
         }
     };

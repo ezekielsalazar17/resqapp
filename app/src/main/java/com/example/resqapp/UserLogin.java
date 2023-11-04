@@ -107,6 +107,7 @@ public class UserLogin extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(UserLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), DashboardUser.class));
+                                    finish();
                                 } else {
                                     Toast.makeText(UserLogin.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
