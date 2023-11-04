@@ -35,8 +35,10 @@
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:ignore="ContentDescription,ImageContrastCheck"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            tools:srcCompat="@tools:sample/avatars"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -83,7 +85,7 @@
         >
 
 
-        <EditText
+        <TextView
             android:id="@+id/ocrconverted"
             android:layout_width="match_parent"
             android:layout_height="130dp"

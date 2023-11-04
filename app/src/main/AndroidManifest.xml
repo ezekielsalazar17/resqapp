@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18"/>
 
     <application
         android:allowBackup="true"
@@ -61,6 +63,9 @@
             android:name=".AdminLogin"
             android:exported="false" />
         <activity
+            android:name=".Ocr"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Design.NoActionBar">
@@ -73,7 +78,8 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC0suozjYPrGqvDFHR9cJJyEUwuq283cH4" />
+            android:value="AIzaSyC0suozjYPrGqvDFHR9cJJyEUwuq283cH4"
+            />
     </application>
 
 </manifest>
