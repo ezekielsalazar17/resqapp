@@ -107,6 +107,7 @@ public class UserLogin extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(UserLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), DashboardUser.class));
+                                    FirebaseAuth.getInstance().signOut();
                                     finish();
                                 } else {
                                     Toast.makeText(UserLogin.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -119,7 +120,7 @@ public class UserLogin extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), UserOrAdminRegister.class));
+                startActivity(new Intent(getApplicationContext(), UserRegister.class));
             }
         });
 
@@ -162,7 +163,7 @@ public class UserLogin extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(UserLogin.this, "Reset Link Sent To Your Email.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserLogin.this, "The Link Sent To Your Email.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(UserLogin.this, "Error: Reset Link is Not Sent " + task.getException(), Toast.LENGTH_SHORT).show();
                         }

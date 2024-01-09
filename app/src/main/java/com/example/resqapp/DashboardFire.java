@@ -47,15 +47,6 @@ public class DashboardFire extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), Fireprofile.class));
         });
 
-        DocumentReference documentReference = fStore.collection("users").document(userId);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                email.setText(documentSnapshot.getString("email"));
-            }
-        });
-
-
     }
 
 }

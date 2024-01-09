@@ -298,7 +298,7 @@
 
 
         <Button
-            android:id="@+id/sign_out"
+            android:id="@+id/logoutuser"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="145dp"
             android:layout_height="48dp"

@@ -68,16 +68,15 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
             catch(Exception e){
                 e.printStackTrace();
             }
-
             double latitude = listGeocoder.get(0).getLatitude();
             double longitude = listGeocoder.get(0).getLongitude();
 
             Log.i("Google_MAP_TAG","Address has Longitude" + "::: "
                     + String.valueOf(latitude) + "Latitude " + String.valueOf(longitude));
         }
-        else{
-            requestLocationPermission();
-        }
+        // else{
+
+        //}
 
 
     }
@@ -108,8 +107,7 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
         }
     }
 
-    private void requestLocationPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                LOCATION_PERMISSION_CODE);
-    }
+
+
+
 }

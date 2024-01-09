@@ -117,7 +117,7 @@ public class AdminLogin extends AppCompatActivity {
         }));
 
         signup.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), UserOrAdminRegister.class));
+            startActivity(new Intent(getApplicationContext(), AdminRegister.class));
         });
 
         forgotpass.setOnClickListener(new View.OnClickListener() {
@@ -205,7 +205,8 @@ public class AdminLogin extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Toast.makeText(AdminLogin.this, "Verification Failed", Toast.LENGTH_SHORT).show();
+            Log.e("VerificationFailed", "Error: " + e.getMessage());
+            Toast.makeText(AdminLogin.this, "Verification Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
