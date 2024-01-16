@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,299 +7,266 @@
     android:orientation="vertical"
     tools:ignore="ExtraText">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="vertical"
-        >
-        <Button
-            android:id="@+id/back_button"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/border_radius"
-            android:drawableStart="@drawable/baseline_arrow_back_24"
-            android:padding="7dp"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_radius"
+        android:drawableStart="@drawable/baseline_arrow_back_24"
+        android:padding="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
         android:layout_height="200dp"
-        android:orientation="horizontal"
-        >
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/resqapplogo"
+        tools:ignore="ContentDescription" />
+
+    <EditText
+        android:id="@+id/id1"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border"
+        android:fontFamily="@font/oswald_light"
+        android:hint="@string/id"
+        android:inputType="text"
+        android:letterSpacing="0.09"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id"
+        tools:ignore="Autofill,SmallSp,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+    <EditText
+        android:id="@+id/adminpass1"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:fontFamily="@font/oswald_light"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:letterSpacing="0.09"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pass"
+        tools:ignore="Autofill,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/oswald"
+        android:text="@string/id1"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:background="@drawable/red_border"
+        android:hint="@string/register"
+        android:letterSpacing="0.4"
+        android:textColorHint="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:text="@string/password1"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admincontact2" />
+
+    <EditText
+        android:id="@+id/adminconpass1"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:fontFamily="@font/oswald_light"
+        android:hint="@string/confirmpassword"
+        android:inputType="textPassword"
+        android:letterSpacing="0.09"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/conpass"
+        tools:ignore="Autofill,TouchTargetSizeCheck,DuplicateSpeakableTextCheck,TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/dropdown_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:text="@string/choose_department"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.183"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminconpass1" />
+
+    <Spinner
+        android:id="@+id/dropdown_menu1"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald_light"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dropdown_menu"
+        app:layout_constraintVertical_bias="0.183"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/conpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:text="@string/confirm_password1"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.178"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminpass1" />
+
+    <TextView
+        android:id="@+id/admincontact1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:text="@string/contact1"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminemail1" />
+
+    <EditText
+        android:id="@+id/adminemail1"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:fontFamily="@font/oswald_light"
+        android:hint="@string/email2"
+        android:inputType="textEmailAddress"
+        android:letterSpacing="0.09"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email1"
+        tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="41dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="41dp"
-            android:layout_marginBottom="16dp"
-            android:padding="20dp"
-            app:srcCompat="@drawable/resqapplogo"
-            tools:ignore="ContentDescription" />
+    <TextView
+        android:id="@+id/email1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/oswald"
+        android:text="Email"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id1" />
 
-    </LinearLayout>
+    <EditText
+        android:id="@+id/admincontact2"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:fontFamily="@font/oswald_light"
+        android:hint="@string/contact2"
+        android:inputType="phone"
+        android:letterSpacing="0.09"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admincontact1"
+        tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:text="@string/id1"
-            android:textSize="15sp"
-            android:fontFamily="@font/oswald"
-            android:textColor="@color/black"
-            />
-        <EditText
-            android:id="@+id/id1"
-            android:layout_width="212dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/border"
-            android:hint="@string/id"
-            android:inputType="text"
-            android:letterSpacing="0.09"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp"
-            android:fontFamily="@font/oswald_light"
-            android:textAlignment="textStart"
-            android:textSize="12sp"
-            tools:ignore="Autofill,MissingConstraints,SmallSp,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck"
-            />
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/baseline_folder_24"
+        app:layout_constraintBottom_toBottomOf="@+id/id1"
+        app:layout_constraintEnd_toEndOf="@+id/id1"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="@+id/id1"
+        app:layout_constraintTop_toTopOf="@+id/id1"
+        app:layout_constraintVertical_bias="0.388"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-        <ImageButton
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="280dp"
-            android:layout_marginTop="-28dp"
-            android:src="@drawable/baseline_folder_24"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    </LinearLayout>
-
-
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/email1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:fontFamily="@font/oswald"
-            android:textSize="15sp"
-            android:text="Email"
-            android:textColor="@color/black"
-            />
-        <EditText
-            android:id="@+id/adminemail1"
-            android:layout_width="212dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:autofillHints="emailAddress"
-            android:background="@drawable/border"
-            android:ems="10"
-            android:hint="@string/email2"
-            android:inputType="textEmailAddress"
-            android:fontFamily="@font/oswald_light"
-            android:letterSpacing="0.09"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp"
-            android:textAlignment="textStart"
-            android:textSize="12sp"
-            tools:ignore="DuplicateSpeakableTextCheck,MissingConstraints,TextContrastCheck,TouchTargetSizeCheck"
-            tools:layout_editor_absoluteY="572dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/admincontact1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:fontFamily="@font/oswald"
-            android:textSize="15sp"
-            android:text="@string/contact1"
-            android:textColor="@color/black"
-            />
-        <EditText
-            android:id="@+id/admincontact2"
-            android:layout_width="212dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:autofillHints="emailAddress"
-            android:background="@drawable/border"
-            android:ems="10"
-            android:hint="@string/contact2"
-            android:inputType="phone"
-            android:fontFamily="@font/oswald_light"
-            android:letterSpacing="0.09"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp"
-            android:textAlignment="textStart"
-            android:textSize="12sp"
-            tools:ignore="DuplicateSpeakableTextCheck,MissingConstraints,TextContrastCheck,TouchTargetSizeCheck"
-            tools:layout_editor_absoluteY="572dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:text="@string/password1"
-            android:fontFamily="@font/oswald"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            />
-        <EditText
-            android:id="@+id/adminpass1"
-            android:layout_width="212dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:background="@drawable/border"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:letterSpacing="0.09"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp"
-            android:textAlignment="textStart"
-            android:fontFamily="@font/oswald_light"
-            android:textSize="12sp"
-            tools:ignore="Autofill,MissingConstraints,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck"
-            tools:layout_editor_absoluteY="449dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/conpass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:text="@string/confirm_password1"
-            android:fontFamily="@font/oswald"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            />
-
-        <EditText
-            android:id="@+id/adminconpass1"
-            android:layout_width="212dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="101dp"
-            android:background="@drawable/border"
-            android:ems="10"
-            android:fontFamily="@font/oswald_light"
-            android:hint="@string/confirmpassword"
-            android:inputType="textPassword"
-            android:letterSpacing="0.09"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp"
-            android:textAlignment="textStart"
-            android:textSize="12sp"
-            tools:ignore="Autofill,MissingConstraints,TouchTargetSizeCheck,DuplicateSpeakableTextCheck,TextContrastCheck"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/dropdown_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="92dp"
-            android:text="@string/choose_department"
-            android:fontFamily="@font/oswald"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            />
-
-        <Spinner
-            android:id="@+id/dropdown_menu1"
-            android:layout_width="212dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="101dp"
-            android:fontFamily="@font/oswald_light"
-            android:textSize="12sp"
-            tools:ignore="TouchTargetSizeCheck" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="89dp"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/register"
-            android:layout_width="212dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="172dp"
-            android:background="@drawable/red_border"
-            android:hint="@string/register"
-            android:letterSpacing="0.4"
-            android:textColorHint="@color/white"
-            android:textStyle="bold"
-            tools:ignore="TouchTargetSizeCheck" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="vertical"
-        >
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="invisible" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
