@@ -1,120 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_radius"
+        android:drawableStart="@drawable/baseline_arrow_back_24"
+        android:padding="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
+
+
+    <ImageView
+        android:id="@+id/imageView6"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="vertical"
-        >
-        <Button
-            android:id="@+id/back_button"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/border_radius"
-            android:drawableStart="@drawable/baseline_arrow_back_24"
-            android:padding="7dp"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
+        android:layout_height="300dp"
+        android:layout_marginTop="56dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button"
+        tools:ignore="ContentDescription"
+        tools:srcCompat="@tools:sample/avatars" />
 
+    <Button
+        android:id="@+id/upload"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/sign_out"
+        android:fontFamily="@font/oswald_bold"
+        android:text="@string/upload"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/capture"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/sign_out"
+        android:fontFamily="@font/oswald_bold"
+        android:text="@string/capture"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/upload"
+        app:layout_constraintHorizontal_bias="0.722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="50dp"
-        >
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true"
-            tools:srcCompat="@tools:sample/avatars"
-            tools:ignore="ContentDescription" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        >
-
-
-        <Button
-            android:id="@+id/upload"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:fontFamily="@font/oswald_bold"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/sign_out"
-            android:textSize="18sp"
-            android:text="@string/upload"
-            style="?android:attr/buttonBarButtonStyle" />
-
-        <Button
-            android:id="@+id/capture"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:background="@drawable/sign_out"
-            android:fontFamily="@font/oswald_bold"
-            android:textSize="18sp"
-            android:text="@string/capture"
-            style="?android:attr/buttonBarButtonStyle" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/ocrconverted"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        >
+        android:gravity="center"
+        android:text=""
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submit"
+        app:layout_constraintVertical_bias="0.95"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/sign_out"
+        android:fontFamily="@font/oswald_bold"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload" />
 
 
-        <TextView
-            android:id="@+id/ocrconverted"
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:gravity="center"
-            android:text=""
-            android:textAlignment="center"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        >
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:fontFamily="@font/oswald_bold"
-            android:layout_marginStart="125dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/sign_out"
-            android:textSize="18sp"
-            android:text="@string/submit" />
-
-    </LinearLayout>
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
