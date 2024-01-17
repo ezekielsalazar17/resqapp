@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#9BBEE6"
+android:orientation="vertical"
+tools:context=".DashboardUser">
+
+
+<ImageView
+    android:id="@+id/imageView3"
+    android:layout_width="0dp"
+    android:layout_height="250dp"
+    android:layout_weight="1"
+    android:padding="40dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:srcCompat="@drawable/resqapplogo"
+    tools:ignore="ContentDescription,ImageContrastCheck,VisualLintBounds" />
+
+
+    <TextView
+        android:id="@+id/contact_dev"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/oswald"
+        android:gravity="center"
+        android:text="@string/contact_dev"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <EditText
+        android:id="@+id/adminemail1"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="16dp"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:fontFamily="@font/oswald_light"
+        android:hint="password"
+        android:inputType="textPassword"
+        android:letterSpacing="0.09"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contact_dev"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/email_dev"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="96dp"
+        android:fontFamily="@font/oswald"
+        android:text="Email: resqappemergency@gmail.com"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminemail1" />
+
+    <TextView
+        android:id="@+id/contact_number_dev"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:fontFamily="@font/oswald"
+        android:text="Contact Number: 09982957461"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_dev"
+        app:layout_constraintVertical_bias="0.015" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
