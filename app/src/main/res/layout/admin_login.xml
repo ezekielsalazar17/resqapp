@@ -1,299 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#9BBEE6"
+    android:orientation="vertical"
     tools:context=".AdminLogin">
 
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="250dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/resqapplogo"
+        tools:ignore="ContentDescription,ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/textView6"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:text="@string/admin_login"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
 
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:layout_weight="1"
-            android:padding="40dp"
-            app:srcCompat="@drawable/resqapplogo"
-            tools:ignore="ContentDescription,ImageContrastCheck" />
+    <EditText
+        android:id="@+id/number1"
+        android:layout_width="205dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="24dp"
+        android:autofillHints=""
+        android:background="@drawable/border"
+        android:drawableStart="@drawable/baseline_person_24"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:fontFamily="@font/oswald"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textColorHint="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:ignore="HardcodedText,TextContrastCheck,TextFields,TouchTargetSizeCheck" />
 
+    <EditText
+        android:id="@+id/pw2"
+        android:layout_width="205dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border"
+        android:drawableStart="@drawable/baseline_lock_24"
+        android:drawablePadding="10dp"
+        android:ems="0"
+        android:fontFamily="@font/oswald"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textColorHint="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number1"
+        tools:ignore="Autofill,HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/admin_login"
-            android:textAlignment="center"
-            android:fontFamily="@font/oswald"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-
-            />
-
-        <EditText
-            android:id="@+id/number1"
-            android:layout_width="205dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/border"
-            android:drawableStart="@drawable/baseline_person_24"
-            android:drawablePadding="10dp"
-            android:ems="10"
-            android:fontFamily="@font/oswald"
-            android:hint="Phone Number"
-            android:inputType="phone"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp"
-            android:textColorHint="@color/black"
-            android:textSize="15sp"
-            tools:ignore="HardcodedText,TextContrastCheck,TextFields,TouchTargetSizeCheck"
-            android:autofillHints="" />
-
-        <EditText
-            android:id="@+id/pw2"
-            android:layout_width="205dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/border"
-            android:drawableStart="@drawable/baseline_lock_24"
-            android:drawablePadding="10dp"
-            android:ems="0"
-            android:fontFamily="@font/oswald"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp"
-            android:textColorHint="@color/black"
-            android:textSize="15sp"
-            tools:ignore="Autofill,HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
-
-        <EditText
-            android:id="@+id/otp"
-            android:layout_width="205dp"
-            android:layout_height="43dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/border"
-            android:drawablePadding="10dp"
-            android:ems="0"
-            android:fontFamily="@font/oswald"
-            android:hint="OTP"
-            android:inputType="textPassword"
-            android:paddingStart="10sp"
-            android:paddingEnd="10sp"
-            android:textColorHint="@color/black"
-            android:textSize="15sp"
-            tools:ignore="Autofill,HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
-
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="275dp"
-            android:layout_marginTop="-90dp"
-            android:layout_marginBottom="70dp"
-            android:contextClickable="true"
-            android:src="@drawable/baseline_visibility_24"
-            tools:ignore="ContentDescription" />
-
-        <CheckBox
-            android:id="@+id/remember_me_checkbox"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="93dp"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <TextView
-            android:id="@+id/remember_me"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="-20dp"
-            android:fontFamily="@font/oswald"
-            android:text="@string/remember_me"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            tools:ignore="TextSizeCheck" />
-
-        <TextView
-            android:id="@+id/forgotpass"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="@string/forgot_password"
-            android:textColor="@color/black"
-            android:fontFamily="@font/oswald"
-            android:textSize="12sp"
-            android:layout_marginTop="-20dp"
-            android:layout_marginStart="225dp"
-            tools:ignore="TextSizeCheck" />
-
-        <CheckBox
-            android:id="@+id/fire_checkbox"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="93dp"
-            android:layout_marginTop="5dp"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <TextView
-            android:id="@+id/fire_checkbox1"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="-20dp"
-            android:fontFamily="@font/oswald"
-            android:text="@string/fire_department1"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            tools:ignore="TextSizeCheck" />
-        <CheckBox
-            android:id="@+id/ambulance_checkbox"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="93dp"
-            android:layout_marginTop="3dp"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <TextView
-            android:id="@+id/ambulance_checkbox1"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="-22dp"
-            android:fontFamily="@font/oswald"
-            android:text="@string/ambulance_department1"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            tools:ignore="TextSizeCheck" />
-
-        <CheckBox
-            android:id="@+id/police_checkbox"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="-42dp"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <TextView
-            android:id="@+id/police_checkbox1"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="230dp"
-            android:layout_marginTop="-21dp"
-            android:fontFamily="@font/oswald"
-            android:text="@string/police_department1"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            tools:ignore="TextSizeCheck" />
-
-        <CheckBox
-            android:id="@+id/coastguard_checkbox"
-            android:layout_width="30dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="5dp"
-            tools:ignore="TouchTargetSizeCheck" />
-        <TextView
-            android:id="@+id/coastguard_checkbox1"
-            android:layout_width="90dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="230dp"
-            android:layout_marginTop="-21dp"
-            android:fontFamily="@font/oswald"
-            android:text="@string/coastguard_department1"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            tools:ignore="TextSizeCheck"
-        />
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="vertical">
-
-
-        <Button
-            android:id="@+id/generateotp"
-            android:layout_width="204dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="100dp"
-            android:background="@drawable/red_border"
-            android:fontFamily="@font/oswald_bold"
-            android:hint="Generate OTP"
-            android:letterSpacing="0.2"
-            android:textColorHint="@color/white"
-            tools:ignore="HardcodedText,TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
-
-        <Button
-            android:id="@+id/login_button1"
-            android:layout_width="204dp"
-            android:layout_height="41dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="100dp"
-            android:background="@drawable/red_border"
-            android:fontFamily="@font/oswald_bold"
-            android:hint="@string/login"
-            android:letterSpacing="0.2"
-            android:textColorHint="@color/white"
-            tools:ignore="HardcodedText,TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="240dp"
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="60dp"
-        android:orientation="horizontal"
-        tools:ignore="TextSizeCheck,VisualLintBounds">
+        android:contextClickable="true"
+        android:src="@drawable/baseline_visibility_24"
+        app:layout_constraintBottom_toBottomOf="@+id/pw2"
+        app:layout_constraintEnd_toEndOf="@+id/pw2"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="@+id/pw2"
+        app:layout_constraintTop_toTopOf="@+id/pw2"
+        app:layout_constraintVertical_bias="0.608"
+        tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/donthaveaccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:text="@string/don_t_have_an_account"
-            android:textColor="@color/black"
-            android:textStyle="normal"
-            tools:ignore="TextSizeCheck" />
+    <CheckBox
+        android:id="@+id/remember_me_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/remember_me"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pw2"
+        tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
-        <TextView
-            android:id="@+id/signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contextClickable="true"
-            android:text="@string/sign_up_now"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            tools:ignore="TextSizeCheck" />
+    <TextView
+        android:id="@+id/remember_me"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/oswald"
+        android:text="@string/remember_me"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/forgotpass"
+        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pw2"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/forgotpass"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/oswald"
+        android:text="@string/forgot_password"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.739"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pw2"
+        tools:ignore="TextSizeCheck" />
+
+    <CheckBox
+        android:id="@+id/fire_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/fire_checkbox1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remember_me_checkbox"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/fire_checkbox1"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:text="@string/fire_department1"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/police_checkbox"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remember_me_checkbox"
+        tools:ignore="TextSizeCheck" />
 
 
-    </LinearLayout>
+    <CheckBox
+        android:id="@+id/ambulance_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/ambulance_checkbox1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fire_checkbox"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/ambulance_checkbox1"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:text="@string/ambulance_department1"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/coastguard_checkbox"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fire_checkbox"
+        tools:ignore="TextSizeCheck" />
+
+    <CheckBox
+        android:id="@+id/police_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/police_checkbox1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forgotpass"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/police_checkbox1"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/oswald"
+        android:text="@string/police_department1"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.809"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forgotpass"
+        tools:ignore="TextSizeCheck" />
+
+    <CheckBox
+        android:id="@+id/coastguard_checkbox"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/coastguard_checkbox1"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/police_checkbox"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/coastguard_checkbox1"
+        android:layout_width="90dp"
+        android:layout_height="20dp"
+        android:fontFamily="@font/oswald"
+        android:text="@string/coastguard_department1"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.809"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/police_checkbox"
+        tools:ignore="TextSizeCheck" />
+
+    <Button
+        android:id="@+id/login_button1"
+        android:layout_width="204dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/red_border"
+        android:fontFamily="@font/oswald_bold"
+        android:hint="@string/login"
+        android:letterSpacing="0.2"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ambulance_checkbox1"
+        tools:ignore="HardcodedText,TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/donthaveaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/don_t_have_an_account"
+        android:textColor="@color/black"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/signup"
+        app:layout_constraintHorizontal_bias="0.962"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_button1"
+        app:layout_constraintVertical_bias="0.644"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contextClickable="true"
+        android:text="@string/sign_up_now"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.753"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_button1"
+        app:layout_constraintVertical_bias="0.644"
+        tools:ignore="TextSizeCheck" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
