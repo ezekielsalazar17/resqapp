@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <EditText
-        android:id="@+id/number1"
+        android:id="@+id/email1"
         android:layout_width="205dp"
         android:layout_height="43dp"
         android:layout_marginTop="24dp"
@@ -47,8 +47,8 @@
         android:drawablePadding="10dp"
         android:ems="10"
         android:fontFamily="@font/oswald"
-        android:hint="Phone Number"
-        android:inputType="phone"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:paddingStart="10sp"
         android:paddingEnd="10sp"
         android:textColorHint="@color/black"
@@ -74,9 +74,9 @@
         android:paddingEnd="10sp"
         android:textColorHint="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/number1"
-        app:layout_constraintStart_toStartOf="@+id/number1"
-        app:layout_constraintTop_toBottomOf="@+id/number1"
+        app:layout_constraintEnd_toEndOf="@+id/email1"
+        app:layout_constraintStart_toStartOf="@+id/email1"
+        app:layout_constraintTop_toBottomOf="@+id/email1"
         tools:ignore="Autofill,HardcodedText,TextContrastCheck,TouchTargetSizeCheck" />
 
     <ImageView

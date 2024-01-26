@@ -1,13 +1,15 @@
 package com.example.resqapp;
 
-import android.annotation.SuppressLint;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,199 +20,156 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.resqapp.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthOptions;
-import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.concurrent.TimeUnit;
 
 public class AdminLogin extends AppCompatActivity {
 
-    EditText Number, Password, Otp;
-    Button Login, GenerateOtp;
+    EditText email, password;
+    Button login;
+    CheckBox rememberme;
     TextView createText, signup, forgotpass;
     FirebaseAuth fAuth;
-    FirebaseFirestore firestore;
-    CheckBox rememberme;
     public static final String SHARED_PREFS = "sharedPrefs";
-    String verificationID;
-    CheckBox fire, ambulance, police, coastguard;
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
         setContentView(R.layout.admin_login);
 
-        Number = findViewById(R.id.number1);
-        Password = findViewById(R.id.pw2);
-        Login = findViewById(R.id.login_button1);
+        email = findViewById(R.id.email1);
+        password = findViewById(R.id.pw2);
+        login = findViewById(R.id.login_button1);
         createText = findViewById(R.id.donthaveaccount);
         signup = findViewById(R.id.signup);
         fAuth = FirebaseAuth.getInstance();
         forgotpass = findViewById(R.id.forgotpass);
         rememberme = findViewById(R.id.remember_me_checkbox);
-        fire = findViewById(R.id.fire_checkbox);
-        ambulance = findViewById(R.id.ambulance_checkbox);
-        police = findViewById(R.id.police_checkbox);
-        coastguard = findViewById(R.id.coastguard_checkbox);
-        firestore = FirebaseFirestore.getInstance();
 
-        fire.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        String checkbox = preferences.getString("remember","");
+        if(checkbox.equals("true")){
+            Intent intent = new Intent(AdminLogin.this, DashboardUser.class);
+            startActivity(intent);
+            finish();
+
+        } else if (checkbox.equals(false)) {
+            Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
+        }
+
+        rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()){
-                    fire.setChecked(true);
-                }
+                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "true");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "Checked", Toast.LENGTH_SHORT).show();
 
+                }else if(!compoundButton.isChecked()){
+                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "false");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "Unchecked", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
-        GenerateOtp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(TextUtils.isEmpty(Number.getText().toString())){
-                    Toast.makeText(AdminLogin.this, "Enter a valid Phone Number ", Toast.LENGTH_SHORT).show();
-                }else{
-                    String number = Number.getText().toString();
-                    sendVerificationcode(number);
-                }
 
-            }
-        });
-
-        Login.setOnClickListener((new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(Otp.getText().toString())){
-                    Toast.makeText(AdminLogin.this, "No OTP Entered", Toast.LENGTH_SHORT).show();
-                }else {
-                    verifycode(Otp.getText().toString());
-                }
-            }
-        }));
+                String userEmail = email.getText().toString().trim();
+                String userPassword = password.getText().toString().trim();
 
-        signup.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), AdminRegister.class));
+                if (userEmail.isEmpty() || userPassword.isEmpty()) {
+                    Toast.makeText(AdminLogin.this, "Email and password are required", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                fAuth.signInWithEmailAndPassword(userEmail, userPassword)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(AdminLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), DashboardUser.class));
+                                    FirebaseAuth.getInstance().signOut();
+                                    finish();
+                                } else {
+                                    Toast.makeText(AdminLogin.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
+
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), UserRegister.class));
+            }
         });
 
         forgotpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText resetMail = new EditText(v.getContext());
-                AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-                passwordResetDialog.setTitle("Reset Password?");
-                passwordResetDialog.setMessage("Enter Your Email to Received Reset Link");
-                passwordResetDialog.setView(resetMail);
+                showPasswordResetDialog();
+            }
+        });
+    }
 
-                passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+    private void showPasswordResetDialog() {
+        EditText resetMail = new EditText(this);
+        AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(this);
+        passwordResetDialog.setTitle("Reset Password?");
+        passwordResetDialog.setMessage("Enter Your Email to Receive Reset Link");
+        passwordResetDialog.setView(resetMail);
 
-                        String mail = resetMail.getText().toString();
-                        fAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(AdminLogin.this, "Reset Link Sent To Your Mail.", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(AdminLogin.this, "Error ! Reset Link is Not Sent " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                    }
-                });
-
-                passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-                passwordResetDialog.create().show();
+        passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String mail = resetMail.getText().toString();
+                sendPasswordResetEmail(mail);
             }
         });
 
+        passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User canceled the password reset.
+            }
+        });
+
+        passwordResetDialog.create().show();
     }
 
-    private void verifycode(String Code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationID, Code);
-        signinbyCredential(credential);
-    }
-
-    private void signinbyCredential(PhoneAuthCredential credential) {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    private void sendPasswordResetEmail(String email) {
+        fAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(AdminLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), DashboardFire.class));
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(AdminLogin.this, "The Link Sent To Your Email.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(AdminLogin.this, "Error: Reset Link is Not Sent " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
-    private void sendVerificationcode(String phoneNumber) {
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(fAuth)
-                        .setPhoneNumber("+63" + phoneNumber)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(this)                 // (optional) Activity for callback binding
-                        // If no activity is passed, reCAPTCHA verification can not be used.
-                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-
-    }
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-        @Override
-        public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
-            final String code = credential.getSmsCode();
-            if(code!=null){
-                verifycode(code);
-            }
-        }
-
-        @Override
-        public void onVerificationFailed(@NonNull FirebaseException e) {
-            Log.e("VerificationFailed", "Error: " + e.getMessage());
-            Toast.makeText(AdminLogin.this, "Verification Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onCodeSent(@NonNull String s,
-                               @NonNull PhoneAuthProvider.ForceResendingToken token) {
-            super.onCodeSent(s, token);
-            verificationID = s;
-
-        }
-    };
 
     @Override
     protected void onStart() {

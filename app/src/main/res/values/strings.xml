@@ -91,6 +91,8 @@
     <string name="department">"Department: "</string>
     <string name="profile">PROFILE</string>
     <string name="contact_dev">Contact Developer for Admin Password</string>
+    <string name="CHAT">CHAT</string>
+    <string name="get_user_location">Get User Location\n</string>
 
     <string-array name="department1">
         <item>Fire</item>

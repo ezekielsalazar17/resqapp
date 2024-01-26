@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class LocationSharing extends AppCompatActivity {
+public class LocationSharingAdmin extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.location_sharing_user);
+        setContentView(R.layout.location_sharing_admin);
     }
 }
