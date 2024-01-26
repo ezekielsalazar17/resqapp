@@ -26,8 +26,10 @@
         android:id="@+id/imageView"
         android:layout_width="300dp"
         android:layout_height="200dp"
+        android:layout_marginTop="32dp"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/resqapplogo"
@@ -37,19 +39,15 @@
         android:id="@+id/id1"
         android:layout_width="260dp"
         android:layout_height="38dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/border"
         android:fontFamily="@font/oswald_light"
         android:hint="@string/id"
         android:inputType="text"
         android:letterSpacing="0.09"
-        android:paddingStart="10sp"
-        android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/id"
         tools:ignore="Autofill,SmallSp,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
@@ -67,9 +65,9 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/admincontact2"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/admincontact2"
         app:layout_constraintTop_toBottomOf="@+id/pass"
         tools:ignore="Autofill,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
@@ -77,42 +75,45 @@
         android:id="@+id/id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/oswald"
         android:text="@string/id1"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/register"
         android:layout_width="260dp"
         android:layout_height="38dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/red_border"
         android:hint="@string/register"
         android:letterSpacing="0.4"
         android:textColorHint="@color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/dropdown_menu1"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="@+id/dropdown_menu1"
+        app:layout_constraintTop_toBottomOf="@+id/dropdown_menu1"
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/oswald"
         android:text="@string/password1"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.155"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admincontact2" />
+        app:layout_constraintEnd_toEndOf="@+id/admincontact1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/admincontact1"
+        app:layout_constraintTop_toBottomOf="@+id/admincontact1" />
 
     <EditText
         android:id="@+id/adminconpass1"
@@ -128,9 +129,9 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/adminpass1"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/adminpass1"
         app:layout_constraintTop_toBottomOf="@+id/conpass"
         tools:ignore="Autofill,TouchTargetSizeCheck,DuplicateSpeakableTextCheck,TextContrastCheck" />
 
@@ -138,13 +139,14 @@
         android:id="@+id/dropdown_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/oswald"
         android:text="@string/choose_department"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/conpass"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/conpass"
         app:layout_constraintTop_toBottomOf="@+id/adminconpass1" />
 
     <Spinner
@@ -153,39 +155,39 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/oswald_light"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/register"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/adminconpass1"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/adminconpass1"
         app:layout_constraintTop_toBottomOf="@+id/dropdown_menu"
-        app:layout_constraintVertical_bias="0.183"
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/conpass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/oswald"
         android:text="@string/confirm_password1"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.178"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/pass"
+        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintStart_toStartOf="@+id/pass"
         app:layout_constraintTop_toBottomOf="@+id/adminpass1" />
 
     <TextView
         android:id="@+id/admincontact1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/oswald"
         android:text="@string/contact1"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.173"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminemail1" />
+        app:layout_constraintEnd_toEndOf="@+id/email1"
+        app:layout_constraintHorizontal_bias="0.016"
+        app:layout_constraintStart_toStartOf="@+id/email1"
+        app:layout_constraintTop_toBottomOf="@+id/email1" />
 
     <EditText
         android:id="@+id/adminemail1"
@@ -202,8 +204,8 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/id1"
+        app:layout_constraintStart_toStartOf="@+id/id1"
         app:layout_constraintTop_toBottomOf="@+id/email1"
         tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -212,15 +214,15 @@
         android:id="@+id/email1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/oswald"
         android:text="Email"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id1" />
+        app:layout_constraintEnd_toEndOf="@+id/id"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toStartOf="@+id/id"
+        app:layout_constraintTop_toBottomOf="@+id/id" />
 
     <EditText
         android:id="@+id/admincontact2"
@@ -237,9 +239,8 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/adminemail1"
+        app:layout_constraintStart_toStartOf="@+id/adminemail1"
         app:layout_constraintTop_toBottomOf="@+id/admincontact1"
         tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
@@ -261,12 +262,11 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="20dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,11 +26,10 @@
         android:id="@+id/imageView"
         android:layout_width="280dp"
         android:layout_height="165dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
-        app:layout_constraintStart_toEndOf="@+id/back_button"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/resqapplogo"
         tools:ignore="ContentDescription" />
@@ -39,6 +38,7 @@
         android:id="@+id/id1"
         android:layout_width="260dp"
         android:layout_height="38dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/border"
         android:fontFamily="@font/oswald_light"
         android:hint="@string/id"
@@ -48,16 +48,16 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/id"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:ignore="Autofill,SmallSp,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/useremail1"
         android:layout_width="260dp"
         android:layout_height="38dp"
+        android:layout_marginTop="24dp"
         android:autofillHints="emailAddress"
         android:background="@drawable/border"
         android:ems="10"
@@ -69,9 +69,9 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email1"
+        app:layout_constraintEnd_toEndOf="@+id/id1"
+        app:layout_constraintStart_toStartOf="@+id/id1"
+        app:layout_constraintTop_toBottomOf="@+id/id1"
         tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
     <TextView
@@ -82,15 +82,15 @@
         android:text="@string/last_name"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fname"
+        app:layout_constraintStart_toStartOf="@+id/fname"
         app:layout_constraintTop_toBottomOf="@+id/fname1" />
 
     <EditText
         android:id="@+id/lname1"
         android:layout_width="260dp"
         android:layout_height="38dp"
+        android:layout_marginTop="24dp"
         android:autofillHints="emailAddress"
         android:background="@drawable/border"
         android:ems="10"
@@ -102,23 +102,23 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lname"
+        app:layout_constraintEnd_toEndOf="@+id/fname1"
+        app:layout_constraintStart_toStartOf="@+id/fname1"
+        app:layout_constraintTop_toBottomOf="@+id/fname1"
         tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/register"
         android:layout_width="260dp"
         android:layout_height="38dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/red_border"
         android:hint="@string/register"
         android:letterSpacing="0.4"
         android:textColorHint="@color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/contactuser2"
+        app:layout_constraintStart_toStartOf="@+id/contactuser2"
         app:layout_constraintTop_toBottomOf="@+id/contactuser2"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -126,6 +126,7 @@
         android:id="@+id/userconpass1"
         android:layout_width="260dp"
         android:layout_height="38dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/border"
         android:ems="10"
         android:fontFamily="@font/oswald_light"
@@ -136,9 +137,9 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userconpass"
+        app:layout_constraintEnd_toEndOf="@+id/userpass1"
+        app:layout_constraintStart_toStartOf="@+id/userpass1"
+        app:layout_constraintTop_toBottomOf="@+id/userpass1"
         tools:ignore="Autofill,TouchTargetSizeCheck,DuplicateSpeakableTextCheck,TextContrastCheck" />
 
     <TextView
@@ -149,15 +150,16 @@
         android:text="@string/confirm_password1"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/userpass"
+        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintStart_toStartOf="@+id/userpass"
         app:layout_constraintTop_toBottomOf="@+id/userpass1" />
 
     <EditText
         android:id="@+id/fname1"
         android:layout_width="260dp"
         android:layout_height="38dp"
+        android:layout_marginTop="24dp"
         android:autofillHints="emailAddress"
         android:background="@drawable/border"
         android:ems="10"
@@ -169,9 +171,9 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fname"
+        app:layout_constraintEnd_toEndOf="@+id/useremail1"
+        app:layout_constraintStart_toStartOf="@+id/useremail1"
+        app:layout_constraintTop_toBottomOf="@+id/useremail1"
         tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
     <TextView
@@ -182,9 +184,9 @@
         android:text="Email"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/id"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/id"
         app:layout_constraintTop_toBottomOf="@+id/id1" />
 
     <TextView
@@ -195,15 +197,16 @@
         android:text="@string/password1"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.127"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/lname"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="@+id/lname"
         app:layout_constraintTop_toBottomOf="@+id/lname1" />
 
     <EditText
         android:id="@+id/contactuser2"
         android:layout_width="260dp"
         android:layout_height="38dp"
+        android:layout_marginTop="24dp"
         android:autofillHints="emailAddress"
         android:background="@drawable/border"
         android:ems="10"
@@ -215,9 +218,9 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contactuser1"
+        app:layout_constraintEnd_toEndOf="@+id/userconpass1"
+        app:layout_constraintStart_toStartOf="@+id/userconpass1"
+        app:layout_constraintTop_toBottomOf="@+id/userconpass1"
         tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
     <TextView
@@ -228,10 +231,11 @@
         android:text="@string/first_name"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/email1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/email1"
         app:layout_constraintTop_toBottomOf="@+id/useremail1" />
+
 
     <TextView
         android:id="@+id/contactuser1"
@@ -241,29 +245,29 @@
         android:text="@string/contact1"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.142"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/userconpass"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/userconpass"
         app:layout_constraintTop_toBottomOf="@+id/userconpass1" />
 
     <TextView
         android:id="@+id/id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/oswald"
         android:text="@string/id1"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.137"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/userpass1"
         android:layout_width="260dp"
         android:layout_height="38dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/border"
         android:ems="10"
         android:fontFamily="@font/oswald_light"
@@ -274,11 +278,10 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userpass"
+        app:layout_constraintEnd_toEndOf="@+id/lname1"
+        app:layout_constraintStart_toStartOf="@+id/lname1"
+        app:layout_constraintTop_toBottomOf="@+id/lname1"
         tools:ignore="Autofill,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
-
 
     <ImageButton
         android:id="@+id/ocrid"
@@ -287,10 +290,9 @@
         android:src="@drawable/baseline_folder_24"
         app:layout_constraintBottom_toBottomOf="@+id/id1"
         app:layout_constraintEnd_toEndOf="@+id/id1"
-        app:layout_constraintHorizontal_bias="0.922"
+        app:layout_constraintHorizontal_bias="0.977"
         app:layout_constraintStart_toStartOf="@+id/id1"
         app:layout_constraintTop_toTopOf="@+id/id1"
-        app:layout_constraintVertical_bias="0.555"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <ProgressBar
@@ -300,9 +302,14 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register"
-        app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="65dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

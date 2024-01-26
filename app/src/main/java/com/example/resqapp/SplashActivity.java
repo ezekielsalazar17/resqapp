@@ -22,7 +22,7 @@ SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        progressBar = findViewById(R.id.progressBar3);
+        progressBar = findViewById(R.id.progressBar2);
 
         timer = new Timer();
         timer.schedule(new TimerTask() {

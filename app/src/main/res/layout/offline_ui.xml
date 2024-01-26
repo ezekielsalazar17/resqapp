@@ -24,21 +24,21 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
+
     <TextView
         android:id="@+id/offline_mode"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="144dp"
         android:fontFamily="@font/oswald_bold"
         android:text="@string/offline_mode"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/logo"
-        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/logo"
         app:layout_constraintTop_toTopOf="@+id/logo"
         tools:ignore="TextSizeCheck" />
-
 
     <TextView
         android:id="@+id/emergency_hotline"
@@ -50,20 +50,20 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/offline_mode"
+        app:layout_constraintStart_toStartOf="@+id/offline_mode"
         app:layout_constraintTop_toBottomOf="@+id/logo"
         tools:ignore="TextSizeCheck" />
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="250dp"
+        android:layout_width="350dp"
         android:layout_height="170dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/resqapplogo"
         tools:ignore="ContentDescription,VisualLintBounds" />
 
@@ -71,7 +71,6 @@
         android:id="@+id/next_page"
         android:layout_width="100dp"
         android:layout_height="35dp"
-        android:layout_marginTop="18dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/login_radius"
         android:fontFamily="@font/oswald_bold"
@@ -79,23 +78,18 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.967"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coast_text"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
     <ImageButton
         android:id="@+id/ambulance_button"
         android:layout_width="160dp"
         android:layout_height="147dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/offline_button"
         android:padding="15dp"
         android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/coastguard_button"
-        app:layout_constraintHorizontal_bias="0.769"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/logo"
         app:layout_constraintTop_toBottomOf="@+id/emergency_hotline"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
 
@@ -117,12 +111,11 @@
         android:layout_width="160dp"
         android:layout_height="147dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/offline_button"
         android:padding="15dp"
         android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.836"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/logo"
         app:layout_constraintTop_toBottomOf="@+id/emergency_hotline"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
 
@@ -134,9 +127,9 @@
         android:background="@drawable/offline_button"
         android:padding="15dp"
         android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/coastguard_button"
         app:layout_constraintHorizontal_bias="0.836"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/coastguard_button"
         app:layout_constraintTop_toBottomOf="@+id/police_text"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
 
@@ -148,9 +141,9 @@
         android:background="@drawable/offline_button"
         android:padding="15dp"
         android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/police_button"
-        app:layout_constraintHorizontal_bias="0.769"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ambulance_button"
         app:layout_constraintTop_toBottomOf="@+id/fire_text"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck,VisualLintBounds" />
 
@@ -204,12 +197,10 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/coast_text"
+        app:layout_constraintEnd_toEndOf="@+id/fire_text"
         app:layout_constraintHorizontal_bias="0.510"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fire_button"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/fire_text"
+        app:layout_constraintTop_toBottomOf="@+id/fire_button" />
 
     <TextView
         android:id="@+id/coast_text"
@@ -221,9 +212,9 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/coastguard_button"
         app:layout_constraintHorizontal_bias="0.775"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/coastguard_button"
         app:layout_constraintTop_toBottomOf="@+id/police_button" />
 
     <TextView
@@ -235,22 +226,22 @@
         android:text="@string/fire_department"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/police_text"
-        app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_button"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="@+id/ambulance_button"
         app:layout_constraintTop_toBottomOf="@+id/ambulance_button" />
 
     <TextView
         android:id="@+id/police_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
         android:fontFamily="@font/oswald"
         android:letterSpacing="0.05"
         android:text="@string/police_department"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/coastguard_button"
+        app:layout_constraintStart_toStartOf="@+id/coastguard_button"
         app:layout_constraintTop_toBottomOf="@+id/coastguard_button" />
 
 
