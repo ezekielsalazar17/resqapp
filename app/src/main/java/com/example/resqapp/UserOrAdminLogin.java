@@ -31,7 +31,7 @@ public class UserOrAdminLogin extends AppCompatActivity {
         });
 
         admin.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), Adminauthen.class));
+            startActivity(new Intent(getApplicationContext(), AdminLogin.class));
             finish();
         });
 

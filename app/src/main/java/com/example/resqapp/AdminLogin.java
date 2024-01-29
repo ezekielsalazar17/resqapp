@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,17 +23,22 @@ import android.widget.Toast;
 
 import com.example.resqapp.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AdminLogin extends AppCompatActivity {
 
     EditText email, password;
     Button login;
-    CheckBox rememberme;
+    CheckBox rememberme, fire, ambulance, police, coast;
     TextView createText, signup, forgotpass;
     FirebaseAuth fAuth;
+    FirebaseFirestore firestore;
     public static final String SHARED_PREFS = "sharedPrefs";
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
@@ -55,6 +61,56 @@ public class AdminLogin extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         forgotpass = findViewById(R.id.forgotpass);
         rememberme = findViewById(R.id.remember_me_checkbox);
+        fire = findViewById(R.id.fire_checkbox);
+        ambulance = findViewById(R.id.ambulance_checkbox);
+        police = findViewById(R.id.police_checkbox);
+        coast = findViewById(R.id.coastguard_checkbox);
+
+        fire.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(compoundButton.isChecked()){
+                    ambulance.setChecked(false);
+                    police.setChecked(false);
+                    coast.setChecked(false);
+                }
+            }
+        });
+
+        ambulance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(compoundButton.isChecked()){
+                    fire.setChecked(false);
+                    police.setChecked(false);
+                    coast.setChecked(false);
+                }
+            }
+        });
+
+        police.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(compoundButton.isChecked()){
+                    ambulance.setChecked(false);
+                    fire.setChecked(false);
+                    coast.setChecked(false);
+                }
+            }
+        });
+
+        coast.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(compoundButton.isChecked()){
+                    ambulance.setChecked(false);
+                    police.setChecked(false);
+                    fire.setChecked(false);
+                }
+            }
+        });
+
+
 
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember","");
@@ -99,6 +155,10 @@ public class AdminLogin extends AppCompatActivity {
                     Toast.makeText(AdminLogin.this, "Email and password are required", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (!(fire.isChecked() || police.isChecked() || ambulance.isChecked() || coast.isChecked())){
+                    Toast.makeText(AdminLogin.this, "Select the Account Type", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 fAuth.signInWithEmailAndPassword(userEmail, userPassword)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -106,9 +166,7 @@ public class AdminLogin extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(AdminLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), DashboardUser.class));
-                                    FirebaseAuth.getInstance().signOut();
-                                    finish();
+                                    checkUserAccessLevel(task.getResult().getUser().getUid());
                                 } else {
                                     Toast.makeText(AdminLogin.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -120,7 +178,7 @@ public class AdminLogin extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), UserRegister.class));
+                startActivity(new Intent(getApplicationContext(), AdminRegister.class));
             }
         });
 
@@ -128,6 +186,25 @@ public class AdminLogin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showPasswordResetDialog();
+            }
+        });
+    }
+
+    private void checkUserAccessLevel(String uid) {
+        DocumentReference df = firestore.collection("admins").document(uid);
+
+        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("TAG", "OnSucess" + documentSnapshot.getData());
+
+                String department = documentSnapshot.getString("Department");
+                if("Fire".equals(department) && fire.isChecked()){
+                    startActivity(new Intent(getApplicationContext(), DashboardFire.class));
+                } else {
+                    Toast.makeText(AdminLogin.this, "No account type Selected", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

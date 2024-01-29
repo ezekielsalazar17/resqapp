@@ -26,9 +26,6 @@
             android:name=".Adminauthen"
             android:exported="false" />
         <activity
-            android:name=".Utility.Adminauthen"
-            android:exported="false" />
-        <activity
             android:name=".Fireprofile"
             android:exported="false" />
         <activity
