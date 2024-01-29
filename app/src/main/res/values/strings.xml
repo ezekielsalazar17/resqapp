@@ -75,7 +75,7 @@
     <string name="coastguard_department1">COAST GUARD</string>
     <string name="fire_department1">FIRE</string>
     <string name="get_admin_location">Get Admin Location</string>
-    <string name="go_to_gmaps">Go To Google Maps</string>
+    <string name="go_to_gmaps">GOOGLE MAPS</string>
     <string name="ACCEPT">ACCEPT</string>
     <string name="email">EMAIL:</string>
     <string name="what_account_are_you_using">What account are you using?</string>
@@ -93,6 +93,7 @@
     <string name="contact_dev">Contact Developer for Admin Password</string>
     <string name="CHAT">CHAT</string>
     <string name="get_user_location">Get User Location\n</string>
+    <string name="done">DONE</string>
 
     <string-array name="department1">
         <item>Fire</item>

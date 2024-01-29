@@ -23,6 +23,15 @@
         tools:ignore="CoarseFineLocation"
         tools:targetApi="31">
         <activity
+            android:name=".DashboardCoastGuardDepartment"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardAmbulanceDepartment"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardPoliceDepartment"
+            android:exported="false" />
+        <activity
             android:name=".Adminauthen"
             android:exported="false" />
         <activity
