@@ -23,6 +23,15 @@
         tools:ignore="CoarseFineLocation"
         tools:targetApi="31">
         <activity
+            android:name=".Coastguardprofile"
+            android:exported="false" />
+        <activity
+            android:name=".Ambulanceprofile"
+            android:exported="false" />
+        <activity
+            android:name=".Policeprofile"
+            android:exported="false" />
+        <activity
             android:name=".DashboardCoastGuardDepartment"
             android:exported="false" />
         <activity
@@ -74,7 +83,7 @@
             android:name=".Ocr"
             android:exported="false" />
         <activity
-            android:name=".DashboardFire"
+            android:name=".DashboardFireDepartment"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -37,6 +38,7 @@ public class UserLogin extends AppCompatActivity {
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +49,7 @@ public class UserLogin extends AppCompatActivity {
 
         setContentView(R.layout.user_login);
 
-        email = findViewById(R.id.email1);
+        email = findViewById(R.id.emailuser);
         password = findViewById(R.id.pw1);
         login = findViewById(R.id.login_button);
         createText = findViewById(R.id.donthaveaccount);

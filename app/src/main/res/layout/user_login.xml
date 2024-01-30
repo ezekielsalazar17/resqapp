@@ -26,7 +26,7 @@
         tools:ignore="ContentDescription,ImageContrastCheck" />
 
     <EditText
-        android:id="@+id/email1"
+        android:id="@+id/emailuser"
         android:layout_width="205dp"
         android:layout_height="43dp"
         android:autofillHints=""

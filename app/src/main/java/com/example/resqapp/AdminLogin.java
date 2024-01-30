@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -23,7 +24,6 @@ import android.widget.Toast;
 
 import com.example.resqapp.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -44,6 +44,7 @@ public class AdminLogin extends AppCompatActivity {
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +55,7 @@ public class AdminLogin extends AppCompatActivity {
 
         setContentView(R.layout.admin_login);
 
-        email = findViewById(R.id.email1);
+        email = findViewById(R.id.emailadmin);
         password = findViewById(R.id.pw2);
         login = findViewById(R.id.login_button1);
         createText = findViewById(R.id.donthaveaccount);
@@ -113,15 +114,27 @@ public class AdminLogin extends AppCompatActivity {
 
 
 
-        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        /*SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember","");
-        if(checkbox.equals("true")){
-            Intent intent = new Intent(AdminLogin.this, DashboardUser.class);
+        if(checkbox.equals("true") && fire.equals(true)){
+            Intent intent = new Intent(AdminLogin.this, DashboardFireDepartment.class);
             startActivity(intent);
             finish();
 
-        } else if (checkbox.equals(false)) {
-            Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
+        } else if (checkbox.equals("true") && police.equals(true)){
+            Intent intent = new Intent(AdminLogin.this, DashboardPoliceDepartment.class);
+            startActivity(intent);
+            finish();
+        } else if (checkbox.equals("true") && ambulance.equals(true)) {
+            Intent intent = new Intent(AdminLogin.this, DashboardAmbulanceDepartment.class);
+            startActivity(intent);
+            finish();
+        } else if (checkbox.equals("true") && coast.equals(true)) {
+            Intent intent = new Intent(AdminLogin.this, DashboardCoastGuardDepartment.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(this, "No account saved", Toast.LENGTH_SHORT).show();
         }
 
         rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -143,7 +156,7 @@ public class AdminLogin extends AppCompatActivity {
 
                 }
             }
-        });
+        });*/
 
 
         login.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +205,7 @@ public class AdminLogin extends AppCompatActivity {
     }
 
     private void checkUserAccessLevel(String uid) {
+        firestore = FirebaseFirestore.getInstance();
         DocumentReference df = firestore.collection("admins").document(uid);
 
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -220,13 +234,17 @@ public class AdminLogin extends AppCompatActivity {
 
     private void handleDepartmentAccess(String department) {
         if (fire.isChecked() && "Fire".equals(department)) {
-            startActivity(new Intent(getApplicationContext(), DashboardFire.class));
+            startActivity(new Intent(getApplicationContext(), DashboardFireDepartment.class));
+            FirebaseAuth.getInstance().signOut();
         } else if (ambulance.isChecked() && "Ambulance".equals(department)) {
             startActivity(new Intent(getApplicationContext(), DashboardAmbulanceDepartment.class));
+            FirebaseAuth.getInstance().signOut();
         } else if (police.isChecked() && "Police".equals(department)) {
             startActivity(new Intent(getApplicationContext(), DashboardPoliceDepartment.class));
+            FirebaseAuth.getInstance().signOut();
         } else if (coast.isChecked() && "Coast Guard".equals(department)) {
             startActivity(new Intent(getApplicationContext(), DashboardCoastGuardDepartment.class));
+            FirebaseAuth.getInstance().signOut();
         } else {
             showToast("No matching department found");
         }
