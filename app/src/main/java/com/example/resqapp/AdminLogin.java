@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.resqapp.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -196,17 +197,43 @@ public class AdminLogin extends AppCompatActivity {
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d("TAG", "OnSucess" + documentSnapshot.getData());
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    Log.d("TAG", "onSuccess " + documentSnapshot.getData());
 
-                String department = documentSnapshot.getString("Department");
-                if("Fire".equals(department) && fire.isChecked()){
-                    startActivity(new Intent(getApplicationContext(), DashboardFire.class));
+                    String department = documentSnapshot.getString("Department");
+                    if (department != null && !department.isEmpty()) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                handleDepartmentAccess(department);
+                            }
+                        });
+                    } else {
+                        showToast("Department information not found");
+                    }
                 } else {
-                    Toast.makeText(AdminLogin.this, "No account type Selected", Toast.LENGTH_SHORT).show();
+                    showToast("User data not found");
                 }
-
             }
         });
+    }
+
+    private void handleDepartmentAccess(String department) {
+        if (fire.isChecked() && "Fire".equals(department)) {
+            startActivity(new Intent(getApplicationContext(), DashboardFire.class));
+        } else if (ambulance.isChecked() && "Ambulance".equals(department)) {
+            startActivity(new Intent(getApplicationContext(), DashboardAmbulanceDepartment.class));
+        } else if (police.isChecked() && "Police".equals(department)) {
+            startActivity(new Intent(getApplicationContext(), DashboardPoliceDepartment.class));
+        } else if (coast.isChecked() && "Coast Guard".equals(department)) {
+            startActivity(new Intent(getApplicationContext(), DashboardCoastGuardDepartment.class));
+        } else {
+            showToast("No matching department found");
+        }
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(AdminLogin.this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void showPasswordResetDialog() {
@@ -253,11 +280,5 @@ public class AdminLogin extends AppCompatActivity {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeListener, filter);
         super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        unregisterReceiver(networkChangeListener);
-        super.onStop();
     }
 }
