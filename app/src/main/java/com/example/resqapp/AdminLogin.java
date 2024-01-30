@@ -1,9 +1,5 @@
 package com.example.resqapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -21,9 +17,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.resqapp.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -114,37 +113,33 @@ public class AdminLogin extends AppCompatActivity {
 
 
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-        String checkbox = preferences.getString("remember","");
-        if(checkbox.equals("true")){
+        String checkbox = preferences.getString("remember", "");
+
+        if (checkbox.equals("true")) {
             Intent intent = new Intent(AdminLogin.this, DashboardUser.class);
             startActivity(intent);
             finish();
-
-        } else if (checkbox.equals(false)) {
+        } else {
             Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
         }
 
         rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(compoundButton.isChecked()){
-                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+
+                if (isChecked) {
                     editor.putString("remember", "true");
-                    editor.apply();
                     Toast.makeText(AdminLogin.this, "Checked", Toast.LENGTH_SHORT).show();
-
-                }else if(!compoundButton.isChecked()){
-                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
+                } else {
                     editor.putString("remember", "false");
-                    editor.apply();
                     Toast.makeText(AdminLogin.this, "Unchecked", Toast.LENGTH_SHORT).show();
-
                 }
+
+                editor.apply();
             }
         });
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,48 +187,28 @@ public class AdminLogin extends AppCompatActivity {
     }
 
     private void checkUserAccessLevel(String uid) {
+        firestore = FirebaseFirestore.getInstance();
         DocumentReference df = firestore.collection("admins").document(uid);
 
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot != null && documentSnapshot.exists()) {
-                    Log.d("TAG", "onSuccess " + documentSnapshot.getData());
+                Log.d("TAG", "onSucess" + documentSnapshot.getData());
 
-                    String department = documentSnapshot.getString("Department");
-                    if (department != null && !department.isEmpty()) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                handleDepartmentAccess(department);
-                            }
-                        });
-                    } else {
-                        showToast("Department information not found");
-                    }
+                String department = documentSnapshot.getString("Department");
+                if("Fire".equals(department) && fire.isChecked()){
+                    startActivity(new Intent(getApplicationContext(), DashboardFire.class));
+                } else if ("Ambulance".equals(department) && ambulance.isChecked()){
+                    startActivity(new Intent(getApplicationContext(), DashboardAmbulanceDepartment.class));
+                } else if ("Police".equals(department) && police.isChecked()) {
+                    startActivity(new Intent(getApplicationContext(), DashboardPoliceDepartment.class));
+                } else if ("Coast Guard".equals(department) && coast.isChecked()) {
+                    startActivity(new Intent(getApplicationContext(), DashboardCoastGuardDepartment.class));
                 } else {
-                    showToast("User data not found");
+                    Toast.makeText(AdminLogin.this, "No account type Selected", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
-
-    private void handleDepartmentAccess(String department) {
-        if (fire.isChecked() && "Fire".equals(department)) {
-            startActivity(new Intent(getApplicationContext(), DashboardFire.class));
-        } else if (ambulance.isChecked() && "Ambulance".equals(department)) {
-            startActivity(new Intent(getApplicationContext(), DashboardAmbulanceDepartment.class));
-        } else if (police.isChecked() && "Police".equals(department)) {
-            startActivity(new Intent(getApplicationContext(), DashboardPoliceDepartment.class));
-        } else if (coast.isChecked() && "Coast Guard".equals(department)) {
-            startActivity(new Intent(getApplicationContext(), DashboardCoastGuardDepartment.class));
-        } else {
-            showToast("No matching department found");
-        }
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(AdminLogin.this, message, Toast.LENGTH_SHORT).show();
     }
 
     private void showPasswordResetDialog() {
