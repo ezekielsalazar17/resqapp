@@ -31,7 +31,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
 
         setContentView(R.layout.dashboardfiredepartment);
 
-        email = findViewById(R.id.email1);
+        email = findViewById(R.id.fire_email1);
          fAuth = FirebaseAuth.getInstance();
          fStore = FirebaseFirestore.getInstance();
          Profile = findViewById(R.id.adminprofile);

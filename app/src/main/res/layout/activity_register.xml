@@ -177,7 +177,7 @@
         tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
     <TextView
-        android:id="@+id/email1"
+        android:id="@+id/fire_email1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/oswald"
@@ -231,9 +231,9 @@
         android:text="@string/first_name"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/email1"
+        app:layout_constraintEnd_toEndOf="@+id/fire_email1"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/email1"
+        app:layout_constraintStart_toStartOf="@+id/fire_email1"
         app:layout_constraintTop_toBottomOf="@+id/useremail1" />
 
 

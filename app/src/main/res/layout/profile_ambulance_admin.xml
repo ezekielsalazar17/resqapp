@@ -144,7 +144,7 @@
                 tools:ignore="TextSizeCheck">
 
                 <TextView
-                    android:id="@+id/name_profile"
+                    android:id="@+id/fire_name_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/oswald_bold"
@@ -192,7 +192,7 @@
                     tools:ignore="VisualLintOverlap" />
 
                 <TextView
-                    android:id="@+id/id_num1"
+                    android:id="@+id/fire_id_num1"
                     android:layout_width="157dp"
                     android:layout_height="25dp"
                     android:fontFamily="@font/oswald_light"
@@ -248,7 +248,7 @@
                     tools:ignore="VisualLintOverlap" />
 
                 <TextView
-                    android:id="@+id/email1"
+                    android:id="@+id/fire_email1"
                     android:layout_width="190dp"
                     android:layout_height="25dp"
                     android:fontFamily="@font/oswald_light"
@@ -275,7 +275,7 @@
                     tools:ignore="VisualLintOverlap" />
 
                 <TextView
-                    android:id="@+id/department1"
+                    android:id="@+id/fire_department1"
                     android:layout_width="150dp"
                     android:layout_height="25dp"
                     android:fontFamily="@font/oswald_light"

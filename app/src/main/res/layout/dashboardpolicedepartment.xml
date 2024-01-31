@@ -118,7 +118,7 @@
                             android:fontFamily="@font/oswald_light"
                             tools:ignore="RtlSymmetry,VisualLintOverlap" />
                         <TextView
-                            android:id="@+id/email1"
+                            android:id="@+id/fire_email1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="48dp"
