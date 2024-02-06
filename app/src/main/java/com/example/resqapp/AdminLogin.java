@@ -1,9 +1,5 @@
 package com.example.resqapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +16,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.resqapp.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -234,16 +234,12 @@ public class AdminLogin extends AppCompatActivity {
     private void handleDepartmentAccess(String department) {
         if (fire.isChecked() && "Fire".equals(department)) {
             startActivity(new Intent(getApplicationContext(), DashboardFireDepartment.class));
-            FirebaseAuth.getInstance().signOut();
         } else if (ambulance.isChecked() && "Ambulance".equals(department)) {
             startActivity(new Intent(getApplicationContext(), DashboardAmbulanceDepartment.class));
-            FirebaseAuth.getInstance().signOut();
         } else if (police.isChecked() && "Police".equals(department)) {
             startActivity(new Intent(getApplicationContext(), DashboardPoliceDepartment.class));
-            FirebaseAuth.getInstance().signOut();
         } else if (coast.isChecked() && "Coast Guard".equals(department)) {
             startActivity(new Intent(getApplicationContext(), DashboardCoastGuardDepartment.class));
-            FirebaseAuth.getInstance().signOut();
         } else {
             showToast("No matching department found");
         }
