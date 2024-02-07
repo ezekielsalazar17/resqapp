@@ -82,7 +82,8 @@ public class UserRegister extends AppCompatActivity {
                 String email = Email.getText().toString().trim();
                 String password = Password.getText().toString().trim();
                 String number = Number.getText().toString().trim();
-
+                String latitude = " ";
+                String longitude = " ";
 
                 if(TextUtils.isEmpty(email)){
                     Email.setError("Email is Required ");
@@ -116,6 +117,8 @@ public class UserRegister extends AppCompatActivity {
                             user.put("Email", email);
                             user.put("Password", password);
                             user.put("Contact Number", number);
+                            user.put("Latitude", latitude);
+                            user.put("Longitude", longitude);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

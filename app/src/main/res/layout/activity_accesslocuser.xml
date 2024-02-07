@@ -10,15 +10,28 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Location"
+        android:hint="Latitude"
         android:textSize="20sp"
-        android:id="@+id/show_location"
+        android:id="@+id/show_latitude"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Longitude"
+        android:textSize="20sp"
+        android:id="@+id/show_longitude"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Location"
-        android:id="@+id/getLocation"
+        android:text="Send Location"
+        android:id="@+id/sendLocation"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GET LOCATION"
+        android:id="@+id/showLocation"
         />
 
     <androidx.fragment.app.FragmentContainerView

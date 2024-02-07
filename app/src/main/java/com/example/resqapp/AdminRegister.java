@@ -87,7 +87,6 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
                 String number = Number.getText().toString().trim();
                 String department = spinner.getSelectedItem().toString().trim();
 
-
                 if(TextUtils.isEmpty(email)){
                     Email.setError("Email is Required ");
                     return;
