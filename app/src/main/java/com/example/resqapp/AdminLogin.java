@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -113,7 +114,9 @@ public class AdminLogin extends AppCompatActivity {
 
 
 
-        /*SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+
+
         String checkbox = preferences.getString("remember","");
         if(checkbox.equals("true") && fire.equals(true)){
             Intent intent = new Intent(AdminLogin.this, DashboardFireDepartment.class);
@@ -155,7 +158,7 @@ public class AdminLogin extends AppCompatActivity {
 
                 }
             }
-        });*/
+        });
 
 
         login.setOnClickListener(new View.OnClickListener() {
