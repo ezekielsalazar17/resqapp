@@ -24,7 +24,7 @@
 
 
     <TextView
-        android:id="@+id/Admin2"
+        android:id="@+id/USER"
         android:layout_width="110dp"
         android:layout_height="40dp"
         android:layout_marginTop="28dp"
@@ -41,13 +41,13 @@
         tools:ignore="RtlSymmetry,TextSizeCheck" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/previewimage"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Admin2"
+        app:layout_constraintTop_toBottomOf="@+id/USER"
         app:srcCompat="@drawable/profile_final"
         tools:ignore="ContentDescription" />
 
@@ -61,9 +61,9 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
+        app:layout_constraintTop_toBottomOf="@+id/previewimage"
         tools:ignore="VisualLintOverlap" />
 
     <TextView
@@ -75,9 +75,9 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/user_name_profile" />
 
     <ImageButton
@@ -86,9 +86,9 @@
         android:layout_height="20dp"
         android:background="@drawable/baseline_edit_24"
         app:layout_constraintBottom_toBottomOf="@+id/user_contact_number"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.699"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/user_name_profile"
         app:layout_constraintVertical_bias="0.8"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -103,14 +103,14 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.095"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/user_contact_number"
         tools:ignore="VisualLintOverlap" />
 
     <TextView
-        android:id="@+id/fire_id_num1"
+        android:id="@+id/useridnum"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
 
@@ -120,7 +120,7 @@
         android:textAlignment="textStart"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.074"
         app:layout_constraintStart_toEndOf="@+id/id_num"
         app:layout_constraintTop_toBottomOf="@+id/user_contact_number" />
@@ -135,14 +135,14 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/id_num"
         tools:ignore="VisualLintOverlap" />
 
     <TextView
-        android:id="@+id/id_pres1"
+        android:id="@+id/idshow"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginTop="4dp"
@@ -150,10 +150,10 @@
         android:textAlignment="textStart"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.074"
         app:layout_constraintStart_toEndOf="@+id/id_pres"
-        app:layout_constraintTop_toBottomOf="@+id/fire_id_num1"
+        app:layout_constraintTop_toBottomOf="@+id/useridnum"
         tools:ignore="VisualLintOverlap" />
 
     <TextView
@@ -166,9 +166,9 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.137"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/usernum"
         tools:ignore="VisualLintOverlap" />
 
@@ -182,9 +182,9 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.193"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/birthday"
         tools:ignore="VisualLintOverlap" />
 
@@ -197,7 +197,7 @@
         android:textAlignment="textStart"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toEndOf="@+id/user_email"
         app:layout_constraintTop_toBottomOf="@+id/user_birthday1"
@@ -213,7 +213,7 @@
         android:textAlignment="textStart"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/birthday"
         app:layout_constraintTop_toBottomOf="@+id/user_number1"
@@ -229,9 +229,9 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.06"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/id_pres"
         tools:ignore="VisualLintOverlap" />
 
@@ -244,10 +244,10 @@
         android:textAlignment="textStart"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toEndOf="@+id/usernum"
-        app:layout_constraintTop_toBottomOf="@+id/id_pres1"
+        app:layout_constraintTop_toBottomOf="@+id/idshow"
         tools:ignore="VisualLintOverlap" />
 
     <Button
@@ -263,9 +263,9 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.014"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/birthday" />
 
     <Button
@@ -280,23 +280,23 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintStart_toEndOf="@+id/sign_out"
         app:layout_constraintTop_toTopOf="@+id/sign_out"
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
+        android:id="@+id/selectimg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
         app:fabSize="mini"
         android:clickable="true"
         app:layout_constraintBottom_toTopOf="@+id/user_name_profile"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.74"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/Admin2"
+        app:layout_constraintStart_toStartOf="@+id/previewimage"
+        app:layout_constraintTop_toBottomOf="@+id/USER"
         app:layout_constraintVertical_bias="0.87"
         app:srcCompat="@drawable/baseline_camera_alt_24" />
 

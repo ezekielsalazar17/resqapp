@@ -40,6 +40,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.8.1")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("com.google.firebase:firebase-database:20.3.0")
+    implementation("com.google.android.gms:play-services-cast-framework:21.4.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -51,4 +52,6 @@ dependencies {
     implementation("com.google.firebase:firebase-core:21.1.1")
     implementation("com.google.firebase:firebase-ml-vision:15.0.0")
     implementation("com.android.volley:volley:1.2.0")
+    implementation("com.squareup.picasso:picasso:2.5.2")
+    implementation ("com.github.dhaval2404:imagepicker:2.1")
 }

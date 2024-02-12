@@ -58,7 +58,7 @@ public class UserLogin extends AppCompatActivity {
         forgotpass = findViewById(R.id.forgotpass);
         rememberme = findViewById(R.id.remember_me_checkbox);
 
-        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        /*SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember","");
         if(checkbox.equals("true")){
             Intent intent = new Intent(UserLogin.this, DashboardUser.class);
@@ -67,7 +67,7 @@ public class UserLogin extends AppCompatActivity {
 
         } else if (checkbox.equals(false)) {
             Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

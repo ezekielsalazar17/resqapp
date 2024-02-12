@@ -32,7 +32,7 @@ import java.util.Map;
 public class UserRegister extends AppCompatActivity {
 
     public static final String TAG = "TAG";
-    EditText Email, Number, Password, Conpass;
+    EditText Email, Number, Password, Conpass, Fname, Lname;
 
     Button RegisterBtn;
 
@@ -61,6 +61,8 @@ public class UserRegister extends AppCompatActivity {
         Password = findViewById(R.id.userpass1);
         Conpass = findViewById(R.id.userconpass1);
         RegisterBtn = findViewById(R.id.register);
+        Fname = findViewById(R.id.fname1);
+        Lname = findViewById(R.id.lname1);
         Id = findViewById(R.id.ocrid);
 
         fAuth = FirebaseAuth.getInstance();
@@ -82,6 +84,8 @@ public class UserRegister extends AppCompatActivity {
                 String email = Email.getText().toString().trim();
                 String password = Password.getText().toString().trim();
                 String number = Number.getText().toString().trim();
+                String fname = Fname.getText().toString().trim();
+                String lname = Lname.getText().toString().trim();
                 String latitude = " ";
                 String longitude = " ";
                 String address = " ";
@@ -116,6 +120,8 @@ public class UserRegister extends AppCompatActivity {
                             Map<String, Object> user = new HashMap<>();
 
                             user.put("Email", email);
+                            user.put("First Name", fname);
+                            user.put("Last Name", lname);
                             user.put("Password", password);
                             user.put("Contact Number", number);
                             user.put("Latitude", latitude);
@@ -133,7 +139,6 @@ public class UserRegister extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
-                            FirebaseAuth.getInstance().signOut();
                             startActivity(new Intent(getApplicationContext(), UserLogin.class));
                         }else{
                             Toast.makeText(UserRegister.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
