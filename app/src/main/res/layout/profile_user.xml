@@ -89,27 +89,25 @@
                     tools:ignore="VisualLintBounds">
 
                     <ImageView
-                        android:id="@+id/imageView5"
+                        android:id="@+id/selectimg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/profile_final"
                         tools:ignore="ContentDescription" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        app:srcCompat="@drawable/baseline_camera_alt_24" />
 
 
                 </androidx.cardview.widget.CardView>
 
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/profile_change"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="183dp"
-                android:layout_marginTop="175dp"
-                android:background="@drawable/profile_border"
-                android:drawableTop="@drawable/baseline_camera_alt_24"
-                android:padding="3.5dp"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
