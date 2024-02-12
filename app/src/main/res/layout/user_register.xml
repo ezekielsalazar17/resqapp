@@ -26,9 +26,9 @@
         android:id="@+id/imageView"
         android:layout_width="280dp"
         android:layout_height="165dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/resqapplogo"
@@ -111,7 +111,7 @@
         android:id="@+id/register"
         android:layout_width="260dp"
         android:layout_height="38dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/red_border"
         android:hint="@string/register"
         android:letterSpacing="0.4"
@@ -119,7 +119,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/contactuser2"
         app:layout_constraintStart_toStartOf="@+id/contactuser2"
-        app:layout_constraintTop_toBottomOf="@+id/contactuser2"
+        app:layout_constraintTop_toBottomOf="@+id/birthday1"
         tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
@@ -250,6 +250,41 @@
         app:layout_constraintStart_toStartOf="@+id/userconpass"
         app:layout_constraintTop_toBottomOf="@+id/userconpass1" />
 
+
+    <TextView
+        android:id="@+id/birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:text="@string/birthday1"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/contactuser1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/contactuser1"
+        app:layout_constraintTop_toBottomOf="@+id/contactuser2" />
+
+    <EditText
+        android:id="@+id/birthday1"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/border"
+        android:ems="10"
+        android:fontFamily="@font/oswald_light"
+        android:hint="@string/birthday1"
+        android:inputType="date"
+        android:letterSpacing="0.09"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/contactuser2"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="@+id/contactuser2"
+        app:layout_constraintTop_toBottomOf="@+id/birthday"
+        tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
+
     <TextView
         android:id="@+id/id"
         android:layout_width="wrap_content"
@@ -300,6 +335,7 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />

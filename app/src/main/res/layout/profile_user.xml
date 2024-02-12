@@ -290,15 +290,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/black"
-        app:fabSize="mini"
         android:clickable="true"
+        app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@+id/user_name_profile"
         app:layout_constraintEnd_toEndOf="@+id/previewimage"
         app:layout_constraintHorizontal_bias="0.74"
         app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/USER"
         app:layout_constraintVertical_bias="0.87"
-        app:srcCompat="@drawable/baseline_camera_alt_24" />
+        app:srcCompat="@drawable/baseline_camera_alt_24"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

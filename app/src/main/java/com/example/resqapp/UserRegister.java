@@ -54,7 +54,7 @@ public class UserRegister extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.user_register);
 
         Email = findViewById(R.id.useremail1);
         Number = findViewById(R.id.contactuser2);

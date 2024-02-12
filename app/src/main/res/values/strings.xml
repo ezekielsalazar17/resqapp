@@ -31,6 +31,7 @@
     <string name="id_presented_philhealth">ID Presented: </string>
     <string name="user_number">User Number: </string>
     <string name="birthday">Birthday: </string>
+    <string name="birthday1">Birthday </string>
     <string name="edit_profile">Edit Profile</string>
     <string name="save">SAVE</string>
     <string name="settings">Settings</string>
