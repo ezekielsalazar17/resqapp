@@ -45,6 +45,7 @@ public class UserProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_user);
+        getSupportActionBar().hide();
 
         name = findViewById(R.id.user_name_profile);
         unumber = findViewById(R.id.user_contact_number);
@@ -90,7 +91,9 @@ public class UserProfile extends AppCompatActivity {
                 }
 
                 if (documentSnapshot != null && documentSnapshot.exists()) {
-                    String fullname = documentSnapshot.getString("First Name "+ "Last Name");
+                    String firstName = documentSnapshot.getString("First Name");
+                    String lastName = documentSnapshot.getString("Last Name");
+                    String fullname = firstName + " " + lastName;
                     String unum = documentSnapshot.getString("Contact Number");
                     String bday1 = documentSnapshot.getString("Birthday");
                     String email1 = documentSnapshot.getString("Email");

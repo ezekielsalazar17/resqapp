@@ -32,7 +32,7 @@ import java.util.Map;
 public class UserRegister extends AppCompatActivity {
 
     public static final String TAG = "TAG";
-    EditText Email, Number, Password, Conpass, Fname, Lname;
+    EditText Email, Number, Password, Conpass, Fname, Lname, Bday;
 
     Button RegisterBtn;
 
@@ -63,6 +63,8 @@ public class UserRegister extends AppCompatActivity {
         RegisterBtn = findViewById(R.id.register);
         Fname = findViewById(R.id.fname1);
         Lname = findViewById(R.id.lname1);
+        Bday = findViewById(R.id.birthday1);
+
         Id = findViewById(R.id.ocrid);
 
         fAuth = FirebaseAuth.getInstance();
@@ -86,6 +88,7 @@ public class UserRegister extends AppCompatActivity {
                 String number = Number.getText().toString().trim();
                 String fname = Fname.getText().toString().trim();
                 String lname = Lname.getText().toString().trim();
+                String bday = Bday.getText().toString().trim();
                 String latitude = " ";
                 String longitude = " ";
                 String address = " ";
@@ -127,6 +130,7 @@ public class UserRegister extends AppCompatActivity {
                             user.put("Latitude", latitude);
                             user.put("Longitude", longitude);
                             user.put("Address",address);
+                            user.put("Birthday",bday);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

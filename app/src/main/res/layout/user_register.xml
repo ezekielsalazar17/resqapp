@@ -272,7 +272,7 @@
         android:background="@drawable/border"
         android:ems="10"
         android:fontFamily="@font/oswald_light"
-        android:hint="@string/birthday1"
+        android:hint="@string/mm_dd_yyyy"
         android:inputType="date"
         android:letterSpacing="0.09"
         android:paddingStart="10sp"
