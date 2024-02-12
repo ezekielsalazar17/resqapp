@@ -80,7 +80,7 @@ public class UserProfile extends AppCompatActivity {
 
     }
     private void fetchUserData(String userID) {
-        DocumentReference documentReference = fStore.collection("admins").document(userID);
+        DocumentReference documentReference = fStore.collection("users").document(userID);
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
@@ -90,7 +90,6 @@ public class UserProfile extends AppCompatActivity {
                 }
 
                 if (documentSnapshot != null && documentSnapshot.exists()) {
-                    // Data retrieved, update UI
                     String fullname = documentSnapshot.getString("First Name "+ "Last Name");
                     String unum = documentSnapshot.getString("Contact Number");
                     String bday1 = documentSnapshot.getString("Birthday");
