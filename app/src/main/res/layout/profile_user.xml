@@ -1,331 +1,305 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FAFAFA"
     tools:context=".DashboardUser">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:background="#15224B"
-        >
 
-        <Button
-            android:id="@+id/back_button"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/border_radius"
-            android:drawableStart="@drawable/baseline_arrow_back_24"
-            android:padding="7dp"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="120dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="95dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/oswald_bold"
-            android:letterSpacing="0.03"
-            android:paddingStart="23dp"
-            android:paddingTop="5dp"
-            android:text="@string/profile"
-            android:textColor="#FAFAFA"
-            android:textSize="20sp"
-            tools:ignore="RtlSymmetry,TextSizeCheck" />
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/border_radius"
+        android:drawableStart="@drawable/baseline_arrow_back_24"
+        android:padding="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
 
 
+    <TextView
+        android:id="@+id/Admin2"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/oswald_bold"
+        android:letterSpacing="0.03"
+        android:paddingStart="23dp"
+        android:text="USER"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.435"
+        app:layout_constraintStart_toEndOf="@+id/back_button"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry,TextSizeCheck" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:orientation="horizontal"
-        android:background="#15224B"
-        >
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
-            android:layout_width="240dp"
-            android:layout_height="240dp"
-            android:layout_marginStart="85dp"
-            android:layout_marginEnd="84dp"
-            app:cardBackgroundColor="#15224B"
-            app:cardElevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_button"
-            tools:ignore="VisualLintBounds">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:layout_width="210dp"
-                android:layout_height="210dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
-                app:cardBackgroundColor="#F00D0D"
-                app:cardCornerRadius="100dp">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="211dp"
-                    android:layout_height="211dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    app:cardBackgroundColor="#FAFAFA"
-                    app:cardCornerRadius="100dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.459"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent"
-                    tools:ignore="VisualLintBounds">
-
-                    <ImageView
-                        android:id="@+id/selectimg"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/profile_final"
-                        tools:ignore="ContentDescription" />
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/floatingActionButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        app:srcCompat="@drawable/baseline_camera_alt_24" />
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Admin2"
+        app:srcCompat="@drawable/profile_final"
+        tools:ignore="ContentDescription" />
 
 
-                </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/user_name_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald_bold"
+        android:text="Name"
+        android:textAlignment="center"
+        android:textColor="#15224B"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        tools:ignore="VisualLintOverlap" />
 
-            </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/user_contact_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald_light"
+        android:text="Contact Number"
+        android:textAlignment="center"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_profile" />
 
-        </androidx.cardview.widget.CardView>
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/baseline_edit_24"
+        app:layout_constraintBottom_toBottomOf="@+id/user_contact_number"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.699"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_profile"
+        app:layout_constraintVertical_bias="0.8"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/id_num"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/oswald_light"
+        android:text="@string/id_number_123123"
+        android:textAlignment="center"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/user_contact_number"
+        tools:ignore="VisualLintOverlap" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:orientation="horizontal"
-        tools:ignore="VisualLintBounds">
+    <TextView
+        android:id="@+id/fire_id_num1"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="250dp"
-            android:layout_height="330dp"
-            android:layout_marginStart="85dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="112dp"
-            app:cardBackgroundColor="#15224B"
-            app:cardCornerRadius="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView2">
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/oswald_light"
+        android:paddingBottom="1dp"
+        android:textAlignment="textStart"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toEndOf="@+id/id_num"
+        app:layout_constraintTop_toBottomOf="@+id/user_contact_number" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="240dp"
-                android:layout_height="320dp"
-                android:layout_marginVertical="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                app:cardBackgroundColor="#FAFAFA"
-                app:cardCornerRadius="15dp"
-                tools:ignore="TextSizeCheck">
+    <TextView
+        android:id="@+id/id_pres"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/oswald_light"
+        android:text="@string/id_presented_philhealth"
+        android:textAlignment="center"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/id_num"
+        tools:ignore="VisualLintOverlap" />
 
-                <TextView
-                    android:id="@+id/fire_name_profile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/oswald_bold"
-                    android:layout_marginTop="18dp"
-                    android:text="@string/juan_dela_cruz1"
-                    android:textAlignment="center"
-                    android:textColor="#15224B"
-                    android:textSize="25sp"
-                    tools:ignore="VisualLintOverlap" />
+    <TextView
+        android:id="@+id/id_pres1"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/oswald_light"
+        android:textAlignment="textStart"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toEndOf="@+id/id_pres"
+        app:layout_constraintTop_toBottomOf="@+id/fire_id_num1"
+        tools:ignore="VisualLintOverlap" />
 
-                <TextView
-                    android:id="@+id/contact_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/oswald_light"
-                    android:layout_marginTop="49dp"
-                    android:text="@string/_09123456789"
-                    android:textAlignment="center"
-                    android:textColor="#15224B"
-                    android:textSize="18sp"
-                    tools:ignore="TextContrastCheck,VisualLintOverlap"
-                    />
+    <TextView
+        android:id="@+id/birthday"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/oswald_light"
+        android:text="@string/birthday"
+        android:textAlignment="center"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/usernum"
+        tools:ignore="VisualLintOverlap" />
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="169dp"
-                    android:layout_marginTop="55dp"
-                    android:background="@drawable/baseline_edit_24"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+    <TextView
+        android:id="@+id/user_email"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/oswald_light"
+        android:text="@string/user_email"
+        android:textAlignment="center"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/birthday"
+        tools:ignore="VisualLintOverlap" />
 
-                <TextView
-                    android:id="@+id/id_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:fontFamily="@font/oswald_light"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="128dp"
-                    android:layout_marginEnd="110dp"
-                    android:text="@string/id_number_123123"
-                    android:textAlignment="center"
-                    android:textColor="#15224B"
-                    android:textSize="18sp"
-                    tools:ignore="VisualLintOverlap" />
+    <TextView
+        android:id="@+id/user_email1"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/oswald_light"
+        android:textAlignment="textStart"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toEndOf="@+id/user_email"
+        app:layout_constraintTop_toBottomOf="@+id/user_birthday1"
+        tools:ignore="VisualLintOverlap" />
 
-                <TextView
-                    android:id="@+id/fire_id_num1"
-                    android:layout_width="157dp"
-                    android:layout_height="25dp"
-                    android:fontFamily="@font/oswald_light"
-                    android:layout_marginStart="83dp"
-                    android:layout_marginTop="128dp"
-                    android:layout_marginEnd="110dp"
-                    android:paddingBottom="1dp"
-                    android:textAlignment="textStart"
-                    android:textColor="#15224B"
-                    android:textSize="18sp"
-                    tools:ignore="VisualLintOverlap" />
+    <TextView
+        android:id="@+id/user_birthday1"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/oswald_light"
+        android:textAlignment="textStart"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/birthday"
+        app:layout_constraintTop_toBottomOf="@+id/user_number1"
+        tools:ignore="VisualLintOverlap" />
 
-                <TextView
-                    android:id="@+id/id_pres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:fontFamily="@font/oswald_light"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="152dp"
-                    android:layout_marginEnd="80dp"
-                    android:layout_marginBottom="1dp"
-                    android:text="@string/id_presented_philhealth"
-                    android:textAlignment="center"
-                    android:textColor="#15224B"
-                    android:textSize="18sp"
-                    tools:ignore="VisualLintOverlap" />
+    <TextView
+        android:id="@+id/usernum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/oswald_light"
+        android:text="@string/user_number"
+        android:textAlignment="center"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/id_pres"
+        tools:ignore="VisualLintOverlap" />
 
-                <TextView
-                    android:id="@+id/id_pres1"
-                    android:layout_width="147dp"
-                    android:layout_height="25dp"
-                    android:fontFamily="@font/oswald_light"
-                    android:layout_marginStart="92dp"
-                    android:layout_marginTop="152dp"
-                    android:layout_marginEnd="110dp"
-                    android:textAlignment="textStart"
-                    android:textColor="#15224B"
-                    android:textSize="18sp"
-                    tools:ignore="VisualLintOverlap" />
+    <TextView
+        android:id="@+id/user_number1"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/oswald_light"
+        android:textAlignment="textStart"
+        android:textColor="#15224B"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toEndOf="@+id/usernum"
+        app:layout_constraintTop_toBottomOf="@+id/id_pres1"
+        tools:ignore="VisualLintOverlap" />
 
-                <TextView
-                    android:id="@+id/user_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/oswald_light"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="172dp"
-                    android:layout_marginEnd="80dp"
-                    android:text="@string/user_number"
-                    android:textAlignment="center"
-                    android:textColor="#15224B"
-                    android:textSize="18sp"
-                    tools:ignore="VisualLintOverlap" />
+    <Button
+        android:id="@+id/sign_out"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="136dp"
+        android:background="@drawable/sign_out"
+        android:fontFamily="@font/oswald"
+        android:padding="10dp"
+        android:text="@string/sign_out"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/birthday" />
 
-                <TextView
-                    android:id="@+id/user_number1"
-                    android:layout_width="143dp"
-                    android:layout_height="25dp"
-                    android:fontFamily="@font/oswald_light"
-                    android:layout_marginStart="95dp"
-                    android:layout_marginTop="172dp"
-                    android:layout_marginEnd="110dp"
-                    android:textAlignment="textStart"
-                    android:textColor="#15224B"
-                    android:textSize="18sp"
-                    tools:ignore="VisualLintOverlap" />
+    <Button
+        android:id="@+id/about_us"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
+        android:background="@drawable/sign_out"
+        android:fontFamily="@font/oswald"
+        android:padding="10dp"
+        android:text="@string/about_us"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toEndOf="@+id/sign_out"
+        app:layout_constraintTop_toTopOf="@+id/sign_out"
+        tools:ignore="TouchTargetSizeCheck" />
 
-                <TextView
-                    android:id="@+id/birthday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:fontFamily="@font/oswald_light"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="194dp"
-                    android:layout_marginEnd="70dp"
-                    android:text="@string/birthday"
-                    android:textAlignment="center"
-                    android:textColor="#15224B"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/birthday1"
-                    android:layout_width="170dp"
-                    android:layout_height="25dp"
-                    android:fontFamily="@font/oswald_light"
-                    android:layout_marginStart="68dp"
-                    android:layout_marginTop="194dp"
-                    android:layout_marginEnd="110dp"
-                    android:textAlignment="textStart"
-                    android:textColor="#15224B"
-                    android:textSize="18sp"
-                    tools:ignore="VisualLintOverlap" />
-
-            </androidx.cardview.widget.CardView>
-        </androidx.cardview.widget.CardView>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="410dp"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        app:fabSize="mini"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/user_name_profile"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.74"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/Admin2"
+        app:layout_constraintVertical_bias="0.87"
+        app:srcCompat="@drawable/baseline_camera_alt_24" />
 
 
-        <Button
-            android:id="@+id/logoutuser"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="145dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/sign_out"
-            android:padding="10dp"
-            android:fontFamily="@font/oswald"
-            android:text="@string/sign_out"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="15sp" />
-
-        <Button
-            android:id="@+id/about_us"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="145dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/sign_out"
-            android:padding="10dp"
-            android:fontFamily="@font/oswald"
-            android:text="@string/about_us"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck" />
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
