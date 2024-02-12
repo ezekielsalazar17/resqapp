@@ -10,16 +10,23 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Latitude"
+        android:hint="Latitude: "
         android:textSize="20sp"
         android:id="@+id/show_latitude"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Longitude"
+        android:hint="Longitude: "
         android:textSize="20sp"
         android:id="@+id/show_longitude"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address: "
+        android:textSize="20sp"
+        android:id="@+id/show_address"
         />
     <Button
         android:layout_width="match_parent"

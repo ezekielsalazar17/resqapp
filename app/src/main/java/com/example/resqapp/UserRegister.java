@@ -1,8 +1,5 @@
 package com.example.resqapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -84,6 +84,7 @@ public class UserRegister extends AppCompatActivity {
                 String number = Number.getText().toString().trim();
                 String latitude = " ";
                 String longitude = " ";
+                String address = " ";
 
                 if(TextUtils.isEmpty(email)){
                     Email.setError("Email is Required ");
@@ -119,10 +120,12 @@ public class UserRegister extends AppCompatActivity {
                             user.put("Contact Number", number);
                             user.put("Latitude", latitude);
                             user.put("Longitude", longitude);
+                            user.put("Address",address);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -130,6 +133,7 @@ public class UserRegister extends AppCompatActivity {
                                     Log.d(TAG, "onFailure: " + e.toString());
                                 }
                             });
+                            FirebaseAuth.getInstance().signOut();
                             startActivity(new Intent(getApplicationContext(), UserLogin.class));
                         }else{
                             Toast.makeText(UserRegister.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

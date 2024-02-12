@@ -1,9 +1,5 @@
 package com.example.resqapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +16,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.resqapp.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -109,7 +109,6 @@ public class UserLogin extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(UserLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(getApplicationContext(), DashboardUser.class));
-                                    FirebaseAuth.getInstance().signOut();
                                     finish();
                                 } else {
                                     Toast.makeText(UserLogin.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
