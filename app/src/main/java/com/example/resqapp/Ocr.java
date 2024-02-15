@@ -1,5 +1,6 @@
 package com.example.resqapp;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -35,10 +38,16 @@ public class Ocr extends AppCompatActivity {
     StorageReference storageReference;
     private Bitmap imageBitmap;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ocr);
+
+        if (! Python.isStarted()) {
+            Python.start(new AndroidPlatform(this));
+        }
+
         buttonUpload = findViewById(R.id.upload);
         buttonCapture = findViewById(R.id.capture);
         ocrconverted = findViewById(R.id.ocrconverted);
@@ -46,6 +55,7 @@ public class Ocr extends AppCompatActivity {
 
         firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
+
 
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override

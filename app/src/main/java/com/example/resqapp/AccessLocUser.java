@@ -57,6 +57,7 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
         FirebaseApp.initializeApp(this);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
         lat = findViewById(R.id.show_latitude);
         longi = findViewById(R.id.show_longitude);
         address = findViewById(R.id.show_address); // Add new TextView for address
