@@ -116,8 +116,8 @@ public class AdminLogin extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
 
-
         String checkbox = preferences.getString("remember","");
+
         if(checkbox.equals("true") && fire.equals(true)){
             Intent intent = new Intent(AdminLogin.this, DashboardFireDepartment.class);
             startActivity(intent);
@@ -139,7 +139,21 @@ public class AdminLogin extends AppCompatActivity {
             Toast.makeText(this, "No account saved", Toast.LENGTH_SHORT).show();
         }
 
+
+
+        if(checkbox.equals("true")){
+            Intent intent = new Intent(AdminLogin.this, DashboardUser.class);
+            startActivity(intent);
+            finish();
+
+        } else if(checkbox.equals("false")) {
+            Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().signOut();
+        }
+
         rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()){
@@ -159,6 +173,7 @@ public class AdminLogin extends AppCompatActivity {
                 }
             }
         });
+
 
 
         login.setOnClickListener(new View.OnClickListener() {
