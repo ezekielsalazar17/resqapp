@@ -1,22 +1,23 @@
 package com.example.resqapp;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.tasks.Task;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.text.Text;
 import com.google.mlkit.vision.text.TextRecognition;
@@ -27,12 +28,8 @@ import java.io.IOException;
 
 public class Ocr extends AppCompatActivity {
 
-    private ImageView imageView6;
-    private TextView ocrconverted;
-    private Button buttonUpload;
-    FloatingActionButton selectimg;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int REQUEST_IMAGE_PICKER = 2;
+    EditText ocrconverted;
+    ImageView selectimg;
     Uri imageUri;
     TextRecognizer textRecognizer;
 
@@ -42,11 +39,8 @@ public class Ocr extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ocr);
 
-        buttonUpload = findViewById(R.id.upload);
         selectimg = findViewById(R.id.selectimg);
         ocrconverted = findViewById(R.id.ocrconverted);
-        imageView6 = findViewById(R.id.imageView6);
-
         textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
 
         selectimg.setOnClickListener(new View.OnClickListener() {
@@ -65,37 +59,35 @@ public class Ocr extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_IMAGE_PICKER) {
-            if (resultCode == RESULT_OK && data != null) {
+        if (requestCode == Activity.RESULT_OK) {
+            if (data!=null){
                 imageUri = data.getData();
-                Toast.makeText(this, "Image selected", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(this, "Image Selected", Toast.LENGTH_SHORT).show();
+
                 recognizeText();
-            } else {
-                Toast.makeText(this, "Image selection canceled", Toast.LENGTH_SHORT).show();
             }
+        }else{
+            Toast.makeText(this, "Image Not Selected", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void recognizeText() {
         if (imageUri != null) {
             try {
-                InputImage image = InputImage.fromFilePath(Ocr.this, imageUri);
+                InputImage inputImage = InputImage.fromFilePath(Ocr.this, imageUri);
 
-                textRecognizer.process(image)
+                Task<Text> result = textRecognizer.process(inputImage)
                         .addOnSuccessListener(new OnSuccessListener<Text>() {
                             @Override
-                            public void onSuccess(Text visionText) {
-                                // Task completed successfully
-                                // ...
-                                ocrconverted.setText(visionText.getText());
+                            public void onSuccess(Text text) {
+                                String recognizeText = text.getText();
+                                ocrconverted.setText(recognizeText);
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
+                        }).addOnFailureListener(new OnFailureListener() {
                             @Override
-                            public void onFailure(Exception e) {
-                                // Task failed with an exception
-                                // ...
-                                Toast.makeText(Ocr.this, "Failed to recognize text: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(Ocr.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
             } catch (IOException e) {

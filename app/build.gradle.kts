@@ -78,5 +78,6 @@ chaquopy {
         implementation("com.squareup.picasso:picasso:2.5.2")
         implementation("com.github.dhaval2404:imagepicker:2.1")
         implementation("com.google.android.gms:play-services-mlkit-text-recognition:18.0.2")
+        implementation ("com.google.android.gms:play-services-vision:20.1.3")
     }
 
