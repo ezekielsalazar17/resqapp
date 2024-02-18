@@ -35,35 +35,20 @@
         tools:ignore="ContentDescription"
         tools:srcCompat="@tools:sample/avatars" />
 
+
     <Button
         android:id="@+id/upload"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="76dp"
         android:background="@drawable/sign_out"
         android:fontFamily="@font/oswald_bold"
         android:text="@string/upload"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.852"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
-
-    <Button
-        android:id="@+id/capture"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/sign_out"
-        android:fontFamily="@font/oswald_bold"
-        android:text="@string/capture"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/upload"
-        app:layout_constraintHorizontal_bias="0.722"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
@@ -79,7 +64,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submit"
-        app:layout_constraintVertical_bias="0.95"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
@@ -96,6 +81,21 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/upload" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/selectimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/black"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:layout_constraintEnd_toEndOf="@+id/imageView6"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/imageView6"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6"
+        app:srcCompat="@drawable/baseline_camera_alt_24"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
