@@ -62,15 +62,13 @@
             android:text="Recognized Text"
             android:layout_marginTop="10dp"
             />
+
         <EditText
             android:id="@+id/recognizedTextEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"/>
-
-
-
-
+            android:textSize="12sp"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     </LinearLayout>
 
