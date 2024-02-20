@@ -65,6 +65,8 @@ chaquopy {
         implementation("com.google.firebase:firebase-database:20.3.0")
         implementation("com.google.android.gms:play-services-cast-framework:21.4.0")
         implementation("com.google.firebase:firebase-ml-vision:24.1.0")
+        implementation("com.google.firebase:firebase-auth:22.3.1")
+        implementation("com.google.firebase:firebase-firestore:24.10.2")
         testImplementation("junit:junit:4.13.2")
         androidTestImplementation("androidx.test.ext:junit:1.1.5")
         androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -77,7 +79,7 @@ chaquopy {
         implementation("com.android.volley:volley:1.2.0")
         implementation("com.squareup.picasso:picasso:2.5.2")
         implementation("com.github.dhaval2404:imagepicker:2.1")
-        implementation("com.google.android.gms:play-services-mlkit-text-recognition:18.0.2")
+        implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
         implementation ("com.google.android.gms:play-services-vision:20.1.3")
     }
 

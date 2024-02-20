@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +56,7 @@ public class UserLogin extends AppCompatActivity {
         forgotpass = findViewById(R.id.forgotpass);
         rememberme = findViewById(R.id.remember_me_checkbox);
 
-        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        /*SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember","");
         if(checkbox.equals("true")){
             Intent intent = new Intent(UserLogin.this, DashboardUser.class);
@@ -89,7 +87,7 @@ public class UserLogin extends AppCompatActivity {
 
                 }
             }
-        });
+        });*/
 
 
         login.setOnClickListener(new View.OnClickListener() {

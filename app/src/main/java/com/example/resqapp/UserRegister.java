@@ -93,35 +93,25 @@ public class UserRegister extends AppCompatActivity {
                 String longitude = " ";
                 String address = " ";
 
-                if(TextUtils.isEmpty(email)){
-                    Email.setError("Email is Required ");
-                    return;
-                }
-                if(TextUtils.isEmpty(number)){
-                    Password.setError("Contact Number is Required ");
-                }
-
-                if(TextUtils.isEmpty(password)){
-                    Password.setError("Password is Required ");
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(number)) {
+                    Toast.makeText(UserRegister.this, "Email, password, and contact number are required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(password.length() < 10){
-                    Password.setError("Password must be Less than or Equal to 10");
+                if (password.length() < 10) {
+                    Toast.makeText(UserRegister.this, "Password must be at least 10 characters long", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                fAuth.createUserWithEmailAndPassword(email, password ).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(UserRegister.this, "User Created", Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = firestore.collection("users").document(userID);
                             Map<String, Object> user = new HashMap<>();
-
                             user.put("Email", email);
                             user.put("First Name", fname);
                             user.put("Last Name", lname);
@@ -129,29 +119,31 @@ public class UserRegister extends AppCompatActivity {
                             user.put("Contact Number", number);
                             user.put("Latitude", latitude);
                             user.put("Longitude", longitude);
-                            user.put("Address",address);
-                            user.put("Birthday",bday);
+                            user.put("Address", address);
+                            user.put("Birthday", bday);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
-
+                                    Log.d(TAG, "User profile created for " + userID);
+                                    Toast.makeText(UserRegister.this, "User created successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), UserLogin.class));
+                                    finish();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: " + e.toString());
+                                    Log.e(TAG, "Error creating user profile", e);
+                                    Toast.makeText(UserRegister.this, "Error creating user profile: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), UserLogin.class));
-                        }else{
-                            Toast.makeText(UserRegister.this, "Error !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e(TAG, "Error creating user", task.getException());
+                            Toast.makeText(UserRegister.this, "Error creating user: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                         }
-
                     }
                 });
-
-
             }
         });
     }

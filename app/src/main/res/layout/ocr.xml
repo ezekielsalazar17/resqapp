@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/inputImageBtn"
             android:text="Take Image"
             app:cornerRadius="5dp"
@@ -23,9 +23,11 @@
             android:textColor="@color/white"
             app:icon="@drawable/baseline_camera_alt_24"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
+            android:id="@+id/recognizeTextBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cornerRadius="5dp"
@@ -35,7 +37,7 @@
             android:layout_weight="1"
             android:text="Recognize Text"
             android:layout_marginStart="5dp"
-            />
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 <ScrollView
@@ -49,6 +51,7 @@
 
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageIv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_image_24"
@@ -68,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck,TextFields,TouchTargetSizeCheck" />
 
     </LinearLayout>
 
