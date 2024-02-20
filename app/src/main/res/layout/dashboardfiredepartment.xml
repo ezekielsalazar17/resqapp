@@ -87,90 +87,11 @@
                 app:cardCornerRadius="15dp"
                 tools:ignore="TextSizeCheck">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="300dp"
-                    android:layout_height="80dp"
-                    android:layout_marginVertical="20dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="5dp"
-                    app:cardBackgroundColor="#668AB9"
-                    app:cardCornerRadius="15dp"
-                    tools:ignore="TextSizeCheck">
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="296dp"
-                        android:layout_height="76dp"
-                        android:layout_marginVertical="2dp"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginEnd="2dp"
-                        app:cardBackgroundColor="#FAFAFA"
-                        app:cardCornerRadius="13dp"
-                        tools:ignore="TextSizeCheck">
-
-                        <TextView
-                            android:id="@+id/email"
-                            android:layout_width="33dp"
-                            android:layout_height="22dp"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginTop="5dp"
-                            android:text="@string/email"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/oswald_light"
-                            tools:ignore="RtlSymmetry,VisualLintOverlap" />
-                        <TextView
-                            android:id="@+id/fire_email1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="48dp"
-                            android:layout_marginTop="5dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/oswald_light"
-                            tools:ignore="RtlSymmetry,VisualLintOverlap" />
-
-                        <TextView
-                            android:id="@+id/contact_number"
-                            android:layout_width="98dp"
-                            android:layout_height="22dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginStart="15dp"
-                            android:text="@string/contact_number"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/oswald_light"
-                            tools:ignore="RtlSymmetry,VisualLintOverlap" />
-                        <TextView
-                            android:id="@+id/contact_number1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="113dp"
-                            android:layout_marginTop="20dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/oswald_light"
-                            tools:ignore="RtlSymmetry,VisualLintOverlap" />
-
-                        <TextView
-                            android:id="@+id/gps_location"
-                            android:layout_width="78dp"
-                            android:layout_height="22dp"
-                            android:fontFamily="@font/oswald_light"
-                            android:layout_marginTop="35dp"
-                            android:layout_marginStart="15dp"
-                            android:text="@string/gps_location"
-                            android:textColor="@color/black"
-                            tools:ignore="RtlSymmetry" />
-
-                        <TextView
-                            android:id="@+id/gps_location1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/oswald_light"
-                            android:layout_marginStart="93dp"
-                            android:layout_marginTop="35dp"
-                            android:textColor="@color/black"
-                            tools:ignore="RtlSymmetry" />
-
-
-                    </androidx.cardview.widget.CardView>
-                </androidx.cardview.widget.CardView>
+                    />
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
 
