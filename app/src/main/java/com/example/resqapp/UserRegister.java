@@ -70,6 +70,9 @@ public class UserRegister extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
+        String fname = getIntent().getStringExtra("firstSevenCharacters");
+        Fname.setText(fname);
+
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), DashboardUser.class));
             finish();
