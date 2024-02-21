@@ -52,10 +52,10 @@ public class Ocr extends AppCompatActivity {
     private Uri imageUri = null;
 
     private static final int CAMERA_REQUEST_CODE = 100;
-    private static final int STORAGE_REQUEST_CODE = 101;
+    private static final int STORAGE_REQUEST_CODE = 200;
 
-    private String [] cameraPermissions;
-    private String [] storagePermissions;
+    private String[] cameraPermissions;
+    private String[] storagePermissions;
 
     private ProgressDialog progressDialog;
 
@@ -73,8 +73,8 @@ public class Ocr extends AppCompatActivity {
         imageIv = findViewById(R.id.imageIv);
         recognizedTextEt = findViewById(R.id.recognizedTextEt);
 
-        cameraPermissions = new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagePermissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please Wait");
@@ -93,10 +93,10 @@ public class Ocr extends AppCompatActivity {
         recognizeTextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (imageUri == null){
+                if (imageUri == null) {
 
                     Toast.makeText(Ocr.this, "Pick image first", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     recognizeTextFromImage();
                 }
             }
@@ -136,14 +136,14 @@ public class Ocr extends AppCompatActivity {
 
                             progressDialog.dismiss();
                             Log.e(TAG, "onFailure: ", e);
-                            Toast.makeText(Ocr.this, "Failed recognizing due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Ocr.this, "Failed recognizing due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
                     });
         } catch (IOException e) {
             progressDialog.dismiss();
             Log.e(TAG, "recognizeTextFromImage: ", e);
-            Toast.makeText(this, "Failed preparing image due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Failed preparing image due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -164,26 +164,26 @@ public class Ocr extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
 
                 int id = menuItem.getItemId();
-                if (id == 1){
+                if (id == 1) {
                     Log.d(TAG, "onMenuItemClick: Camera Clicked");
 
-                    if (checkCameraPermission()){
+                    if (checkCameraPermission()) {
 
                         pickImageCamera();
-                    }else{
+                    } else {
 
                         requestCameraPermissions();
                     }
 
-                }else if (id == 2){
+                } else if (id == 2) {
                     Log.d(TAG, "onMenuItemClick: Gallery Clicked");
 
-                    if (checkStoragePermission()){
+                    if (checkStoragePermission()) {
 
                         pickImageGallery();
-                    }else{
+                    } else {
 
-                        requesStoragePermission();
+                        requestStoragePermission();
                     }
                 }
                 return true;
@@ -192,7 +192,7 @@ public class Ocr extends AppCompatActivity {
 
     }
 
-    private void pickImageGallery(){
+    private void pickImageGallery() {
 
         Log.d(TAG, "pickImageGallery: ");
 
@@ -208,13 +208,12 @@ public class Ocr extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == Activity.RESULT_OK){
+                    if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         imageUri = data.getData();
                         Log.d(TAG, "onActivityResult: imageUri" + imageUri);
                         imageIv.setImageURI(imageUri);
-                    }
-                    else{
+                    } else {
                         Log.d(TAG, "onActivityResult: cancelled");
                         Toast.makeText(Ocr.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
@@ -222,7 +221,7 @@ public class Ocr extends AppCompatActivity {
             }
     );
 
-    private void pickImageCamera(){
+    private void pickImageCamera() {
         Log.d(TAG, "pickImageCamera: ");
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "Sample Title");
@@ -242,13 +241,12 @@ public class Ocr extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK){
+                    if (result.getResultCode() == Activity.RESULT_OK) {
 
                         Log.d(TAG, "onActivityResult: imageUri" + imageUri);
 
                         imageIv.setImageURI(imageUri);
-                    }
-                    else {
+                    } else {
 
                         Log.d(TAG, "onActivityResult: cancelled");
 
@@ -258,75 +256,38 @@ public class Ocr extends AppCompatActivity {
             }
     );
 
-    private boolean checkStoragePermission(){
-
-        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                (PackageManager.PERMISSION_GRANTED);
-
-        return result;
+    private boolean checkCameraPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
-    private void requesStoragePermission(){
-
-        ActivityCompat.requestPermissions(this, storagePermissions, STORAGE_REQUEST_CODE);
+    private boolean checkStoragePermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    private boolean checkCameraPermission(){
-
-        boolean cameraResult = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
-                (PackageManager.PERMISSION_GRANTED);
-        boolean storageResult = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                (PackageManager.PERMISSION_GRANTED);
-
-
-        return cameraResult && storageResult;
+    private void requestCameraPermissions() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE);
     }
 
-    private void requestCameraPermissions(){
-        ActivityCompat.requestPermissions(this, cameraPermissions, CAMERA_REQUEST_CODE);
+    private void requestStoragePermission() {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode){
-            case CAMERA_REQUEST_CODE:{
-                if (grantResults.length>0) {
-
-                    boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                    boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-
-                    if (cameraAccepted && storageAccepted){
-
-                        pickImageCamera();
-                    }
-                    else{
-
-                        Toast.makeText(this, "Camera & Storage permissions are required", Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
-                }
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                pickImageCamera();
+            } else {
+                Toast.makeText(this, "Camera & Storage permissions are required", Toast.LENGTH_SHORT).show();
             }
-            break;
-            case STORAGE_REQUEST_CODE:{
-
-                if (grantResults.length>0){
-
-                    boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-
-                    if (storageAccepted){
-                        pickImageGallery();
-                    }
-                    else{
-
-                        Toast.makeText(this, "Storage permission is required", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
+        } else if (requestCode == STORAGE_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                pickImageGallery();
+            } else {
+                Toast.makeText(this, "Storage permission is required", Toast.LENGTH_SHORT).show();
             }
-            break;
         }
     }
 }

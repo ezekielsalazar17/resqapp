@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class AdminLogin extends AppCompatActivity {
     CheckBox rememberme, fire, ambulance, police, coast;
     TextView createText, signup, forgotpass;
     FirebaseAuth fAuth;
+    ImageView imageView;
     FirebaseFirestore firestore;
     public static final String SHARED_PREFS = "sharedPrefs";
 
@@ -61,6 +64,7 @@ public class AdminLogin extends AppCompatActivity {
         createText = findViewById(R.id.donthaveaccount);
         signup = findViewById(R.id.signup);
         fAuth = FirebaseAuth.getInstance();
+        imageView = findViewById(R.id.imageView4);
         forgotpass = findViewById(R.id.forgotpass);
         rememberme = findViewById(R.id.remember_me_checkbox);
         fire = findViewById(R.id.fire_checkbox);
@@ -175,6 +179,22 @@ public class AdminLogin extends AppCompatActivity {
         });
 
 
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectionStart = password.getSelectionStart();
+                int selectionEnd = password.getSelectionEnd();
+
+                if (password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+
+                // Preserve cursor position
+                password.setSelection(selectionStart, selectionEnd);
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
