@@ -81,5 +81,6 @@ chaquopy {
         implementation("com.github.dhaval2404:imagepicker:2.1")
         implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
         implementation ("com.google.android.gms:play-services-vision:20.1.3")
+        implementation ("com.google.android.material:material:1.4.0")
     }
 

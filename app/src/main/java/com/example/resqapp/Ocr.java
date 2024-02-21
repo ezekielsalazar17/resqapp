@@ -53,6 +53,7 @@ public class Ocr extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 200;
+    private static final int READ_MEDIA_IMAGES = 200;
 
     private String[] cameraPermissions;
     private String[] storagePermissions;
@@ -98,6 +99,7 @@ public class Ocr extends AppCompatActivity {
                     Toast.makeText(Ocr.this, "Pick image first", Toast.LENGTH_SHORT).show();
                 } else {
                     recognizeTextFromImage();
+
                 }
             }
         });
@@ -106,7 +108,7 @@ public class Ocr extends AppCompatActivity {
     }
 
     private void recognizeTextFromImage() {
-        Log.d(TAG, "recognizTextFromImage");
+        Log.d(TAG, "recognizeTextFromImage");
 
         progressDialog.setMessage("Preparing text");
         progressDialog.show();
@@ -128,6 +130,24 @@ public class Ocr extends AppCompatActivity {
                             Log.d(TAG, "onSuccess: recognizedText" + recognizedText);
 
                             recognizedTextEt.setText(recognizedText);
+
+                            // Split text into lines
+                            String[] lines = recognizedText.split("\n");
+
+                            // Check if there are at least 7 lines
+                            if (lines.length >= 7) {
+                                // Get the 7th line
+                                String seventhLine = lines[6]; // Index 6 for the 7th line (0-based index)
+
+                                String firstSevenCharacters = seventhLine.substring(0, Math.min(seventhLine.length(), 7));
+                                Intent intent = new Intent(Ocr.this, UserRegister.class);
+                                intent.putExtra("firstSevenCharacters", firstSevenCharacters);
+                                startActivity(intent);
+                            } else {
+                                // Handle the case where there are less than 7 lines
+                                Log.d(TAG, "Text has less than 7 lines");
+                            }
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -193,7 +213,6 @@ public class Ocr extends AppCompatActivity {
     }
 
     private void pickImageGallery() {
-
         Log.d(TAG, "pickImageGallery: ");
 
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -261,7 +280,7 @@ public class Ocr extends AppCompatActivity {
     }
 
     private boolean checkStoragePermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestCameraPermissions() {
@@ -269,7 +288,7 @@ public class Ocr extends AppCompatActivity {
     }
 
     private void requestStoragePermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, STORAGE_REQUEST_CODE);
     }
 
     @Override
