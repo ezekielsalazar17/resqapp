@@ -64,7 +64,6 @@ public class UserRegister extends AppCompatActivity {
         Fname = findViewById(R.id.fname1);
         Lname = findViewById(R.id.lname1);
         Bday = findViewById(R.id.birthday1);
-
         Id = findViewById(R.id.ocrid);
 
         fAuth = FirebaseAuth.getInstance();
@@ -103,7 +102,10 @@ public class UserRegister extends AppCompatActivity {
                     return;
                 }
 
+
+
                 progressBar.setVisibility(View.VISIBLE);
+
 
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -145,6 +147,10 @@ public class UserRegister extends AppCompatActivity {
                     }
                 });
             }
+
         });
+
+
+
     }
 }

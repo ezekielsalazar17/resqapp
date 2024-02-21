@@ -35,29 +35,9 @@
         tools:ignore="ContentDescription" />
 
     <EditText
-        android:id="@+id/id1"
-        android:layout_width="260dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/border"
-        android:fontFamily="@font/oswald_light"
-        android:hint="@string/id"
-        android:inputType="text"
-        android:letterSpacing="0.09"
-        android:paddingStart="10sp"
-        android:paddingEnd="10sp"
-        android:textAlignment="textStart"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/id"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:ignore="Autofill,SmallSp,TextContrastCheck,TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
-
-    <EditText
         android:id="@+id/useremail1"
         android:layout_width="260dp"
         android:layout_height="38dp"
-        android:layout_marginTop="24dp"
         android:autofillHints="emailAddress"
         android:background="@drawable/border"
         android:ems="10"
@@ -69,9 +49,9 @@
         android:paddingEnd="10sp"
         android:textAlignment="textStart"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/id1"
-        app:layout_constraintStart_toStartOf="@+id/id1"
-        app:layout_constraintTop_toBottomOf="@+id/id1"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/fire_email1"
         tools:ignore="DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
     <TextView
@@ -83,6 +63,7 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@+id/fname"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/fname"
         app:layout_constraintTop_toBottomOf="@+id/fname1" />
 
@@ -180,6 +161,7 @@
         android:id="@+id/fire_email1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/oswald"
         android:text="Email"
         android:textColor="@color/black"
@@ -187,7 +169,7 @@
         app:layout_constraintEnd_toEndOf="@+id/id"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/id"
-        app:layout_constraintTop_toBottomOf="@+id/id1" />
+        app:layout_constraintTop_toBottomOf="@+id/dropdown_menu1" />
 
     <TextView
         android:id="@+id/userpass"
@@ -298,6 +280,20 @@
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+    <Spinner
+        android:id="@+id/dropdown_menu1"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/oswald_light"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/id"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <EditText
         android:id="@+id/userpass1"
         android:layout_width="260dp"
@@ -323,11 +319,12 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/baseline_folder_24"
-        app:layout_constraintBottom_toBottomOf="@+id/id1"
-        app:layout_constraintEnd_toEndOf="@+id/id1"
-        app:layout_constraintHorizontal_bias="0.977"
-        app:layout_constraintStart_toStartOf="@+id/id1"
-        app:layout_constraintTop_toTopOf="@+id/id1"
+        app:layout_constraintBottom_toBottomOf="@+id/dropdown_menu1"
+        app:layout_constraintEnd_toEndOf="@+id/dropdown_menu1"
+        app:layout_constraintHorizontal_bias="0.858"
+        app:layout_constraintStart_toStartOf="@+id/dropdown_menu1"
+        app:layout_constraintTop_toTopOf="@+id/dropdown_menu1"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <ProgressBar

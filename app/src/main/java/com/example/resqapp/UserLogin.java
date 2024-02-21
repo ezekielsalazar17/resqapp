@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,7 @@ public class UserLogin extends AppCompatActivity {
     CheckBox rememberme;
     TextView createText, signup, forgotpass;
     FirebaseAuth fAuth;
+
     public static final String SHARED_PREFS = "sharedPrefs";
 
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
@@ -55,6 +58,8 @@ public class UserLogin extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         forgotpass = findViewById(R.id.forgotpass);
         rememberme = findViewById(R.id.remember_me_checkbox);
+        ImageView imageView = findViewById(R.id.imageView4);
+        EditText password = findViewById(R.id.pw1);
 
         /*SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember","");
@@ -116,7 +121,22 @@ public class UserLogin extends AppCompatActivity {
                         });
             }
         });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectionStart = password.getSelectionStart();
+                int selectionEnd = password.getSelectionEnd();
 
+                if (password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+
+                // Preserve cursor position
+                password.setSelection(selectionStart, selectionEnd);
+            }
+        });
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -42,6 +42,8 @@ import java.io.IOException;
 
 public class Ocr extends AppCompatActivity {
 
+    private static final int STORAGE_REQUEST_CODE_READ = 102;
+    private static final int STORAGE_REQUEST_CODE_WRITE = 101;
     Button inputImageBtn;
     Button recognizeTextBtn;
     private ShapeableImageView imageIv;
@@ -74,7 +76,7 @@ public class Ocr extends AppCompatActivity {
         recognizedTextEt = findViewById(R.id.recognizedTextEt);
 
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please Wait");
@@ -94,20 +96,16 @@ public class Ocr extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (imageUri == null) {
-
                     Toast.makeText(Ocr.this, "Pick image first", Toast.LENGTH_SHORT).show();
                 } else {
                     recognizeTextFromImage();
                 }
             }
         });
-
-
     }
 
     private void recognizeTextFromImage() {
         Log.d(TAG, "recognizTextFromImage");
-
         progressDialog.setMessage("Preparing text");
         progressDialog.show();
 
@@ -120,24 +118,18 @@ public class Ocr extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
                         @Override
                         public void onSuccess(Text text) {
-
-
                             progressDialog.dismiss();
-
                             String recognizedText = text.getText();
                             Log.d(TAG, "onSuccess: recognizedText" + recognizedText);
-
                             recognizedTextEt.setText(recognizedText);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-
                             progressDialog.dismiss();
                             Log.e(TAG, "onFailure: ", e);
                             Toast.makeText(Ocr.this, "Failed recognizing due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
                         }
                     });
         } catch (IOException e) {
@@ -145,62 +137,51 @@ public class Ocr extends AppCompatActivity {
             Log.e(TAG, "recognizeTextFromImage: ", e);
             Toast.makeText(this, "Failed preparing image due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void showInputImageDialog() {
-
         PopupMenu popupMenu = new PopupMenu(this, inputImageBtn);
-
-
         popupMenu.getMenu().add(Menu.NONE, 1, 1, "CAMERA");
         popupMenu.getMenu().add(Menu.NONE, 2, 2, "GALLERY");
-
 
         popupMenu.show();
 
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-
                 int id = menuItem.getItemId();
                 if (id == 1) {
                     Log.d(TAG, "onMenuItemClick: Camera Clicked");
-
                     if (checkCameraPermission()) {
-
                         pickImageCamera();
                     } else {
-
                         requestCameraPermissions();
                     }
-
                 } else if (id == 2) {
                     Log.d(TAG, "onMenuItemClick: Gallery Clicked");
-
                     if (checkStoragePermission()) {
-
+                        // Storage permission already granted, proceed to pick image from gallery
                         pickImageGallery();
                     } else {
-
+                        // Request storage permission before picking image from gallery
                         requestStoragePermission();
                     }
                 }
                 return true;
             }
         });
-
     }
 
     private void pickImageGallery() {
-
-        Log.d(TAG, "pickImageGallery: ");
-
-        Intent intent = new Intent(Intent.ACTION_PICK);
-
-        intent.setType("image/*");
-        galleryActivityResultLauncher.launch(intent);
-
+        try {
+            Log.d(TAG, "pickImageGallery: ");
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            galleryActivityResultLauncher.launch(intent);
+        } catch (Exception e) {
+            Log.e(TAG, "pickImageGallery: Exception", e);
+            Toast.makeText(this, "Error picking image from gallery: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
@@ -232,8 +213,6 @@ public class Ocr extends AppCompatActivity {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         cameraActivityResultLauncher.launch(intent);
-
-
     }
 
     private ActivityResultLauncher<Intent> cameraActivityResultLauncher = registerForActivityResult(
@@ -242,14 +221,10 @@ public class Ocr extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
-
                         Log.d(TAG, "onActivityResult: imageUri" + imageUri);
-
                         imageIv.setImageURI(imageUri);
                     } else {
-
                         Log.d(TAG, "onActivityResult: cancelled");
-
                         Toast.makeText(Ocr.this, "Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -261,7 +236,8 @@ public class Ocr extends AppCompatActivity {
     }
 
     private boolean checkStoragePermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestCameraPermissions() {
@@ -269,24 +245,29 @@ public class Ocr extends AppCompatActivity {
     }
 
     private void requestStoragePermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
+        Log.d(TAG, "requestStoragePermission: Requesting storage permission");
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_REQUEST_CODE);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == CAMERA_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                pickImageCamera();
+        if (requestCode == STORAGE_REQUEST_CODE_WRITE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Write storage permission granted, now request read storage permission
+                requestStoragePermission();
             } else {
-                Toast.makeText(this, "Camera & Storage permissions are required", Toast.LENGTH_SHORT).show();
+                // Write storage permission denied
+                Toast.makeText(this, "Write storage permission is required", Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == STORAGE_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                // Both storage permissions granted
                 pickImageGallery();
             } else {
-                Toast.makeText(this, "Storage permission is required", Toast.LENGTH_SHORT).show();
+                // Storage permissions denied
+                Toast.makeText(this, "Storage permissions are required", Toast.LENGTH_SHORT).show();
             }
         }
     }
