@@ -81,8 +81,8 @@
     <string name="email">EMAIL:</string>
     <string name="what_account_are_you_using">What account are you using?</string>
     <string name="choose_department">Choose Department</string>
-    <string name="first_name">First Name</string>
-    <string name="first_name2">first name</string>
+    <string name="first_name">First Name, Middle Name</string>
+    <string name="first_name2">first name, middle name</string>
     <string name="last_name">Last Name</string>
     <string name="last_name2">last name</string>
     <string name="upload">UPLOAD</string>

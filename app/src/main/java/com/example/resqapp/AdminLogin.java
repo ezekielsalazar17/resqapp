@@ -155,6 +155,8 @@ public class AdminLogin extends AppCompatActivity {
             FirebaseAuth.getInstance().signOut();
         }
 
+
+
         rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
 
@@ -325,6 +327,8 @@ public class AdminLogin extends AppCompatActivity {
                     }
                 });
     }
+
+
 
     @Override
     protected void onStart() {
