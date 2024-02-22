@@ -134,19 +134,68 @@ public class Ocr extends AppCompatActivity {
                             // Split text into lines
                             String[] lines = recognizedText.split("\n");
 
-                            // Check if there are at least 7 lines
-                            if (lines.length >= 7) {
-                                // Get the 7th line
-                                String seventhLine = lines[6]; // Index 6 for the 7th line (0-based index)
+                            int lineCount = lines.length;
 
-                                String firstSevenCharacters = seventhLine.substring(0, Math.min(seventhLine.length(), 7));
-                                Intent intent = new Intent(Ocr.this, UserRegister.class);
-                                intent.putExtra("firstSevenCharacters", firstSevenCharacters);
-                                startActivity(intent);
-                            } else {
-                                // Handle the case where there are less than 7 lines
-                                Log.d(TAG, "Text has less than 7 lines");
+                            if (lineCount != 32) {
+                                // If the line count is not equal to 32, retake pictures
+                                // You can restart the picture-taking process here
+                                // For example:
+                                // retakePictures();
+                                // Don't execute the rest of the logic
+                                return;
                             }
+
+
+
+                            StringBuilder extractedCharacters = new StringBuilder();
+                            String seventhLine = lines[6];
+                            String thirteenthLine = lines[12];
+                            String nineteenthLine = lines[18];
+
+                            String charactersAfterSecond = thirteenthLine.substring(0);
+
+                            //Id Number
+                            String charactersFromNineteenthLine = "";
+                            if (nineteenthLine.length() >= 14) {
+                                // Extract 14 characters from the 19th line
+                                charactersFromNineteenthLine = nineteenthLine.substring(0, 14);
+                            }
+
+                            //Surname
+                            for (int i = 0; i < seventhLine.length(); i++) {
+                                char currentChar = seventhLine.charAt(i);
+                                if (!Character.isLetterOrDigit(currentChar)) {
+                                    // Stop when encountering a special character
+                                    break;
+                                }
+                                extractedCharacters.append(currentChar);
+                            }
+
+                            //Firstname
+                            int indexOfSpecialCharacter = -1;
+                            for (int i = 0; i < seventhLine.length(); i++) {
+                                char currentChar = seventhLine.charAt(i);
+                                if (!Character.isLetterOrDigit(currentChar)) {
+                                    indexOfSpecialCharacter = i;
+                                    break;
+                                }
+                            }
+                            //First Name
+                            String charactersAfterSpecial;
+                            if (indexOfSpecialCharacter != -1) {
+                                charactersAfterSpecial = seventhLine.substring(indexOfSpecialCharacter + 1);
+                            } else {
+                                // If no special character found, set charactersAfterSpecial to empty string
+                                charactersAfterSpecial = "";
+                            }
+
+
+                            Intent intent = new Intent(Ocr.this, UserRegister.class);
+                            intent.putExtra("extractedCharacters", extractedCharacters.toString());
+                            intent.putExtra("charactersAfterSpecial", charactersAfterSpecial);
+                            intent.putExtra("charactersAfterSecond", charactersAfterSecond);
+                            intent.putExtra("charactersFromNineteenthLine", charactersFromNineteenthLine);
+                            startActivity(intent);
 
                         }
                     })

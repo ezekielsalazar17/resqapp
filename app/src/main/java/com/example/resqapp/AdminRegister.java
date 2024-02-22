@@ -45,7 +45,6 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
 
     String userID;
     private Spinner spinner;
-    private String adapterView;
 
 
     @SuppressLint("MissingInflatedId")

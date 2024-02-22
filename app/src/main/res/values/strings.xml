@@ -96,12 +96,17 @@
     <string name="get_user_location">Get User Location\n</string>
     <string name="done">DONE</string>
     <string name="user_email">Email:</string>
-    <string name="mm_dd_yyyy">mm/dd/yyyy</string>
+    <string name="mm_dd_yyyy">yyyy/mm/dd</string>
 
     <string-array name="department1">
         <item>Fire</item>
         <item>Police</item>
         <item>Ambulance</item>
         <item>Coast Guard</item>
+    </string-array>
+
+    <string-array name="dropdown_menu1">
+        <item>Drivers License</item>
+
     </string-array>
 </resources>

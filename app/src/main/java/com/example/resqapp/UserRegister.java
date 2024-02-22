@@ -8,10 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserRegister extends AppCompatActivity {
+public class UserRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     public static final String TAG = "TAG";
     EditText Email, Number, Password, Conpass, Fname, Lname, Bday;
@@ -44,6 +47,8 @@ public class UserRegister extends AppCompatActivity {
 
     FirebaseFirestore firestore;
     String userID;
+
+    private Spinner spinner;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -64,6 +69,7 @@ public class UserRegister extends AppCompatActivity {
         Fname = findViewById(R.id.fname1);
         Lname = findViewById(R.id.lname1);
         Bday = findViewById(R.id.birthday1);
+        spinner = findViewById(R.id.dropdown_menu1);
 
         Id = findViewById(R.id.ocrid);
 
@@ -71,8 +77,19 @@ public class UserRegister extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-        String fname = getIntent().getStringExtra("firstSevenCharacters");
+        String fname = getIntent().getStringExtra("charactersAfterSpecial");
         Fname.setText(fname);
+
+        String lname = getIntent().getStringExtra("extractedCharacters");
+        Lname.setText(lname);
+
+        String birthday = getIntent().getStringExtra("charactersAfterSecond");
+        Bday.setText(birthday);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dropdown_menu1, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
 
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), DashboardUser.class));
@@ -95,6 +112,8 @@ public class UserRegister extends AppCompatActivity {
                 String latitude = " ";
                 String longitude = " ";
                 String address = " ";
+                String idnum = " ";
+                String id = spinner.getSelectedItem().toString().trim();
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(number)) {
                     Toast.makeText(UserRegister.this, "Email, password, and contact number are required", Toast.LENGTH_SHORT).show();
@@ -124,6 +143,8 @@ public class UserRegister extends AppCompatActivity {
                             user.put("Longitude", longitude);
                             user.put("Address", address);
                             user.put("Birthday", bday);
+                            user.put("ID", id);
+                            user.put("ID Number", getIntent().getStringExtra("charactersFromNineteenthLine"));
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -149,5 +170,17 @@ public class UserRegister extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String choice = adapterView.getItemAtPosition(i).toString();
+        Toast.makeText(getApplicationContext(), choice, Toast.LENGTH_LONG);
+        Toast.makeText(this, "Make sure to choose the right department", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
