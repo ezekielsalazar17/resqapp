@@ -83,9 +83,6 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
         String lname = getIntent().getStringExtra("extractedCharacters");
         Lname.setText(lname);
 
-        String birthday = getIntent().getStringExtra("charactersAfterSecond");
-        Bday.setText(birthday);
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dropdown_menu1, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -111,7 +108,6 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
                 String bday = Bday.getText().toString().trim();
                 String latitude = " ";
                 String longitude = " ";
-                String address = " ";
                 String idnum = " ";
                 String id = spinner.getSelectedItem().toString().trim();
 
@@ -141,7 +137,6 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
                             user.put("Contact Number", number);
                             user.put("Latitude", latitude);
                             user.put("Longitude", longitude);
-                            user.put("Address", address);
                             user.put("Birthday", bday);
                             user.put("ID", id);
                             user.put("ID Number", getIntent().getStringExtra("charactersFromNineteenthLine"));

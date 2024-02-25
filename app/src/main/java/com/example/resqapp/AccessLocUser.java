@@ -33,6 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,6 +49,7 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
     FirebaseFirestore firestore;
 
     private static final int LOCATION_PERMISSION_CODE = 101;
+    private TextView addressTextView;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -60,7 +62,7 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
 
         lat = findViewById(R.id.show_latitude);
         longi = findViewById(R.id.show_longitude);
-        address = findViewById(R.id.show_address); // Add new TextView for address
+        addressTextView = findViewById(R.id.show_address); // Add new TextView for address
 
         showLocationButton = findViewById(R.id.showLocation);
         showLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -114,8 +116,8 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
                                 lat.setText("Latitude: " + latitude);
                                 longi.setText("Longitude: " + longitude);
 
-
-
+                                // Get the address from latitude and longitude
+                                getAddressFromLocation(latitude, longitude);
 
                                 // Add marker to the map at the user's current location
                                 LatLng userLocation = new LatLng(latitude, longitude);
@@ -130,7 +132,7 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
                                     firestore = FirebaseFirestore.getInstance(); // Get Firestore instance
 
                                     firestore.collection("users").document(userId)
-                                            .update("Latitude", latitude, "Longitude", longitude)
+                                            .update("Latitude", latitude, "Longitude", longitude, "Address", getAddressFromLocation(latitude, longitude))
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
@@ -154,8 +156,23 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
                         }
                     });
         } else {
-            // Request location permission if not granted
             ActivityCompat.requestPermissions(AccessLocUser.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
         }
+    }
+
+    private Object getAddressFromLocation(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses != null && addresses.size() > 0) {
+                Address address = addresses.get(0);
+                String addressLine = address.getAddressLine(0);
+                addressTextView.setText("Address: " + addressLine);
+                return addressLine;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

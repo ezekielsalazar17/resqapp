@@ -129,73 +129,68 @@ public class Ocr extends AppCompatActivity {
                             String recognizedText = text.getText();
                             Log.d(TAG, "onSuccess: recognizedText" + recognizedText);
 
-                            recognizedTextEt.setText(recognizedText);
+                            recognizedTextEt.setText(recognizedText + "\n");
 
                             // Split text into lines
                             String[] lines = recognizedText.split("\n");
 
                             int lineCount = lines.length;
 
-                            if (lineCount != 32) {
-                                // If the line count is not equal to 32, retake pictures
-                                // You can restart the picture-taking process here
-                                // For example:
-                                // retakePictures();
-                                // Don't execute the rest of the logic
-                                return;
-                            }
+                            if (lineCount == 32) {
+                                Toast.makeText(Ocr.this, "Driver's License Only", Toast.LENGTH_SHORT).show();
+                                StringBuilder extractedCharacters = new StringBuilder();
+                                String seventhLine = lines[6];
+                                String nineteenthLine = lines[18];
 
-
-
-                            StringBuilder extractedCharacters = new StringBuilder();
-                            String seventhLine = lines[6];
-                            String thirteenthLine = lines[12];
-                            String nineteenthLine = lines[18];
-
-                            String charactersAfterSecond = thirteenthLine.substring(0);
-
-                            //Id Number
-                            String charactersFromNineteenthLine = "";
-                            if (nineteenthLine.length() >= 14) {
-                                // Extract 14 characters from the 19th line
-                                charactersFromNineteenthLine = nineteenthLine.substring(0, 14);
-                            }
-
-                            //Surname
-                            for (int i = 0; i < seventhLine.length(); i++) {
-                                char currentChar = seventhLine.charAt(i);
-                                if (!Character.isLetterOrDigit(currentChar)) {
-                                    // Stop when encountering a special character
-                                    break;
+                                //Id Number
+                                String charactersFromNineteenthLine = "";
+                                if (nineteenthLine.length() >= 14) {
+                                    // Extract 14 characters from the 19th line
+                                    charactersFromNineteenthLine = nineteenthLine.substring(0, 14);
                                 }
-                                extractedCharacters.append(currentChar);
-                            }
 
-                            //Firstname
-                            int indexOfSpecialCharacter = -1;
-                            for (int i = 0; i < seventhLine.length(); i++) {
-                                char currentChar = seventhLine.charAt(i);
-                                if (!Character.isLetterOrDigit(currentChar)) {
-                                    indexOfSpecialCharacter = i;
-                                    break;
+                                //Surname
+                                for (int i = 0; i < seventhLine.length(); i++) {
+                                    char currentChar = seventhLine.charAt(i);
+                                    if (!Character.isLetterOrDigit(currentChar)) {
+                                        // Stop when encountering a special character
+                                        break;
+                                    }
+                                    extractedCharacters.append(currentChar);
                                 }
-                            }
-                            //First Name
-                            String charactersAfterSpecial;
-                            if (indexOfSpecialCharacter != -1) {
-                                charactersAfterSpecial = seventhLine.substring(indexOfSpecialCharacter + 1);
-                            } else {
-                                // If no special character found, set charactersAfterSpecial to empty string
-                                charactersAfterSpecial = "";
+
+                                //Firstname
+                                int indexOfSpecialCharacter = -1;
+                                for (int i = 0; i < seventhLine.length(); i++) {
+                                    char currentChar = seventhLine.charAt(i);
+                                    if (!Character.isLetterOrDigit(currentChar)) {
+                                        indexOfSpecialCharacter = i;
+                                        break;
+                                    }
+                                }
+                                //First Name
+                                String charactersAfterSpecial;
+                                if (indexOfSpecialCharacter != -1) {
+                                    charactersAfterSpecial = seventhLine.substring(indexOfSpecialCharacter + 1);
+                                } else {
+                                    // If no special character found, set charactersAfterSpecial to empty string
+                                    charactersAfterSpecial = "";
+                                }
+
+
+                                Intent intent = new Intent(Ocr.this, UserRegister.class);
+                                intent.putExtra("extractedCharacters", extractedCharacters.toString());
+                                intent.putExtra("charactersAfterSpecial", charactersAfterSpecial);
+                                intent.putExtra("charactersFromNineteenthLine", charactersFromNineteenthLine);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(Ocr.this, "Please retake the picture again with clear background", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Ocr.this, "Can't Detect the Chosen ID", Toast.LENGTH_SHORT).show();
                             }
 
 
-                            Intent intent = new Intent(Ocr.this, UserRegister.class);
-                            intent.putExtra("extractedCharacters", extractedCharacters.toString());
-                            intent.putExtra("charactersAfterSpecial", charactersAfterSpecial);
-                            intent.putExtra("charactersAfterSecond", charactersAfterSecond);
-                            intent.putExtra("charactersFromNineteenthLine", charactersFromNineteenthLine);
-                            startActivity(intent);
+
+
 
                         }
                     })
