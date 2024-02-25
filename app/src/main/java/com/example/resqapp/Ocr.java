@@ -122,8 +122,6 @@ public class Ocr extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Text>() {
                         @Override
                         public void onSuccess(Text text) {
-
-
                             progressDialog.dismiss();
 
                             String recognizedText = text.getText();
@@ -137,16 +135,12 @@ public class Ocr extends AppCompatActivity {
                             int lineCount = lines.length;
 
                             if (lineCount != 32) {
-                                // If the line count is not equal to 32, retake pictures
-                                // You can restart the picture-taking process here
-                                // For example:
-                                // retakePictures();
-                                // Don't execute the rest of the logic
+                                // If the line count is not equal to 32, show an error message and return
+                                Toast.makeText(Ocr.this, "Error: Recognized text must contain exactly 32 lines.", Toast.LENGTH_SHORT).show();
                                 return;
                             }
 
-
-
+                            // If the line count is exactly 32, proceed with further processing
                             StringBuilder extractedCharacters = new StringBuilder();
                             String seventhLine = lines[6];
                             String thirteenthLine = lines[12];
@@ -189,24 +183,20 @@ public class Ocr extends AppCompatActivity {
                                 charactersAfterSpecial = "";
                             }
 
-
                             Intent intent = new Intent(Ocr.this, UserRegister.class);
                             intent.putExtra("extractedCharacters", extractedCharacters.toString());
                             intent.putExtra("charactersAfterSpecial", charactersAfterSpecial);
                             intent.putExtra("charactersAfterSecond", charactersAfterSecond);
                             intent.putExtra("charactersFromNineteenthLine", charactersFromNineteenthLine);
                             startActivity(intent);
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-
                             progressDialog.dismiss();
                             Log.e(TAG, "onFailure: ", e);
                             Toast.makeText(Ocr.this, "Failed recognizing due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
-
                         }
                     });
         } catch (IOException e) {
@@ -214,9 +204,7 @@ public class Ocr extends AppCompatActivity {
             Log.e(TAG, "recognizeTextFromImage: ", e);
             Toast.makeText(this, "Failed preparing image due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
     }
-
     private void showInputImageDialog() {
 
         PopupMenu popupMenu = new PopupMenu(this, inputImageBtn);

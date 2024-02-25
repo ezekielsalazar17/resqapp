@@ -63,6 +63,7 @@ chaquopy {
         implementation("com.google.firebase:firebase-firestore-ktx:24.8.1")
         implementation("com.google.firebase:firebase-storage:20.3.0")
         implementation("com.google.firebase:firebase-database:20.3.0")
+        implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
         implementation("com.google.android.gms:play-services-cast-framework:21.4.0")
         implementation("com.google.firebase:firebase-ml-vision:24.1.0")
         implementation("com.google.firebase:firebase-auth:22.3.1")
