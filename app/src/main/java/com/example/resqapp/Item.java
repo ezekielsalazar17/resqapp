@@ -1,11 +1,16 @@
 package com.example.resqapp;
 
+import android.widget.ImageButton;
+
 public class Item {
     String name;
     String address;
     double latitude;
     double longitude;
     long contactNum;
+    ImageButton checkbox;
+
+
 
     public Item(String name, String address, double latitude, double longitude, long contactNum) {
         this.name = name;
@@ -29,6 +34,13 @@ public class Item {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    public ImageButton getCheckbox() {
+        return checkbox;
+    }
+
+    public void setCheckbox(ImageButton checkbox) {
+        this.checkbox = checkbox;
     }
 
     public double getLatitude() {

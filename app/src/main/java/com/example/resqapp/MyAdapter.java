@@ -31,6 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.latitudeView.setText((int) items.get(position).getLatitude());
         holder.longitudeView.setText((int) items.get(position).getLongitude());
         holder.contactnumView.setText((int) items.get(position).getContactNum());
+        holder.checkBox.setImageResource(R.drawable.baseline_check_24);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.resqapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -27,7 +28,12 @@ public class DashboardFireDepartment extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userId;
     ImageButton profileButton;
+    ImageButton imageButton;
 
+
+ // Replace "your_image_resource" with the name of your image resource file in the drawable folder
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +43,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         profileButton = findViewById(R.id.adminprofile);
+        imageButton = findViewById(R.id.accept_button);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -55,6 +62,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
                                 double latitude = document.getDouble("latitude");
                                 double longitude = document.getDouble("longitude");
                                 long contactNum = document.getLong("contactNum"); // Assuming "contactNum" is stored as a long
+                                imageButton.setImageResource(R.drawable.baseline_check_24);
 
                                 // Create Item object and add it to the list
                                 items.add(new Item(name, address, longitude, latitude, contactNum));
