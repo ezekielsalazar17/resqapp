@@ -20,19 +20,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class DashboardUser extends AppCompatActivity {
     public static final String SHARED_PREFS = "sharedPrefs";
     private static final int LOCATION_PERMISSION_CODE = 101;
     Button locationSharing;
     ImageButton firebutton, profilebutton;
+    private FirebaseAuth fAuth;
+    private FirebaseFirestore fStore;
     private String userID;
 
 
@@ -47,7 +49,6 @@ public class DashboardUser extends AppCompatActivity {
 
         setContentView(R.layout.dashboarduser);
 
-
         locationSharing = findViewById(R.id.location_tracking);
         firebutton = findViewById(R.id.fire_button);
         profilebutton = findViewById(R.id.profile_button);
@@ -60,74 +61,91 @@ public class DashboardUser extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), UserProfile.class));
         });
 
+        // Call OnGPS method
         OnGPS();
+        // Call requestLocationPermission method
         requestLocationPermission();
 
+        // Set OnClickListener for firebutton
         firebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 ProgressDialog progressDialog = new ProgressDialog(DashboardUser.this);
                 progressDialog.setMessage("Sending...");
-                progressDialog.setCancelable(false);
+                progressDialog.setCancelable(true);
                 progressDialog.show();
 
                 // Initialize FirebaseAuth instance
                 FirebaseAuth fAuth = FirebaseAuth.getInstance();
-
+                FirebaseFirestore fStore = FirebaseFirestore.getInstance();
                 // Get the currently signed-in user
                 FirebaseUser user = fAuth.getCurrentUser();
                 if (user != null) {
                     String userID = user.getUid();
-                    fetchUserData(userID, progressDialog);
+                    fetchUserData(userID, progressDialog); // Call to fetchUserData method
                 } else {
+                    progressDialog.dismiss(); // Dismiss dialog if user is not authenticated
                     // Redirect user to login screen or handle as per your app's logic
                     Toast.makeText(DashboardUser.this, "User not authenticated. Redirecting to login screen...", Toast.LENGTH_SHORT).show();
                     // Example: startActivity(new Intent(DashboardUser.this, LoginActivity.class));
                 }
             }
 
+            // Define fetchUserData method inside OnClickListener
+            private void fetchUserData(String userID, ProgressDialog progressDialog) {
+                FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+                DocumentReference documentReference = fStore.collection("users").document(userID);
 
-        private void fetchUserData(String userID, ProgressDialog progressDialog) {
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userID);
-            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    // Check if the snapshot exists and has children
-                    if (snapshot.exists() && snapshot.hasChildren()) {
-                        // Get the first name from the snapshot
-                        String firstname = snapshot.child("First Name").getValue(String.class);
+                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot snapshot = task.getResult();
+                            if (snapshot.exists()) {
+                                // Get user data from the snapshot
+                                String firstname = snapshot.getString("First Name");
+                                String address = snapshot.getString("Address");
+                                Double longitude = snapshot.getDouble("Longitude");
+                                Double latitude = snapshot.getDouble("Latitude");
+                                String contactNum = snapshot.getString("Contact Number");
 
-                        // Create an intent
-                        Intent intent = new Intent(DashboardUser.this, DashboardFireDepartment.class);
+                                // Check if any required field is null
+                                if (firstname != null && address != null && longitude != null && latitude != null && contactNum != null) {
+                                    // Create an intent
+                                    Intent intent = new Intent(this, DashboardUser.class);
 
-                        // Pass data to the intent
-                        intent.putExtra("First Name", firstname);
+                                    // Pass data to the intent
+                                    intent.putExtra("First Name", firstname);
+                                    intent.putExtra("Address", address);
+                                    intent.putExtra("Longitude", longitude);
+                                    intent.putExtra("Latitude", latitude);
+                                    intent.putExtra("Contact Number", contactNum);
 
-                        // Start the new activity
-                        startActivity(intent);
-
+                                    // Start the new activity
+                                    startActivity(intent);
+                                } else {
+                                    // Handle null fields
+                                    Toast.makeText(DashboardUser.this, "User data is incomplete", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                // Handle the case where the snapshot doesn't exist
+                                Toast.makeText(DashboardUser.this, "User data not found", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            // Handle errors
+                            Log.e("Firebase", "Error getting user data", task.getException());
+                            Toast.makeText(DashboardUser.this, "Error fetching user data", Toast.LENGTH_SHORT).show();
+                        }
                         // Dismiss the progress dialog
                         progressDialog.dismiss();
-                    } else {
-                        // Handle the case where the snapshot doesn't exist or has no children
-                        progressDialog.dismiss();
-                        // Show an error message or handle it as per your requirement
-                        Toast.makeText(DashboardUser.this, "User data not found", Toast.LENGTH_SHORT).show();
                     }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    progressDialog.dismiss();
-                    // Handle onCancelled event
-                    Log.e("Firebase", "onCancelled", error.toException());
-                }
-            });
-        }
+                });
+            }
 
         });
     }
+
 
     private void OnGPS() {
 
@@ -153,5 +171,4 @@ public class DashboardUser extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 LOCATION_PERMISSION_CODE);
     }
-
 }

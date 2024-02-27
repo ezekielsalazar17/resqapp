@@ -29,6 +29,11 @@ public class DashboardFireDepartment extends AppCompatActivity {
     String userId;
     ImageButton profileButton;
     ImageButton imageButton;
+    String name;
+    String address;
+    double longitude;
+    double latitude;
+    long contactNum;
 
 
  // Replace "your_image_resource" with the name of your image resource file in the drawable folder
@@ -39,6 +44,9 @@ public class DashboardFireDepartment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboardfiredepartment);
         getSupportActionBar().hide();
+
+
+
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -57,11 +65,18 @@ public class DashboardFireDepartment extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String name = document.getString("name");
-                                String address = document.getString("address");
+                                Intent intent = getIntent();
+                                if (intent != null) {
+                                    name = intent.getStringExtra("First Name");
+                                    address = intent.getStringExtra("Address");
+                                    longitude = intent.getDoubleExtra("Longitude", 0.0); // 0.0 is the default value if the key is not found
+                                    latitude = intent.getDoubleExtra("Latitude", 0.0); // 0.0 is the default value if the key is not found
+                                    contactNum = intent.getLongExtra("Contact Number", 0); // 0 is the default value if the key is not found
+                                }
+                                /*String address = document.getString("address");
                                 double latitude = document.getDouble("latitude");
                                 double longitude = document.getDouble("longitude");
-                                long contactNum = document.getLong("contactNum"); // Assuming "contactNum" is stored as a long
+                                long contactNum = document.getLong("contactNum"); // Assuming "contactNum" is stored as a long*/
                                 imageButton.setImageResource(R.drawable.baseline_check_24);
 
                                 // Create Item object and add it to the list
