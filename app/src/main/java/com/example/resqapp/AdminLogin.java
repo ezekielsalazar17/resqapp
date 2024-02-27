@@ -244,6 +244,7 @@ public class AdminLogin extends AppCompatActivity {
     }
 
     private void checkUserAccessLevel(String uid) {
+        fAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         DocumentReference df = firestore.collection("admins").document(uid);
 

@@ -88,10 +88,7 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), DashboardUser.class));
-            finish();
-        }
+
 
         Id.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), Ocr.class));

@@ -50,7 +50,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
 
         List<Item> items = new ArrayList<>();
 
-        fStore.collection("your_collection_name") // Replace "your_collection_name" with your actual collection name
+        fStore.collection("users") // Replace "your_collection_name" with your actual collection name
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

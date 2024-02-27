@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.InputType;
@@ -12,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,7 +63,7 @@ public class UserLogin extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.imageView4);
         EditText password = findViewById(R.id.pw1);
 
-        /*SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember","");
         if(checkbox.equals("true")){
             Intent intent = new Intent(UserLogin.this, DashboardUser.class);
@@ -92,7 +94,7 @@ public class UserLogin extends AppCompatActivity {
 
                 }
             }
-        });*/
+        });
 
 
         login.setOnClickListener(new View.OnClickListener() {
