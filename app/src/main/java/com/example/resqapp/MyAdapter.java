@@ -33,13 +33,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Item currentItem = items.get(position);
         holder.nameView.setText("Name: " + currentItem.getFirstName() + " " + currentItem.getLastName());
-        // Assuming other views are present in MyViewHolder and you want to set them as well
-        // If not, remove the lines below accordingly.
-        // holder.addressView.setText(currentItem.getAddress());
-        // holder.latitudeView.setText(String.valueOf(currentItem.getLatitude()));
-        // holder.longitudeView.setText(String.valueOf(currentItem.getLongitude()));
-        // holder.contactnumView.setText(String.valueOf(currentItem.getContactNum()));
-        // holder.checkBox.setImageResource(R.drawable.baseline_check_24);
+        holder.addressView.setText("Address: " + currentItem.getAddress());
+        holder.latitudeView.setText("Latitude: " + (currentItem.getLatitude()));
+        holder.longitudeView.setText("Longitude: " + (currentItem.getLongitude()));
+        holder.contactnumView.setText("Contact Number: " + (currentItem.getContactNum()));
+        holder.checkBox.setImageResource(R.drawable.baseline_check_24);
     }
 
     @Override

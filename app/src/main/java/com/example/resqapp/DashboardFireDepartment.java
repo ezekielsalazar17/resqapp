@@ -2,8 +2,6 @@ package com.example.resqapp;
 
 import static com.example.resqapp.UserRegister.TAG;
 
-import static java.security.AccessController.getContext;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +37,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
     double longitude;
     double latitude;
     long contactNum;
+    String capitalizedText;
 
 
  // Replace "your_image_resource" with the name of your image resource file in the drawable folder
@@ -81,8 +80,28 @@ public class DashboardFireDepartment extends AppCompatActivity {
                                 String firstName = document.getString("firstName");
                                 String lastName = document.getString("lastName");
 
-                                // Create an Item object with retrieved data
-                                Item item = new Item(firstName, lastName);
+                                firstName = capitalizeEveryWord(firstName);
+                                lastName = capitalizeEveryWord(lastName);
+
+
+                                String address = document.getString("address");
+                                address = capitalizeEveryWord(address); // Capitalize the address
+
+                                Double latitudeObj = document.getDouble("latitude");
+                                Double longitudeObj = document.getDouble("longitude");
+                                String contactNumObj = document.getString("contactNum");
+
+
+                                String contactNum = contactNumObj != null ? String.valueOf(contactNumObj) : "0";
+
+
+
+                                double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
+                                double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
+
+
+                                Item item = new Item(firstName, lastName, address, latitude, longitude, contactNum);
+
                                 userHistoryList.add(item);
                             }
 
@@ -98,8 +117,27 @@ public class DashboardFireDepartment extends AppCompatActivity {
                 });
 
 
+
         profileButton.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), Fireprofile.class));
         });
+    }
+    private String capitalizeEveryWord(String text) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        // Split the text by spaces
+        String[] words = text.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        // Capitalize the first letter of each word
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1).toLowerCase()).append(" ");
+            }
+        }
+        // Remove trailing space
+        return result.toString().trim();
     }
 }

@@ -93,11 +93,20 @@ public class DashboardUser extends AppCompatActivity {
                                     // Get user's first name and last name
                                     String firstName = documentSnapshot.getString("First Name");
                                     String lastName = documentSnapshot.getString("Last Name");
+                                    String address = documentSnapshot.getString("Address");
+                                    Double latitude = documentSnapshot.getDouble("Latitude");
+                                    Double longitude = documentSnapshot.getDouble("Longitude");
+                                    String contactNum = documentSnapshot.getString("Contact Number");
 
                                     // Create a new document in the "History" collection with user's first name and last name
                                     Map<String, Object> historyData = new HashMap<>();
                                     historyData.put("firstName", firstName);
                                     historyData.put("lastName", lastName);
+                                    historyData.put("address", address);
+                                    historyData.put("latitude", latitude);
+                                    historyData.put("longitude", longitude);
+                                    historyData.put("contactNum", contactNum);
+
 
                                     db.collection("History")
                                             .add(historyData)
