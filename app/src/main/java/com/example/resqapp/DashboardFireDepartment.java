@@ -2,6 +2,8 @@ package com.example.resqapp;
 
 import static com.example.resqapp.UserRegister.TAG;
 
+import static java.security.AccessController.getContext;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -78,20 +80,23 @@ public class DashboardFireDepartment extends AppCompatActivity {
                                 // Retrieve first name and last name from document
                                 String firstName = document.getString("firstName");
                                 String lastName = document.getString("lastName");
-                                String name = firstName + lastName;
 
-                                // Create a UserHistory object with retrieved data
-                                Item userHistory = new Item(name);
-                                userHistoryList.add(userHistory);
+                                // Create an Item object with retrieved data
+                                Item item = new Item(firstName, lastName);
+                                userHistoryList.add(item);
                             }
 
-                            // Now you have a list of UserHistory objects containing first name and last name
-                            // Pass this list to your RecyclerView adapter and update the UI
+                            // Initialize RecyclerView adapter with the correct context
+                            MyAdapter adapter = new MyAdapter(getApplicationContext(), userHistoryList);
+
+                            // Set the adapter to RecyclerView
+                            recyclerView.setAdapter(adapter);
                         } else {
                             Log.e(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
+
 
         profileButton.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), Fireprofile.class));
