@@ -1,8 +1,11 @@
 package com.example.resqapp;
 
+import static com.example.resqapp.UserRegister.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -26,7 +29,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
     TextView email;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    String userId;
+    private String userID;
     ImageButton profileButton;
     ImageButton imageButton;
     String name;
@@ -57,35 +60,35 @@ public class DashboardFireDepartment extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<Item> items = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        fStore.collection("users") // Replace "your_collection_name" with your actual collection name
+
+        String historyCollection = "History";
+
+        userID = fAuth.getCurrentUser().getUid();
+
+        db.collection(historyCollection)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            List<Item> userHistoryList = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Intent intent = getIntent();
-                                if (intent != null) {
-                                    name = intent.getStringExtra("First Name");
-                                    address = intent.getStringExtra("Address");
-                                    longitude = intent.getDoubleExtra("Longitude", 0.0); // 0.0 is the default value if the key is not found
-                                    latitude = intent.getDoubleExtra("Latitude", 0.0); // 0.0 is the default value if the key is not found
-                                    contactNum = intent.getLongExtra("Contact Number", 0); // 0 is the default value if the key is not found
-                                }
-                                /*String address = document.getString("address");
-                                double latitude = document.getDouble("latitude");
-                                double longitude = document.getDouble("longitude");
-                                long contactNum = document.getLong("contactNum"); // Assuming "contactNum" is stored as a long*/
-                                imageButton.setImageResource(R.drawable.baseline_check_24);
+                                // Retrieve first name and last name from document
+                                String firstName = document.getString("firstName");
+                                String lastName = document.getString("lastName");
+                                String name = firstName + lastName;
 
-                                // Create Item object and add it to the list
-                                items.add(new Item(name, address, longitude, latitude, contactNum));
+                                // Create a UserHistory object with retrieved data
+                                Item userHistory = new Item(name);
+                                userHistoryList.add(userHistory);
                             }
-                            // Set adapter after fetching data
-                            recyclerView.setAdapter(new MyAdapter(getApplicationContext(), items));
+
+                            // Now you have a list of UserHistory objects containing first name and last name
+                            // Pass this list to your RecyclerView adapter and update the UI
                         } else {
-                            // Handle errors
+                            Log.e(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });

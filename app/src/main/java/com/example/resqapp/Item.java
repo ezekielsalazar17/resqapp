@@ -12,7 +12,7 @@ public class Item {
 
 
 
-    public Item(String name, String address, double latitude, double longitude, long contactNum) {
+    public Item(String name) {
         this.name = name;
         this.address = address;
         this.latitude = latitude;
