@@ -50,8 +50,6 @@ public class DashboardFireDepartment extends AppCompatActivity {
         getSupportActionBar().hide();
 
 
-
-
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         profileButton = findViewById(R.id.adminprofile);
@@ -99,18 +97,9 @@ public class DashboardFireDepartment extends AppCompatActivity {
                                 double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
 
 
-                                Item item = new Item(firstName, lastName, address, latitude, longitude, contactNum, imageButton);
+                                Item item = new Item(firstName, lastName, address, latitude, longitude, contactNum);
 
                                 userHistoryList.add(item);
-
-                                String finalAddress = address;
-                                imageButton.setOnClickListener(v -> {
-                                    Intent intent = new Intent(DashboardFireDepartment.this, LocationSharingAdmin.class);
-                                    intent.putExtra("Address", finalAddress);
-                                    startActivity(intent);
-                                });
-
-
                             }
 
                             // Initialize RecyclerView adapter with the correct context
@@ -118,6 +107,22 @@ public class DashboardFireDepartment extends AppCompatActivity {
 
                             // Set the adapter to RecyclerView
                             recyclerView.setAdapter(adapter);
+
+
+                            ImageButton adapterImageButton = adapter.getImageButton();
+
+                            if (adapterImageButton == null) {
+                                imageButton.setOnClickListener(v -> {
+                                    Intent intent = new Intent(DashboardFireDepartment.this, LocationSharingAdmin.class);
+                                    intent.putExtra("Address", address);
+                                    startActivity(intent);
+                                });
+                            } else {
+                                Log.e(TAG, "imageButton is null");
+                            }
+
+
+
                         } else {
                             Log.e(TAG, "Error getting documents: ", task.getException());
                         }

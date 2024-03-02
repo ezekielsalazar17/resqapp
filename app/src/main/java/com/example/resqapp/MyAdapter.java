@@ -3,6 +3,7 @@ package com.example.resqapp;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private Context context;
     private List<Item> items;
+    private ImageButton imageButton;
 
     public MyAdapter(Context context, List<Item> items) {
         this.context = context;
@@ -40,6 +42,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.checkBox.setImageResource(R.drawable.baseline_check_24);
 
     }
+
+    public ImageButton getImageButton(){ return imageButton; }
 
     @Override
     public int getItemCount() {

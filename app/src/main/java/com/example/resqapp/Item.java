@@ -1,7 +1,5 @@
 package com.example.resqapp;
 
-import android.widget.ImageButton;
-
 public class Item {
     private String firstName;
     private String lastName;
@@ -9,16 +7,14 @@ public class Item {
     private double latitude;
     private double longitude;
     private String contactNum;
-    private ImageButton imageButton;
 
-    public Item(String firstName, String lastName, String address, double latitude, double longitude, String contactNum, ImageButton imageButton) {
+    public Item(String firstName, String lastName, String address, double latitude, double longitude, String contactNum) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
         this.contactNum = contactNum;
-        this.imageButton = imageButton;
 
     }
 
@@ -46,7 +42,6 @@ public class Item {
         return contactNum;
     }
 
-    public ImageButton getImageButton() {return imageButton; }
 
 }
 
