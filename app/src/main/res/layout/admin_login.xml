@@ -94,7 +94,7 @@
         tools:ignore="ContentDescription" />
 
     <CheckBox
-        android:id="@+id/remember_me_checkbox"
+        android:id="@+id/remember_me_checkboxadmin"
         android:layout_width="30dp"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
@@ -141,8 +141,8 @@
         android:layout_height="20dp"
         app:layout_constraintEnd_toEndOf="@+id/remember_me_checkbox"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/remember_me_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/remember_me_checkbox"
+        app:layout_constraintStart_toStartOf="@+id/remember_me_checkboxadmin"
+        app:layout_constraintTop_toBottomOf="@+id/remember_me_checkboxadmin"
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
@@ -156,7 +156,7 @@
         app:layout_constraintEnd_toEndOf="@+id/remember_me"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/remember_me"
-        app:layout_constraintTop_toBottomOf="@+id/remember_me_checkbox"
+        app:layout_constraintTop_toBottomOf="@+id/remember_me_checkboxadmin"
         tools:ignore="TextSizeCheck" />
 
     <CheckBox

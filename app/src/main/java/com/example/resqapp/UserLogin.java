@@ -63,14 +63,14 @@ public class UserLogin extends AppCompatActivity {
         ImageView imageView = findViewById(R.id.imageView4);
         EditText password = findViewById(R.id.pw1);
 
-        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-        String checkbox = preferences.getString("remember","");
-        if(checkbox.equals("true")){
+        SharedPreferences preferences = getSharedPreferences("checkboxuser", MODE_PRIVATE);
+        String checkboxuser = preferences.getString("remember","");
+        if(checkboxuser.equals("true")){
             Intent intent = new Intent(UserLogin.this, DashboardUser.class);
             startActivity(intent);
             finish();
 
-        } else if(checkbox.equals("false")) {
+        } else if(checkboxuser.equals("false")) {
             Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
             FirebaseAuth.getInstance().signOut();
         }
@@ -79,11 +79,11 @@ public class UserLogin extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()){
-                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences preferences = getSharedPreferences("checkboxuser", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("remember", "true");
                     editor.apply();
-                    Toast.makeText(UserLogin.this, "Checked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserLogin.this, "Remember Me is Checked", Toast.LENGTH_SHORT).show();
 
                 }else if(!compoundButton.isChecked()){
                     SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);

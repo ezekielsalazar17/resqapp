@@ -66,7 +66,7 @@ public class AdminLogin extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         imageView = findViewById(R.id.imageView4);
         forgotpass = findViewById(R.id.forgotpass);
-        rememberme = findViewById(R.id.remember_me_checkbox);
+        rememberme = findViewById(R.id.remember_me_checkboxadmin);
         fire = findViewById(R.id.fire_checkbox);
         ambulance = findViewById(R.id.ambulance_checkbox);
         police = findViewById(R.id.police_checkbox);
@@ -79,6 +79,20 @@ public class AdminLogin extends AppCompatActivity {
                     ambulance.setChecked(false);
                     police.setChecked(false);
                     coast.setChecked(false);
+
+                    SharedPreferences preferences = getSharedPreferences("checkboxfire", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "true");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "You are in Fire Department", Toast.LENGTH_SHORT).show();
+                }
+                else if(!compoundButton.isChecked()){
+                    SharedPreferences preferences = getSharedPreferences("checkboxfire", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "false");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "Unchecked", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -90,6 +104,19 @@ public class AdminLogin extends AppCompatActivity {
                     fire.setChecked(false);
                     police.setChecked(false);
                     coast.setChecked(false);
+
+                    SharedPreferences preferences = getSharedPreferences("checkboxambulance", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "true");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "You are in Ambulance Department", Toast.LENGTH_SHORT).show();
+                }
+                else if(!compoundButton.isChecked()) {
+                    SharedPreferences preferences = getSharedPreferences("checkboxambulance", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "false");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "Unchecked", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -101,6 +128,19 @@ public class AdminLogin extends AppCompatActivity {
                     ambulance.setChecked(false);
                     fire.setChecked(false);
                     coast.setChecked(false);
+
+                    SharedPreferences preferences = getSharedPreferences("checkboxpolice", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "true");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "You are in Police Department", Toast.LENGTH_SHORT).show();
+                }
+                else if(!compoundButton.isChecked()) {
+                    SharedPreferences preferences = getSharedPreferences("checkboxpolice", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "false");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "Unchecked", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -112,53 +152,78 @@ public class AdminLogin extends AppCompatActivity {
                     ambulance.setChecked(false);
                     police.setChecked(false);
                     fire.setChecked(false);
+
+                    SharedPreferences preferences = getSharedPreferences("checkboxcoast", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "true");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "You are in Coast Guard Department", Toast.LENGTH_SHORT).show();
+                }
+                else if(!compoundButton.isChecked()) {
+                    SharedPreferences preferences = getSharedPreferences("checkboxcoast", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "false");
+                    editor.apply();
+                    Toast.makeText(AdminLogin.this, "Unchecked", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
 
 
-        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("checkboxadmin", MODE_PRIVATE);
+        SharedPreferences preferences2 = getSharedPreferences("checkboxfire", MODE_PRIVATE);
+        SharedPreferences preferences3 = getSharedPreferences("checkboxambulance", MODE_PRIVATE);
+        SharedPreferences preferences4 = getSharedPreferences("checkboxpolice", MODE_PRIVATE);
+        SharedPreferences preferences5 = getSharedPreferences("checkboxcoast", MODE_PRIVATE);
 
-        String checkbox = preferences.getString("remember","");
+        String checkboxadmin = preferences.getString("remember","");
+        String checkboxfire = preferences2.getString("remember", "");
+        String checkboxambulance = preferences3.getString("remember", "");
+        String checkboxpolice = preferences4.getString("remember", "");
+        String checkboxcoast = preferences5.getString("remember", "");
 
-        if(checkbox.equals("true")){
 
-            if (fire.equals(true)){
+        if(checkboxadmin.equals("true")){
+            if (checkboxfire.equals("true")){
                 Intent intent = new Intent(AdminLogin.this, DashboardFireDepartment.class);
                 startActivity(intent);
                 finish();
-            }else{
-                Toast.makeText(this, "No account saved", Toast.LENGTH_SHORT).show();
             }
 
-        } else if (checkbox.equals("true") && police.equals(true)){
-            Intent intent = new Intent(AdminLogin.this, DashboardPoliceDepartment.class);
-            startActivity(intent);
-            finish();
-        } else if (checkbox.equals("true") && ambulance.equals(true)) {
-            Intent intent = new Intent(AdminLogin.this, DashboardAmbulanceDepartment.class);
-            startActivity(intent);
-            finish();
-        } else if (checkbox.equals("true") && coast.equals(true)) {
-            Intent intent = new Intent(AdminLogin.this, DashboardCoastGuardDepartment.class);
-            startActivity(intent);
-            finish();
-        } else if(checkbox.equals("false")) {
+        } else if (checkboxadmin.equals("true")){
+            if (checkboxcoast.equals("true")){
+                Intent intent = new Intent(AdminLogin.this, DashboardCoastGuardDepartment.class);
+                startActivity(intent);
+                finish();
+            }
+        } else if (checkboxadmin.equals("true")) {
+            if (checkboxpolice.equals("true")){
+                Intent intent = new Intent(AdminLogin.this, DashboardPoliceDepartment.class);
+                startActivity(intent);
+                finish();
+            }
+        } else if (checkboxadmin.equals("true")) {
+            if (checkboxambulance.equals("true")){
+                Intent intent = new Intent(AdminLogin.this, DashboardAmbulanceDepartment.class);
+                startActivity(intent);
+                finish();
+            }
+        } else if(checkboxadmin.equals("false")) {
             Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().signOut();
         }
 
         rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(compoundButton.isChecked()){
-                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    SharedPreferences preferences = getSharedPreferences("checkboxadmin", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("remember", "true");
                     editor.apply();
-                    Toast.makeText(AdminLogin.this, "Checked", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminLogin.this, "Remember Me is Checked", Toast.LENGTH_SHORT).show();
 
                 }else if(!compoundButton.isChecked()){
                     SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
@@ -192,10 +257,10 @@ public class AdminLogin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userEmail = email.getText().toString().trim();
-                String userPassword = password.getText().toString().trim();
+                String adminEmail = email.getText().toString().trim();
+                String adminPassword = password.getText().toString().trim();
 
-                if (userEmail.isEmpty() || userPassword.isEmpty()) {
+                if (adminEmail.isEmpty() || adminPassword.isEmpty()) {
                     Toast.makeText(AdminLogin.this, "Email and password are required", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -204,7 +269,7 @@ public class AdminLogin extends AppCompatActivity {
                     return;
                 }
 
-                fAuth.signInWithEmailAndPassword(userEmail, userPassword)
+                fAuth.signInWithEmailAndPassword(adminEmail, adminPassword)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
