@@ -99,9 +99,16 @@ public class DashboardFireDepartment extends AppCompatActivity {
                                 double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
 
 
-                                Item item = new Item(firstName, lastName, address, latitude, longitude, contactNum);
+                                Item item = new Item(firstName, lastName, address, latitude, longitude, contactNum, imageButton);
 
                                 userHistoryList.add(item);
+
+                                String finalAddress = address;
+                                imageButton.setOnClickListener(v -> {
+                                    Intent intent = new Intent(DashboardFireDepartment.this, LocationSharingAdmin.class);
+                                    intent.putExtra("Address", finalAddress);
+                                    startActivity(intent);
+                                });
 
 
                             }

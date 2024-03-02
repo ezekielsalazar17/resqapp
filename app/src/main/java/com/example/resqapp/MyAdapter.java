@@ -2,9 +2,7 @@ package com.example.resqapp;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,17 +39,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.contactnumView.setText("Contact Number: " + (currentItem.getContactNum()));
         holder.checkBox.setImageResource(R.drawable.baseline_check_24);
 
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // Define other views
-        ImageButton imageButton;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            // Initialize other views
-            imageButton = itemView.findViewById(R.id.checkBox);
-        }
     }
 
     @Override
