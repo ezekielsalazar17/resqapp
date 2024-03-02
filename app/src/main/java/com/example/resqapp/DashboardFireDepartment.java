@@ -95,7 +95,6 @@ public class DashboardFireDepartment extends AppCompatActivity {
                                 String contactNum = contactNumObj != null ? String.valueOf(contactNumObj) : "0";
 
 
-
                                 double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
                                 double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
 
@@ -103,6 +102,8 @@ public class DashboardFireDepartment extends AppCompatActivity {
                                 Item item = new Item(firstName, lastName, address, latitude, longitude, contactNum);
 
                                 userHistoryList.add(item);
+
+
                             }
 
                             // Initialize RecyclerView adapter with the correct context
@@ -115,8 +116,6 @@ public class DashboardFireDepartment extends AppCompatActivity {
                         }
                     }
                 });
-
-
 
         profileButton.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), Fireprofile.class));

@@ -1,12 +1,12 @@
 package com.example.resqapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class UserOrAdminLogin extends AppCompatActivity {
 
@@ -27,12 +27,10 @@ public class UserOrAdminLogin extends AppCompatActivity {
 
         user.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), UserLogin.class));
-            finish();
         });
 
         admin.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), AdminLogin.class));
-            finish();
         });
 
 

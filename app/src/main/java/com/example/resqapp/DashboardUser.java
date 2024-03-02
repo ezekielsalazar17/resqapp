@@ -5,6 +5,7 @@ import static com.example.resqapp.UserRegister.TAG;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -73,6 +74,12 @@ public class DashboardUser extends AppCompatActivity {
         firebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ProgressDialog progressDialog = new ProgressDialog(DashboardUser.this);
+                progressDialog.setMessage("Sending...");
+                progressDialog.setCancelable(true);
+                progressDialog.show();
+
                 // Get Firebase instance
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -113,8 +120,10 @@ public class DashboardUser extends AppCompatActivity {
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
+                                                    progressDialog.dismiss();
                                                     Log.d(TAG, "Document added to collection 'History' with ID: " + documentReference.getId());
                                                     // Perform any additional actions if needed
+
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {

@@ -122,10 +122,15 @@ public class AdminLogin extends AppCompatActivity {
 
         String checkbox = preferences.getString("remember","");
 
-        if(checkbox.equals("true") && fire.equals(true)){
-            Intent intent = new Intent(AdminLogin.this, DashboardFireDepartment.class);
-            startActivity(intent);
-            finish();
+        if(checkbox.equals("true")){
+
+            if (fire.equals(true)){
+                Intent intent = new Intent(AdminLogin.this, DashboardFireDepartment.class);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(this, "No account saved", Toast.LENGTH_SHORT).show();
+            }
 
         } else if (checkbox.equals("true") && police.equals(true)){
             Intent intent = new Intent(AdminLogin.this, DashboardPoliceDepartment.class);
@@ -139,23 +144,9 @@ public class AdminLogin extends AppCompatActivity {
             Intent intent = new Intent(AdminLogin.this, DashboardCoastGuardDepartment.class);
             startActivity(intent);
             finish();
-        } else {
-            Toast.makeText(this, "No account saved", Toast.LENGTH_SHORT).show();
-        }
-
-
-
-        if(checkbox.equals("true")){
-            Intent intent = new Intent(AdminLogin.this, DashboardUser.class);
-            startActivity(intent);
-            finish();
-
         } else if(checkbox.equals("false")) {
             Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
-            FirebaseAuth.getInstance().signOut();
         }
-
-
 
         rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 

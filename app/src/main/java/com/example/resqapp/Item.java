@@ -15,6 +15,7 @@ public class Item {
         this.latitude = latitude;
         this.longitude = longitude;
         this.contactNum = contactNum;
+
     }
 
     public String getFirstName() {
@@ -40,4 +41,5 @@ public class Item {
     public String getContactNum() {
         return contactNum;
     }
+
 }
