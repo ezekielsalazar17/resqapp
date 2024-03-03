@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
-    public View imageButton;
-    TextView nameView,addressView,latitudeView,longitudeView,contactnumView;
+    TextView nameView, addressView, latitudeView, longitudeView, contactnumView;
     ImageButton checkBox;
+
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
         nameView = itemView.findViewById(R.id.name);
@@ -20,7 +20,5 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         longitudeView = itemView.findViewById(R.id.longitude);
         contactnumView = itemView.findViewById(R.id.contact_number);
         checkBox = itemView.findViewById(R.id.accept_button);
-
-
     }
 }

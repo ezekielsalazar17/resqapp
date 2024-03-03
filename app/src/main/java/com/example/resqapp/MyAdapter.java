@@ -1,9 +1,10 @@
 package com.example.resqapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,22 +15,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private Context context;
     private List<Item> items;
-    private ImageButton imageButton;
 
     public MyAdapter(Context context, List<Item> items) {
         this.context = context;
         this.items = items;
+
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Check if context is null before inflating the layout
-        if (context == null) {
-            throw new NullPointerException("Context is null. Make sure it is properly initialized.");
-        }
-        return new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_view, parent, false));
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
+        return new MyViewHolder(itemView);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -39,11 +38,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.latitudeView.setText("Latitude: " + (currentItem.getLatitude()));
         holder.longitudeView.setText("Longitude: " + (currentItem.getLongitude()));
         holder.contactnumView.setText("Contact Number: " + (currentItem.getContactNum()));
-        holder.checkBox.setImageResource(R.drawable.baseline_check_24);
 
+        // Set OnClickListener for the ImageButton
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle item click
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    Item clickedItem = items.get(adapterPosition);
+                    Intent intent = new Intent(context, LocationSharingAdmin.class);
+                    intent.putExtra("Address", clickedItem.getAddress());
+                    context.startActivity(intent); // Start activity using context
+                }
+            }
+        });
     }
 
-    public ImageButton getImageButton(){ return imageButton; }
 
     @Override
     public int getItemCount() {

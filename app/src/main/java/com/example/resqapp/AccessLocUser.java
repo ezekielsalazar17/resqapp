@@ -116,6 +116,7 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
                                 lat.setText("Latitude: " + latitude);
                                 longi.setText("Longitude: " + longitude);
 
+
                                 // Get the address from latitude and longitude
                                 getAddressFromLocation(latitude, longitude);
 
