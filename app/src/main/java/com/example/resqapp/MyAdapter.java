@@ -37,7 +37,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.addressView.setText("Address: " + currentItem.getAddress());
         holder.latitudeView.setText("Latitude: " + (currentItem.getLatitude()));
         holder.longitudeView.setText("Longitude: " + (currentItem.getLongitude()));
+        holder.addressadminView.setText("Address: " + currentItem.getAddressAdmin());
+        holder.latitudeadminView.setText("Latitude: " + (currentItem.getLatitudeAdmin()));
+        holder.longitudeadminView.setText("Longitude: " + (currentItem.getLongitudeAdmin()));
         holder.contactnumView.setText("Contact Number: " + (currentItem.getContactNum()));
+
 
         // Set OnClickListener for the ImageButton
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     Item clickedItem = items.get(adapterPosition);
                     Intent intent = new Intent(context, LocationSharingAdmin.class);
                     intent.putExtra("Address", clickedItem.getAddress());
+                    intent.putExtra("AddressAdmin", clickedItem.getAddressAdmin());
                     context.startActivity(intent); // Start activity using context
                 }
             }

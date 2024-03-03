@@ -6,14 +6,20 @@ public class Item {
     private String address;
     private double latitude;
     private double longitude;
+    private String addressadmin;
+    private double latitudeadmin;
+    private double longitudeadmin;
     private String contactNum;
 
-    public Item(String firstName, String lastName, String address, double latitude, double longitude, String contactNum) {
+    public Item(String firstName, String lastName, String address, double latitude, double longitude, String addressadmin, double latitudeadmin, double longitudeadmin, String contactNum) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.addressadmin = addressadmin;
+        this.latitudeadmin = latitudeadmin;
+        this.longitudeadmin = longitudeadmin;
         this.contactNum = contactNum;
 
     }
@@ -36,6 +42,18 @@ public class Item {
 
     public double getLongitude() {
         return longitude;
+    }
+
+    public String getAddressAdmin() {
+        return addressadmin;
+    }
+
+    public double getLatitudeAdmin() {
+        return latitudeadmin;
+    }
+
+    public double getLongitudeAdmin() {
+        return longitudeadmin;
     }
 
     public String getContactNum() {

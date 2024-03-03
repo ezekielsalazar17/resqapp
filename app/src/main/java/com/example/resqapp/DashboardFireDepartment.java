@@ -85,6 +85,9 @@ public class DashboardFireDepartment extends AppCompatActivity {
                                 String address = document.getString("address");
                                 address = capitalizeEveryWord(address); // Capitalize the address
 
+                                String addressadmin = document.getString("address");
+                                addressadmin = capitalizeEveryWord(addressadmin);
+
                                 Double latitudeObj = document.getDouble("latitude");
                                 Double longitudeObj = document.getDouble("longitude");
                                 String contactNumObj = document.getString("contactNum");
@@ -93,7 +96,10 @@ public class DashboardFireDepartment extends AppCompatActivity {
                                 double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
                                 double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
 
-                                Item item = new Item(firstName, lastName, address, latitude, longitude, contactNum);
+                                double latitudeadmin = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
+                                double longitudeadmin = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
+
+                                Item item = new Item(firstName, lastName, address, latitude, longitude,addressadmin, latitudeadmin, longitudeadmin, contactNum);
                                 userHistoryList.add(item);
                             }
 
