@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,8 @@ import java.util.Map;
 public class AdminRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String TAG = "TAG";
     EditText Email, Password, Conpass, Number;
+
+    TextView latitude, longitude, address;
 
     Button RegisterBtn;
 
@@ -64,6 +67,10 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
         Conpass = findViewById(R.id.adminconpass1);
         RegisterBtn = findViewById(R.id.register);
 
+        latitude = findViewById(R.id.latitudeadmin1);
+        longitude = findViewById(R.id.longitudeadmin1);
+        address = findViewById(R.id.addressadmin1);
+
         fAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
@@ -82,6 +89,9 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
                 String password = Password.getText().toString().trim();
                 String number = Number.getText().toString().trim();
                 String department = spinner.getSelectedItem().toString().trim();
+                String lat = " ";
+                String longi = " ";
+                String add = " ";
 
                 if(TextUtils.isEmpty(email)){
                     Email.setError("Email is Required ");
@@ -112,6 +122,9 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
                             user.put("Password", password);
                             user.put("Contact Number", number);
                             user.put("Department", department);
+                            user.put("Latitude", lat);
+                            user.put("Longitude", longi);
+                            user.put("Address", add);
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

@@ -266,6 +266,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/latitudeadmin1"
+        android:textColor="@color/black"
+        android:text="Latitude: "
+        android:textSize="12sp"
+        android:layout_marginStart="20dp"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/longitudeadmin1"
+        android:textColor="@color/black"
+        android:text="Latitude: "
+        android:textSize="12sp"
+        android:layout_marginStart="20dp"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/addressadmin1"
+        android:textColor="@color/black"
+        android:text="Latitude: "
+        android:textSize="12sp"
+        android:layout_marginStart="20dp"
+        android:visibility="invisible"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
