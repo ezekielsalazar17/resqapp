@@ -84,16 +84,16 @@
         />
 
     <TextView
+        android:id="@+id/longitude_admin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/longitude_admin"
-        android:textColor="@color/black"
-        android:text="Longitude: "
-        android:textSize="12sp"
         android:layout_below="@id/latitude"
         android:layout_marginStart="20dp"
-        android:visibility="invisible"
-        />
+        android:layout_marginTop="0dp"
+        android:text="Longitude: "
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="invisible" />
 
     <ImageButton
         android:id="@+id/accept_button"

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LocationSharingAdmin extends AppCompatActivity {
 
     TextView userLocation, adminLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,10 +18,18 @@ public class LocationSharingAdmin extends AppCompatActivity {
         adminLocation = findViewById(R.id.admin_loc);
 
         String userloc = getIntent().getStringExtra("Address");
-        userLocation.setText(userloc);
-        String adminloc = getIntent().getStringExtra("AddressAdmin");
-        adminLocation.setText(adminloc);
+        if (userloc != null) {
+            userLocation.setText(userloc);
+        } else {
+            userLocation.setText("User Location Not Available");
+        }
 
-
+        String adminloc = getIntent().getStringExtra("Admin Address");
+        if (adminloc != null) {
+            adminLocation.setText(adminloc);
+        } else {
+            adminLocation.setText("Admin Location Not Available");
+        }
     }
+
 }

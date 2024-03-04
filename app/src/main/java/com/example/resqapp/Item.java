@@ -12,15 +12,17 @@ public class Item {
     private double longitudeadmin;
     private String contactNum;
 
-    public Item(String firstName, String lastName, String address, double latitude, double longitude, String addressadmin, double latitudeadmin, double longitudeadmin, String contactNum) {
+
+
+    public Item(String firstName, String lastName, String address, double latitude, double longitude, String contactNum) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.addressadmin = addressadmin;
+       /* this.addressadmin = addressadmin;
         this.latitudeadmin = latitudeadmin;
-        this.longitudeadmin = longitudeadmin;
+        this.longitudeadmin = longitudeadmin;*/
         this.contactNum = contactNum;
 
     }
@@ -45,21 +47,18 @@ public class Item {
         return longitude;
     }
 
-    public String getAddressAdmin() {
-        return addressadmin;
+    public String getAddressadmin() { return addressadmin;
     }
 
-    public double getLatitudeAdmin() {
-        return latitudeadmin;
+    public double getLatitudeadmin() { return latitudeadmin;
     }
 
-    public double getLongitudeAdmin() {
-        return longitudeadmin;
+    public double getLongitudeadmin() { return longitudeadmin;
     }
 
-    public String getContactNum() {
-        return contactNum;
+    public String getContactNum() {return contactNum;
     }
+
 
 
 }

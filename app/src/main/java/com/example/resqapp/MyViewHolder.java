@@ -24,4 +24,5 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         longitudeadminView = itemView.findViewById(R.id.longitude_admin);
         checkBox = itemView.findViewById(R.id.accept_button);
     }
+
 }
