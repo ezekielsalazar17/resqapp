@@ -34,11 +34,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
     private String address;
     private double longitude;
     private double latitude;
-    private String addressadmin;
-    private double longitudeadmin;
-    private double latitudeadmin;
     private long contactNum;
-
     private String capitalizedText;
 
     @SuppressLint("MissingInflatedId")
@@ -60,20 +56,19 @@ public class DashboardFireDepartment extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Initialize empty list of items
+        List<Item> items = new ArrayList<>();
+
         // Initialize Firestore instance
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String historyCollection = "History";
 
         // Get current user ID
         userID = fAuth.getCurrentUser().getUid();
 
-        // Initialize RecyclerView adapter with an empty list
-        MyAdapter adapter = new MyAdapter(DashboardFireDepartment.this, new ArrayList<>());
-        recyclerView.setAdapter(adapter);
-
-        // Fetch data from Firestore "History" collection
-        db.collection("History")
+        // Fetch data from Firestore
+        db.collection(historyCollection)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -81,62 +76,56 @@ public class DashboardFireDepartment extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             List<Item> userHistoryList = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Retrieve data from Firestore document for History collection
+                                // Retrieve data from Firestore document
                                 String firstName = document.getString("firstName");
                                 String lastName = document.getString("lastName");
+                                firstName = capitalizeEveryWord(firstName);
+                                lastName = capitalizeEveryWord(lastName);
+
                                 String address = document.getString("address");
-                                double latitude = document.getDouble("latitude");
-                                double longitude = document.getDouble("longitude");
-                                String contactNum = document.getString("contactNum");
+                                address = capitalizeEveryWord(address); // Capitalize the address
+
+                                Double latitudeObj = document.getDouble("latitude");
+                                Double longitudeObj = document.getDouble("longitude");
+                                String contactNumObj = document.getString("contactNum");
+
+
+                                String contactNum = contactNumObj != null ? String.valueOf(contactNumObj) : "0";
+                                double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
+                                double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
+
 
                                 Item item = new Item(firstName, lastName, address, latitude, longitude, contactNum);
                                 userHistoryList.add(item);
                             }
 
-                            // Update the RecyclerView adapter with the data from History collection
-                            adapter.getItems().addAll(userHistoryList);
-                            adapter.notifyDataSetChanged();
+                            // Initialize RecyclerView adapter with the correct context and data
+                            MyAdapter adapter = new MyAdapter(DashboardFireDepartment.this, userHistoryList);
+                            recyclerView.setAdapter(adapter);
                         } else {
-                            Log.e(TAG, "Error getting documents from History collection: ", task.getException());
+                            Log.e(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
 
-        // Fetch data from Firestore "admins" collection
-        db.collection("admins")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            List<Item> adminsList = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Retrieve data from Firestore document for admins collection
-                                String adminAddress = document.getString("Admin Address");
-                                Double adminLatitudeObj = document.getDouble("Latitude");
-                                Double adminLongitudeObj = document.getDouble("Longitude");
+        // Set OnClickListener for the ImageButton
+        /*if (imageButton != null) {
+            imageButton.setOnClickListener(new View.OnClickListener() {
 
-                                double adminLatitude = 0.0;
-                                double adminLongitude = 0.0;
-
-                                // Check if latitude and longitude values are not null
-                                if (adminLatitudeObj != null && adminLongitudeObj != null) {
-                                    adminLatitude = adminLatitudeObj;
-                                    adminLongitude = adminLongitudeObj;
-                                }
-
-                                Item adminItem = new Item("", "", adminAddress, adminLatitude, adminLongitude, "");
-                                adminsList.add(adminItem);
-                            }
-
-                            // Append the data from admins collection to the RecyclerView adapter
-                            adapter.getItems().addAll(adminsList);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            Log.e(TAG, "Error getting documents from admins collection: ", task.getException());
-                        }
+                @Override
+                public void onClick(View v) {
+                    // Handle button click
+                    int adapterPosition = recyclerView.getChildAdapterPosition(v);
+                    if (adapterPosition != RecyclerView.NO_POSITION) {
+                        Item clickedItem = items.get(adapterPosition);
+                        Intent intent = new Intent(DashboardFireDepartment.this, LocationSharingAdmin.class);
+                        intent.putExtra("Address", clickedItem.getAddress());
+                        startActivity(intent);
                     }
-                });
+                }
+            });
+
+        }*/
 
         // Set OnClickListener for the profile button
         profileButton.setOnClickListener((v) -> {

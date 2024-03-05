@@ -9,7 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
-    TextView nameView, addressView, latitudeView, longitudeView, contactnumView, addressadminView, latitudeadminView, longitudeadminView;
+    TextView nameView;
+    TextView addressView;
+    TextView latitudeView;
+    TextView longitudeView;
+    TextView contactnumView;
+    TextView addressadminView;
+    TextView latitudeadminView;
+    TextView longitudeadminView;
     ImageButton checkBox;
 
     public MyViewHolder(@NonNull View itemView) {

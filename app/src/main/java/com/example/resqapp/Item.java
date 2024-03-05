@@ -7,12 +7,7 @@ public class Item {
     private String address;
     private double latitude;
     private double longitude;
-    private String addressadmin;
-    private double latitudeadmin;
-    private double longitudeadmin;
     private String contactNum;
-
-
 
     public Item(String firstName, String lastName, String address, double latitude, double longitude, String contactNum) {
         this.firstName = firstName;
@@ -20,9 +15,6 @@ public class Item {
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
-       /* this.addressadmin = addressadmin;
-        this.latitudeadmin = latitudeadmin;
-        this.longitudeadmin = longitudeadmin;*/
         this.contactNum = contactNum;
 
     }
@@ -47,18 +39,9 @@ public class Item {
         return longitude;
     }
 
-    public String getAddressadmin() { return addressadmin;
+    public String getContactNum() {
+        return contactNum;
     }
-
-    public double getLatitudeadmin() { return latitudeadmin;
-    }
-
-    public double getLongitudeadmin() { return longitudeadmin;
-    }
-
-    public String getContactNum() {return contactNum;
-    }
-
 
 
 }
