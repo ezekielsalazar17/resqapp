@@ -107,6 +107,7 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
                 String longitude = " ";
                 String idnum = " ";
                 String id = spinner.getSelectedItem().toString().trim();
+                String typeofacc = "User";
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(number)) {
                     Toast.makeText(UserRegister.this, "Email, password, and contact number are required", Toast.LENGTH_SHORT).show();
@@ -137,6 +138,7 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
                             user.put("Birthday", bday);
                             user.put("ID", id);
                             user.put("ID Number", getIntent().getStringExtra("charactersFromNineteenthLine"));
+                            user.put("Type of Account", typeofacc);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -168,7 +170,6 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         String choice = adapterView.getItemAtPosition(i).toString();
         Toast.makeText(getApplicationContext(), choice, Toast.LENGTH_LONG);
-        Toast.makeText(this, "Make sure to choose the right department", Toast.LENGTH_LONG).show();
     }
 
     @Override

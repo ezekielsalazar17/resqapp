@@ -124,7 +124,7 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
                             user.put("Department", department);
                             user.put("Latitude", lat);
                             user.put("Longitude", longi);
-                            user.put("Address", add);
+                            user.put("Admin Address", add);
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override

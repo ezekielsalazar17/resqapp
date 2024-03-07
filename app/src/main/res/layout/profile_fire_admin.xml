@@ -43,7 +43,8 @@
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,10 +61,10 @@
         android:padding="3.5dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.728"
+        app:layout_constraintHorizontal_bias="0.706"
         app:layout_constraintStart_toStartOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.829"
+        app:layout_constraintVertical_bias="0.816"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
@@ -177,7 +178,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="@font/oswald_light"
         android:text="@string/email3"
-        android:textAlignment="center"
+        android:textAlignment="textEnd"
         android:textColor="#15224B"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
@@ -197,7 +198,7 @@
         android:textColor="#15224B"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintHorizontal_bias="0.012"
         app:layout_constraintStart_toEndOf="@+id/email"
         app:layout_constraintTop_toBottomOf="@+id/fire_department1"
         tools:ignore="VisualLintOverlap" />

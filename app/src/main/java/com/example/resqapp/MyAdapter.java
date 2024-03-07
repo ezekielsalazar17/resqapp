@@ -187,8 +187,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     intent.putExtra("Address Admin", adminAddress);
                     context.startActivity(intent); // Start activity using context
                 }
-
-
             }
         });
     }

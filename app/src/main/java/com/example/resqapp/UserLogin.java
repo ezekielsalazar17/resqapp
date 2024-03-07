@@ -8,7 +8,11 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,18 +20,24 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.resqapp.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UserLogin extends AppCompatActivity {
 
@@ -36,10 +46,9 @@ public class UserLogin extends AppCompatActivity {
     CheckBox rememberme;
     TextView createText, signup, forgotpass;
     FirebaseAuth fAuth;
-
-    public static final String SHARED_PREFS = "sharedPrefs";
-
+    ConstraintLayout constraintLayout;
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -58,44 +67,51 @@ public class UserLogin extends AppCompatActivity {
         createText = findViewById(R.id.donthaveaccount);
         signup = findViewById(R.id.signup);
         fAuth = FirebaseAuth.getInstance();
+        constraintLayout = findViewById(R.id.eula_popup);
         forgotpass = findViewById(R.id.forgotpass);
         rememberme = findViewById(R.id.remember_me_checkbox);
         ImageView imageView = findViewById(R.id.imageView4);
         EditText password = findViewById(R.id.pw1);
 
         SharedPreferences preferences = getSharedPreferences("checkboxuser", MODE_PRIVATE);
-        String checkboxuser = preferences.getString("remember","");
-        if(checkboxuser.equals("true")){
-            Intent intent = new Intent(UserLogin.this, DashboardUser.class);
-            startActivity(intent);
-            finish();
+        String checkboxuser = preferences.getString("remember", "");
+        if (checkboxuser.equals("true")) {
+            long lastLoginTime = preferences.getLong("lastLoginTime", 0);
+            long currentTime = System.currentTimeMillis();
+            long thirtyDaysInMillis = 30 * 24 * 60 * 60 * 1000L;
+            if (currentTime - lastLoginTime > thirtyDaysInMillis) {
+                Toast.makeText(this, "Session expired. Please sign in again.", Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(UserLogin.this, UserOrAdminLogin.class); // Redirect to login activity
+                startActivity(intent);
+                finish();
+            } else {
+                Intent intent = new Intent(UserLogin.this, DashboardUser.class);
+                startActivity(intent);
+                finish();
+            }
 
-        } else if(checkboxuser.equals("false")) {
+        } else if (checkboxuser.equals("false")) {
             Toast.makeText(this, "Please Sign in", Toast.LENGTH_SHORT).show();
             FirebaseAuth.getInstance().signOut();
         }
 
         rememberme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(compoundButton.isChecked()){
-                    SharedPreferences preferences = getSharedPreferences("checkboxuser", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                SharedPreferences preferences = getSharedPreferences("checkboxuser", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                if (isChecked) {
                     editor.putString("remember", "true");
-                    editor.apply();
+                    editor.putLong("lastLoginTime", System.currentTimeMillis()); // Store current time
                     Toast.makeText(UserLogin.this, "Remember Me is Checked", Toast.LENGTH_SHORT).show();
-
-                }else if(!compoundButton.isChecked()){
-                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
+                } else {
                     editor.putString("remember", "false");
-                    editor.apply();
                     Toast.makeText(UserLogin.this, "Unchecked", Toast.LENGTH_SHORT).show();
-
                 }
+                editor.apply();
             }
         });
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +129,7 @@ public class UserLogin extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(UserLogin.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), DashboardUser.class));
-                                    finish();
+                                    checkTypeofAccount(task.getResult().getUser().getUid());
                                 } else {
                                     Toast.makeText(UserLogin.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -123,6 +137,7 @@ public class UserLogin extends AppCompatActivity {
                         });
             }
         });
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +157,7 @@ public class UserLogin extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), UserRegister.class));
+                CreatepopUpwindow();
             }
         });
 
@@ -152,6 +167,46 @@ public class UserLogin extends AppCompatActivity {
                 showPasswordResetDialog();
             }
         });
+    }
+    public void checkTypeofAccount(String uid) {
+        fAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        DocumentReference df = firestore.collection("users").document(uid);
+
+        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    Log.d("TAG", "onSuccess " + documentSnapshot.getData());
+
+                    String typeofAccount = documentSnapshot.getString("Type of Account");
+                    if (typeofAccount != null && !typeofAccount.isEmpty()) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                handletypeofAccount(typeofAccount);
+                            }
+                        });
+                    } else {
+                        showToast("Type of account is not found");
+                    }
+                } else {
+                    showToast("User data not found");
+                }
+            }
+        });
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(UserLogin.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void handletypeofAccount(String typeofAccount) {
+        if("User".equals(typeofAccount)){
+            startActivity(new Intent(UserLogin.this, DashboardUser.class));
+        }else{
+            showToast("No matching department found");
+        }
     }
 
     private void showPasswordResetDialog() {
@@ -193,6 +248,38 @@ public class UserLogin extends AppCompatActivity {
                 });
     }
 
+    private PopupWindow popupWindow;
+
+
+    private void CreatepopUpwindow() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popUpView = inflater.inflate(R.layout.eula, null);
+
+        int width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        int height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+
+        popupWindow = new PopupWindow(popUpView, width, height, focusable);
+        constraintLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
+                Button decline, accept;
+                decline = popUpView.findViewById(R.id.decline_button_eula);
+                accept = popUpView.findViewById(R.id.accept_button_eula);
+
+                decline.setOnClickListener((v) -> {
+                    popupWindow.dismiss();
+
+                });
+
+                accept.setOnClickListener((v) -> {
+                    startActivity(new Intent(UserLogin.this, UserRegister.class));
+                });
+
+            }
+        });
+    }
     @Override
     protected void onStart() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);

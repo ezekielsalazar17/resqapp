@@ -117,12 +117,16 @@ public class UserProfile extends AppCompatActivity {
             public void onClick(View v) {
                 // Check if the sign_out button is clicked
                 if (v.getId() == R.id.sign_out) {
-                    SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+
+                    SharedPreferences preferences = getSharedPreferences("checkboxuser", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("remember", "false");
+                    editor.putLong("lastLoginTime", System.currentTimeMillis());
                     editor.apply();
+
+
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getApplicationContext(), UserOrAdminLogin.class));
+                    startActivity(new Intent(UserProfile.this, UserOrAdminLogin.class));
                     finish();
                 }
             }

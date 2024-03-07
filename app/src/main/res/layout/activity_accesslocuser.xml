@@ -10,34 +10,50 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Latitude: "
+        android:text="Latitude: "
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/oswald_bold"
         android:textSize="20sp"
         android:id="@+id/show_latitude"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Longitude: "
+        android:text="Longitude: "
+        android:textColor="@color/black"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/oswald_bold"
         android:textSize="20sp"
         android:id="@+id/show_longitude"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Address: "
+        android:text="Address: "
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/oswald_bold"
         android:textSize="20sp"
         android:id="@+id/show_address"
         />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Send Location"
-        android:id="@+id/sendLocation"
-        />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="GET LOCATION"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/oswald_bold"
+        android:textSize="20sp"
+        android:background="@drawable/get_location_button"
+
         android:id="@+id/showLocation"
         />
 

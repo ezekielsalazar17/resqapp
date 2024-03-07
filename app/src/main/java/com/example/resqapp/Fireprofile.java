@@ -28,6 +28,8 @@ public class Fireprofile extends AppCompatActivity {
     private String userID;
     private View Logout;
 
+    public static String PREFS_NAME = "MyPrefsFile";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +94,9 @@ public class Fireprofile extends AppCompatActivity {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("remember", "false");
                     editor.apply();
+
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getApplicationContext(), UserOrAdminLogin.class));
+                    startActivity(new Intent(Fireprofile.this, UserOrAdminLogin.class));
                     finish();
                 }
             }
@@ -104,4 +107,3 @@ public class Fireprofile extends AppCompatActivity {
 
     }
 }
-

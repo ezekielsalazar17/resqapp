@@ -93,7 +93,7 @@
         android:layout_width="260dp"
         android:layout_height="38dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/red_border"
+        android:background="@drawable/button_register_white_bg"
         android:hint="@string/register"
         android:letterSpacing="0.4"
         android:textColorHint="@color/white"
