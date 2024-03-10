@@ -169,7 +169,8 @@
         app:layout_constraintEnd_toEndOf="@+id/id"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/id"
-        app:layout_constraintTop_toBottomOf="@+id/dropdown_menu1" />
+        app:layout_constraintTop_toBottomOf="@+id/dropdown_menu1"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/userpass"
@@ -352,7 +353,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/contactuser1"
         app:layout_constraintTop_toBottomOf="@+id/contactuser2"
-        />
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/idNum1"
@@ -383,6 +384,45 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="65dp" />
+
+    <ImageView
+        android:id="@+id/password_visible"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contextClickable="true"
+        android:src="@drawable/baseline_visibility_25"
+        app:layout_constraintBottom_toBottomOf="@+id/userpass1"
+        app:layout_constraintEnd_toEndOf="@+id/userpass1"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="@+id/userpass1"
+        app:layout_constraintTop_toTopOf="@+id/userpass1"
+        app:layout_constraintVertical_bias="0.444" />
+
+    <ImageView
+        android:id="@+id/conpass_visible"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contextClickable="true"
+        android:src="@drawable/baseline_visibility_25"
+        app:layout_constraintBottom_toBottomOf="@+id/userconpass1"
+        app:layout_constraintEnd_toEndOf="@+id/userconpass1"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="@+id/userconpass1"
+        app:layout_constraintTop_toTopOf="@+id/userconpass1"
+        app:layout_constraintVertical_bias="0.555" />
+
+    <ImageView
+        android:id="@+id/calendar"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/birthday1"
+        app:layout_constraintEnd_toEndOf="@+id/birthday1"
+        app:layout_constraintHorizontal_bias="0.953"
+        app:layout_constraintStart_toStartOf="@+id/birthday1"
+        app:layout_constraintTop_toTopOf="@+id/birthday1"
+        app:srcCompat="@drawable/baseline_calendar_month_24"
+        tools:ignore="ContentDescription,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

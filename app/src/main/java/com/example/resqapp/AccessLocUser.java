@@ -62,7 +62,7 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
 
         lat = findViewById(R.id.show_latitude);
         longi = findViewById(R.id.show_longitude);
-        addressTextView = findViewById(R.id.show_address); // Add new TextView for address
+        addressTextView = findViewById(R.id.show_address);
 
         showLocationButton = findViewById(R.id.showLocation);
         showLocationButton.setOnClickListener(new View.OnClickListener() {
@@ -102,27 +102,23 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
     @SuppressLint("MissingPermission")
     public void showLocation() {
         if (isLocationPermissionGranted()) {
-            // Use FusedLocationProviderClient to get the user's current location
             FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
             fusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
                             if (location != null) {
-                                // Get the latitude and longitude of the user's current location
+
                                 double latitude = location.getLatitude();
                                 double longitude = location.getLongitude();
-                                // Update the TextViews with the new location
+
                                 lat.setText("Latitude: " + latitude);
                                 longi.setText("Longitude: " + longitude);
 
-
-                                // Get the address from latitude and longitude
                                 getAddressFromLocation(latitude, longitude);
 
-                                // Add marker to the map at the user's current location
                                 LatLng userLocation = new LatLng(latitude, longitude);
-                                gMap.clear(); // Clear existing markers
+                                gMap.clear();
                                 gMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
                                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
 
@@ -130,7 +126,7 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
                                 if (currentUser != null) {
                                     String userId = currentUser.getUid();
 
-                                    firestore = FirebaseFirestore.getInstance(); // Get Firestore instance
+                                    firestore = FirebaseFirestore.getInstance();
 
                                     firestore.collection("users").document(userId)
                                             .update("Latitude", latitude, "Longitude", longitude, "Address", getAddressFromLocation(latitude, longitude))

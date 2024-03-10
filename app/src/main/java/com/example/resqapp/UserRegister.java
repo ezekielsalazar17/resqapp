@@ -1,8 +1,11 @@
 package com.example.resqapp;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -11,8 +14,10 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -29,6 +34,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,19 +42,20 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
 
     public static final String TAG = "TAG";
     EditText Email, Number, Password, Conpass, Fname, Lname, Bday;
-
     Button RegisterBtn;
-
+    ImageView calendarDate, passvis, conpassvis;
+    Calendar calendar;
     ImageButton Id;
-
+    int year, month, day;
     FirebaseAuth fAuth;
-
     ProgressBar progressBar;
-
     FirebaseFirestore firestore;
     String userID;
+    DatePickerDialog datePickerDialog;
+
 
     private Spinner spinner;
+    private Context activity;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -70,6 +77,9 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
         Lname = findViewById(R.id.lname1);
         Bday = findViewById(R.id.birthday1);
         spinner = findViewById(R.id.dropdown_menu1);
+        calendarDate = findViewById(R.id.calendar);
+        passvis = findViewById(R.id.password_visible);
+        conpassvis = findViewById(R.id.conpass_visible);
 
         Id = findViewById(R.id.ocrid);
 
@@ -103,11 +113,13 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
                 String fname = Fname.getText().toString().trim();
                 String lname = Lname.getText().toString().trim();
                 String bday = Bday.getText().toString().trim();
+                String conpass = Conpass.getText().toString().trim();
                 String latitude = " ";
                 String longitude = " ";
                 String idnum = " ";
                 String id = spinner.getSelectedItem().toString().trim();
                 String typeofacc = "User";
+
 
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(number)) {
                     Toast.makeText(UserRegister.this, "Email, password, and contact number are required", Toast.LENGTH_SHORT).show();
@@ -119,7 +131,13 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
                     return;
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
+                if (!password.equals(conpass)){
+                    Toast.makeText(UserRegister.this, "Your password is not match to Confirm Password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                progressBar.setVisibility(View.INVISIBLE);
 
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -164,7 +182,61 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
                 });
             }
         });
+
+        passvis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectionStart = Password.getSelectionStart();
+                int selectionEnd = Password.getSelectionEnd();
+
+                if (Password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    Password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    Password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+
+                // Preserve cursor position
+                Password.setSelection(selectionStart, selectionEnd);
+            }
+        });
+
+        conpassvis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectionStart = Conpass.getSelectionStart();
+                int selectionEnd = Conpass.getSelectionEnd();
+
+                if (Conpass.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    Conpass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    Conpass.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+
+                // Preserve cursor position
+                Conpass.setSelection(selectionStart, selectionEnd);
+            }
+        });
+
+        calendarDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+                datePickerDialog = new DatePickerDialog(UserRegister.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        // Increment month by 1 since DatePickerDialog months are zero-based
+                        month++;
+                        Bday.setText(year + "/" + month + "/" + dayOfMonth);
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
     }
+
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

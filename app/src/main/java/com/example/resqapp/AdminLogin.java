@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -45,6 +43,9 @@ public class AdminLogin extends AppCompatActivity {
     FirebaseFirestore firestore;
     public static final String SHARED_PREFS = "sharedPrefs";
 
+    private static final String PREFS_NAME = "MyPrefs";
+    private static final String LOGIN_EXPIRY = "loginExpiry";
+
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
     @SuppressLint("MissingInflatedId")
@@ -52,8 +53,6 @@ public class AdminLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
         setContentView(R.layout.admin_login);
@@ -253,6 +252,8 @@ public class AdminLogin extends AppCompatActivity {
                 password.setSelection(selectionStart, selectionEnd);
             }
         });
+
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

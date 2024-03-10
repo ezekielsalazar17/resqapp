@@ -1,5 +1,8 @@
 package com.example.resqapp;
 
+import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
+import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
+
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -7,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
@@ -27,7 +31,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricManager;
+import androidx.biometric.BiometricPrompt;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.example.resqapp.Utility.NetworkChangeListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,14 +46,21 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.concurrent.Executor;
+
 public class UserLogin extends AppCompatActivity {
 
+    private static final int REQUEST_CODE = 101010;
+    private Executor executor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
     EditText email, password;
     Button login;
     CheckBox rememberme;
     TextView createText, signup, forgotpass;
     FirebaseAuth fAuth;
     ConstraintLayout constraintLayout;
+    ImageView fingerprint;
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
 
 
@@ -72,6 +86,98 @@ public class UserLogin extends AppCompatActivity {
         rememberme = findViewById(R.id.remember_me_checkbox);
         ImageView imageView = findViewById(R.id.imageView4);
         EditText password = findViewById(R.id.pw1);
+        fingerprint = findViewById(R.id.fingerprint);
+
+
+
+
+        BiometricManager biometricManager = BiometricManager.from(this);
+        switch (biometricManager.canAuthenticate(BIOMETRIC_STRONG | DEVICE_CREDENTIAL)) {
+            case BiometricManager.BIOMETRIC_SUCCESS:
+                Log.d("MY_APP_TAG", "App can authenticate using biometrics.");
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                Toast.makeText(this, "Fingerprint sensor not available", Toast.LENGTH_SHORT).show();
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+                Toast.makeText(this, "Sensor is busy", Toast.LENGTH_SHORT).show();
+                break;
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                // Prompts the user to create credentials that your app accepts.
+                final Intent enrollIntent = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
+                enrollIntent.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                        BIOMETRIC_STRONG | DEVICE_CREDENTIAL);
+                startActivityForResult(enrollIntent, REQUEST_CODE);
+                break;
+        }
+
+        executor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(UserLogin.this,
+                executor, new BiometricPrompt.AuthenticationCallback() {
+            @Override
+            public void onAuthenticationError(int errorCode,
+                                              @NonNull CharSequence errString) {
+                super.onAuthenticationError(errorCode, errString);
+                Toast.makeText(getApplicationContext(),
+                                "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                        .show();
+            }
+
+            @Override
+            public void onAuthenticationSucceeded(
+                    @NonNull BiometricPrompt.AuthenticationResult result) {
+                super.onAuthenticationSucceeded(result);
+
+
+                SharedPreferences sharedPreferences = getSharedPreferences("LoginDetails", MODE_PRIVATE);
+                String userEmail = sharedPreferences.getString("email", "");
+                String userPassword = sharedPreferences.getString("password", "");
+
+                // Set email and password in corresponding text fields
+                email.setText(userEmail);
+                password.setText(userPassword);
+
+                login.performClick();
+
+                fAuth.signInWithEmailAndPassword(userEmail, userPassword)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    checkTypeofAccount(task.getResult().getUser().getUid());
+
+                                } else {
+                                    Toast.makeText(UserLogin.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                Toast.makeText(getApplicationContext(),
+                        "Authentication succeeded!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAuthenticationFailed() {
+                super.onAuthenticationFailed();
+                Toast.makeText(getApplicationContext(), "Authentication failed",
+                                Toast.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric login for my app")
+                .setSubtitle("Log in using your biometric credential")
+                .setNegativeButtonText("Use account password")
+                .build();
+
+        // Prompt appears when user clicks "Log in".
+        // Consider integrating with the keystore to unlock cryptographic operations,
+        // if needed by your app.
+        fingerprint.setOnClickListener(view -> {
+            biometricPrompt.authenticate(promptInfo);
+        });
+
 
         SharedPreferences preferences = getSharedPreferences("checkboxuser", MODE_PRIVATE);
         String checkboxuser = preferences.getString("remember", "");
@@ -116,8 +222,8 @@ public class UserLogin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userEmail = email.getText().toString().trim();
-                String userPassword = password.getText().toString().trim();
+                final String userEmail = email.getText().toString().trim();
+                final String userPassword = password.getText().toString().trim();
 
                 if (userEmail.isEmpty() || userPassword.isEmpty()) {
                     Toast.makeText(UserLogin.this, "Email and password are required", Toast.LENGTH_SHORT).show();
@@ -129,13 +235,22 @@ public class UserLogin extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    // Save email and password in SharedPreferences after successful login
+                                    SharedPreferences sharedPreferences = getSharedPreferences("LoginDetails", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("email", userEmail);
+                                    editor.putString("password", userPassword);
+                                    editor.apply();
+
+                                    // Proceed with your existing logic
                                     checkTypeofAccount(task.getResult().getUser().getUid());
                                 } else {
                                     Toast.makeText(UserLogin.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-            }
+
+    }
         });
 
         imageView.setOnClickListener(new View.OnClickListener() {

@@ -43,7 +43,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private final Context context;
     private final List<Item> items;
     private GoogleMap gMap;
+
     private String adminAddress;
+    private String adminLati;
+    private String adminLongi;
+
     private String latitudeadminView;
     private String longitudeadminView;
 
@@ -100,8 +104,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                                 double latitude = location.getLatitude();
                                 double longitude = location.getLongitude();
                                 // Update the TextViews with the new location
-                                latitudeadminView = String.valueOf(latitude);
-                                longitudeadminView = String.valueOf(longitude);
+                                adminLati = String.valueOf(latitude);
+                                adminLongi = String.valueOf(longitude);
 
 
                                 // Get the address from latitude and longitude
@@ -183,8 +187,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     Item clickedItem = items.get(adapterPosition);
                     Intent intent = new Intent(context, LocationSharingAdmin.class);
+
                     intent.putExtra("Address", clickedItem.getAddress());
+                    intent.putExtra("Latitude", clickedItem.getLatitude());
+                    intent.putExtra("Longitude", clickedItem.getLongitude());
+
                     intent.putExtra("Address Admin", adminAddress);
+                    intent.putExtra("Latitude Admin", adminLati);
+                    intent.putExtra("Longitude Admin",  adminLongi);
                     context.startActivity(intent); // Start activity using context
                 }
             }
@@ -210,11 +220,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 if (documentSnapshot != null && documentSnapshot.exists()) {
                     // Data retrieved, update UI
                     String addressAdmin = documentSnapshot.getString("Address");
-                    if (addressAdmin != null) {
+                    double latAdmin = documentSnapshot.getDouble("Latitude");
+                    double longAdmin = documentSnapshot.getDouble("Longitude");
+
+                    if (addressAdmin != null && !Double.isNaN(latAdmin) && !Double.isNaN(longAdmin)) {
                         // Set the fetched address to adminAddress field
+                        adminLati = String.valueOf(latAdmin);
+                        adminLongi = String.valueOf(longAdmin);
                         adminAddress = addressAdmin;
+
                         notifyDataSetChanged(); // Notify adapter that data has changed
-                    } else {
+                    }  else {
                         Log.d(TAG, "No such document");
                     }
                 }

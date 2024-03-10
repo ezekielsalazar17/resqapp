@@ -83,5 +83,6 @@ chaquopy {
         implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
         implementation ("com.google.android.gms:play-services-vision:20.1.3")
         implementation ("com.google.android.material:material:1.4.0")
+        implementation ("androidx.biometric:biometric:1.1.0")
     }
 
