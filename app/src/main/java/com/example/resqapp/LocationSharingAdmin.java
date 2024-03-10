@@ -17,6 +17,8 @@ public class LocationSharingAdmin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.location_sharing_admin);
 
+        getSupportActionBar().hide();
+
         userLocation = findViewById(R.id.user_loc);
         userlat = findViewById(R.id.userlatitudes);
         userlong = findViewById(R.id.userlongitudes);

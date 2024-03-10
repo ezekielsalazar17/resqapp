@@ -40,18 +40,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry,TextSizeCheck" />
 
+
     <ImageView
         android:id="@+id/previewimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/profile_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/USER"
-        android:background="@drawable/white_circle"
-        app:srcCompat="@drawable/profile_final"
+        app:srcCompat="@drawable/baseline_person_24"
         tools:ignore="ContentDescription" />
-
 
     <TextView
         android:id="@+id/user_name_profile"

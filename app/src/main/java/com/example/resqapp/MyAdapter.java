@@ -4,12 +4,16 @@ import static com.example.resqapp.AdminRegister.TAG;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,9 +84,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                 == PackageManager.PERMISSION_GRANTED;
     }
 
-    private void getCurrentLocation() {
+    private boolean isLocationEnabled() {
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
 
-        if (isLocationPermissionGranted()) {
+    private void getCurrentLocation() {
+        if (isLocationPermissionGranted() && isLocationEnabled()) {
             // Use FusedLocationProviderClient to get the user's current location
             FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -103,49 +111,76 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                                 // Get the latitude and longitude of the user's current location
                                 double latitude = location.getLatitude();
                                 double longitude = location.getLongitude();
+
                                 // Update the TextViews with the new location
                                 adminLati = String.valueOf(latitude);
                                 adminLongi = String.valueOf(longitude);
 
-
                                 // Get the address from latitude and longitude
                                 getAddressFromLocation(latitude, longitude);
 
-                                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                                if (currentUser != null) {
-                                    String userId = currentUser.getUid();
-
-                                    firestore = FirebaseFirestore.getInstance(); // Get Firestore instance
-
-                                    firestore.collection("admins").document(userId)
-                                            .update("Latitude", latitude, "Longitude", longitude, "Address", getAddressFromLocation(latitude, longitude))
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.i("Firebase", "Latitude and longitude stored successfully");
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.e("Firebase", "Error storing latitude and longitude", e);
-                                                }
-                                            });
-                                } else {
-                                    // Handle case where user is not authenticated
-                                    Log.e("Firebase", "User not authenticated");
-                                }
+                                // Update Firestore with the new location
+                                updateFirestoreWithLocation(latitude, longitude);
                             } else {
-                                // Request location permission if not granted
-                                // ...
+                                // Location is null, request location permission if not granted
                                 ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
                             }
                         }
                     });
         } else {
-            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
+            // Location permission not granted or location services not enabled, request permission or prompt user to enable location
+            if (!isLocationPermissionGranted()) {
+                ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
+            } else {
+                // Location permission granted, but location services not enabled
+                showLocationSettingsDialog();
+            }
         }
+    }
 
+    private void updateFirestoreWithLocation(double latitude, double longitude) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+
+            FirebaseFirestore firestore = FirebaseFirestore.getInstance(); // Get Firestore instance
+
+            firestore.collection("admins").document(userId)
+                    .update("Latitude", latitude, "Longitude", longitude, "Address", getAddressFromLocation(latitude, longitude))
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i("Firebase", "Latitude and longitude stored successfully");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("Firebase", "Error storing latitude and longitude", e);
+                        }
+                    });
+        } else {
+            // Handle case where user is not authenticated
+            Log.e("Firebase", "User not authenticated");
+        }
+    }
+
+    private void showLocationSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Location services are disabled. Do you want to enable them?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private Object getAddressFromLocation(double latitude, double longitude) {
@@ -174,34 +209,32 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.longitudeView.setText("Longitude: " + (currentItem.getLongitude()));
         holder.contactnumView.setText("Contact Number: " + (currentItem.getContactNum()));
 
-
         // Set OnClickListener for the ImageButton
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                fetchLocationadmin();
-                getCurrentLocation();
-                // Handle item click
-                int adapterPosition = holder.getAdapterPosition();
-                if (adapterPosition != RecyclerView.NO_POSITION) {
-                    Item clickedItem = items.get(adapterPosition);
-                    Intent intent = new Intent(context, LocationSharingAdmin.class);
-
-                    intent.putExtra("Address", clickedItem.getAddress());
-                    intent.putExtra("Latitude", clickedItem.getLatitude());
-                    intent.putExtra("Longitude", clickedItem.getLongitude());
-
-                    intent.putExtra("Address Admin", adminAddress);
-                    intent.putExtra("Latitude Admin", adminLati);
-                    intent.putExtra("Longitude Admin",  adminLongi);
-                    context.startActivity(intent); // Start activity using context
-                }
+                fetchLocationAndStartActivity(currentItem);
             }
         });
     }
 
-    private void fetchLocationadmin() {
+    private void fetchLocationAndStartActivity(Item currentItem) {
+        fetchLocationadmin(new LocationFetchListener() {
+            @Override
+            public void onLocationFetch(String address, String latitude, String longitude) {
+                Intent intent = new Intent(context, LocationSharingAdmin.class);
+                intent.putExtra("Address", currentItem.getAddress());
+                intent.putExtra("Latitude", currentItem.getLatitude());
+                intent.putExtra("Longitude", currentItem.getLongitude());
+                intent.putExtra("Address Admin", address);
+                intent.putExtra("Latitude Admin", latitude);
+                intent.putExtra("Longitude Admin", longitude);
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    private void fetchLocationadmin(LocationFetchListener listener) {
         if (fAuth == null) {
             Log.e(TAG, "FirebaseAuth instance is null");
             return;
@@ -224,12 +257,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                     double longAdmin = documentSnapshot.getDouble("Longitude");
 
                     if (addressAdmin != null && !Double.isNaN(latAdmin) && !Double.isNaN(longAdmin)) {
-                        // Set the fetched address to adminAddress field
-                        adminLati = String.valueOf(latAdmin);
-                        adminLongi = String.valueOf(longAdmin);
-                        adminAddress = addressAdmin;
-
-                        notifyDataSetChanged(); // Notify adapter that data has changed
+                        // Notify listener with updated location
+                        listener.onLocationFetch(addressAdmin, String.valueOf(latAdmin), String.valueOf(longAdmin));
                     }  else {
                         Log.d(TAG, "No such document");
                     }
@@ -238,6 +267,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         });
     }
 
+    interface LocationFetchListener {
+        void onLocationFetch(String address, String latitude, String longitude);
+    }
 
     @Override
     public int getItemCount() {
