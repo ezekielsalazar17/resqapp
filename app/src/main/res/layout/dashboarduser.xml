@@ -27,7 +27,7 @@
         android:background="@drawable/profile_button"
         android:padding="5dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/baseline_person_24"
+        android:src="@drawable/baseline_person_241"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />

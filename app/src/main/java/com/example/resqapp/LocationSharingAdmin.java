@@ -153,6 +153,7 @@ public class LocationSharingAdmin extends AppCompatActivity {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
                                                             // Document deleted successfully
+
                                                         }
                                                     })
                                                     .addOnFailureListener(new OnFailureListener() {
@@ -161,6 +162,7 @@ public class LocationSharingAdmin extends AppCompatActivity {
                                                             // Handle failure
                                                         }
                                                     });
+                                            break;
                                         }
                                     }
                                 })

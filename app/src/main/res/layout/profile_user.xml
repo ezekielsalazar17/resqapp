@@ -46,11 +46,12 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="@drawable/profile_button"
+        android:src="@drawable/baseline_person_241"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/USER"
-        app:srcCompat="@drawable/baseline_person_24"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -279,10 +280,10 @@
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@+id/user_name_profile"
         app:layout_constraintEnd_toEndOf="@+id/previewimage"
-        app:layout_constraintHorizontal_bias="0.937"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/previewimage"
         app:layout_constraintTop_toBottomOf="@+id/USER"
-        app:layout_constraintVertical_bias="0.875"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/baseline_camera_alt_24"
         tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 

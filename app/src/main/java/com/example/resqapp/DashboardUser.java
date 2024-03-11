@@ -40,7 +40,7 @@ public class DashboardUser extends AppCompatActivity {
     public static final String SHARED_PREFS = "sharedPrefs";
     private static final int LOCATION_PERMISSION_CODE = 101;
     Button locationSharing;
-    ImageButton firebutton, profilebutton;
+    ImageButton firebutton, profilebutton, policebutton, coastbutton, ambulancebutton;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String userID;
@@ -59,7 +59,10 @@ public class DashboardUser extends AppCompatActivity {
 
         locationSharing = findViewById(R.id.location_tracking);
         firebutton = findViewById(R.id.fire_button);
+        policebutton = findViewById(R.id.police_button);
         profilebutton = findViewById(R.id.profile_button);
+        coastbutton = findViewById(R.id.coastguard_button);
+        ambulancebutton = findViewById(R.id.ambulance_button);
 
         locationSharing.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), AccessLocUser.class));
@@ -126,6 +129,234 @@ public class DashboardUser extends AppCompatActivity {
                                                 public void onSuccess(DocumentReference documentReference) {
                                                     progressDialog.dismiss();
                                                     Log.d(TAG, "Document added to collection 'pendingfiredept' with ID: " + documentReference.getId());
+                                                    // Perform any additional actions if needed
+
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e(TAG, "Error adding document to collection 'History': " + e.getMessage());
+                                                    // Handle failure
+                                                }
+                                            });
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e(TAG, "Error getting user document: " + e.getMessage());
+                                // Handle failure
+                            }
+                        });
+            }
+        });
+        policebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ProgressDialog progressDialog = new ProgressDialog(DashboardUser.this);
+                progressDialog.setMessage("Sending...");
+                progressDialog.setCancelable(true);
+                progressDialog.show();
+
+                // Get Firebase instance
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                // Define the collection name for user data
+                String userCollection = "users";
+
+                // Get the current user ID (assuming you have it)
+                String userID = getCurrentUserID(); // Replace with your method to get the user ID
+
+                // Retrieve user's first name and last name from the "users" collection
+                db.collection(userCollection)
+                        .document(userID)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    // Get user's first name and last name
+                                    String firstName = documentSnapshot.getString("First Name");
+                                    String lastName = documentSnapshot.getString("Last Name");
+                                    String address = documentSnapshot.getString("Address");
+                                    Double latitude = documentSnapshot.getDouble("Latitude");
+                                    Double longitude = documentSnapshot.getDouble("Longitude");
+                                    String contactNum = documentSnapshot.getString("Contact Number");
+
+                                    // Create a new document in the "History" collection with user's first name and last name
+                                    Map<String, Object> historyData = new HashMap<>();
+                                    historyData.put("firstName", firstName);
+                                    historyData.put("lastName", lastName);
+                                    historyData.put("address", address);
+                                    historyData.put("latitude", latitude);
+                                    historyData.put("longitude", longitude);
+                                    historyData.put("contactNum", contactNum);
+
+
+                                    db.collection("pendingpolicedept")
+                                            .add(historyData)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    progressDialog.dismiss();
+                                                    Log.d(TAG, "Document added to collection 'pendingpolicedept' with ID: " + documentReference.getId());
+                                                    // Perform any additional actions if needed
+
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e(TAG, "Error adding document to collection 'History': " + e.getMessage());
+                                                    // Handle failure
+                                                }
+                                            });
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e(TAG, "Error getting user document: " + e.getMessage());
+                                // Handle failure
+                            }
+                        });
+            }
+        });
+        coastbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ProgressDialog progressDialog = new ProgressDialog(DashboardUser.this);
+                progressDialog.setMessage("Sending...");
+                progressDialog.setCancelable(true);
+                progressDialog.show();
+
+                // Get Firebase instance
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                // Define the collection name for user data
+                String userCollection = "users";
+
+                // Get the current user ID (assuming you have it)
+                String userID = getCurrentUserID(); // Replace with your method to get the user ID
+
+                // Retrieve user's first name and last name from the "users" collection
+                db.collection(userCollection)
+                        .document(userID)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    // Get user's first name and last name
+                                    String firstName = documentSnapshot.getString("First Name");
+                                    String lastName = documentSnapshot.getString("Last Name");
+                                    String address = documentSnapshot.getString("Address");
+                                    Double latitude = documentSnapshot.getDouble("Latitude");
+                                    Double longitude = documentSnapshot.getDouble("Longitude");
+                                    String contactNum = documentSnapshot.getString("Contact Number");
+
+                                    // Create a new document in the "History" collection with user's first name and last name
+                                    Map<String, Object> historyData = new HashMap<>();
+                                    historyData.put("firstName", firstName);
+                                    historyData.put("lastName", lastName);
+                                    historyData.put("address", address);
+                                    historyData.put("latitude", latitude);
+                                    historyData.put("longitude", longitude);
+                                    historyData.put("contactNum", contactNum);
+
+
+                                    db.collection("pendingcoastdept")
+                                            .add(historyData)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    progressDialog.dismiss();
+                                                    Log.d(TAG, "Document added to collection 'pendingcoastdept' with ID: " + documentReference.getId());
+                                                    // Perform any additional actions if needed
+
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e(TAG, "Error adding document to collection 'History': " + e.getMessage());
+                                                    // Handle failure
+                                                }
+                                            });
+                                } else {
+                                    Log.d(TAG, "No such document");
+                                }
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.e(TAG, "Error getting user document: " + e.getMessage());
+                                // Handle failure
+                            }
+                        });
+            }
+        });
+        ambulancebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ProgressDialog progressDialog = new ProgressDialog(DashboardUser.this);
+                progressDialog.setMessage("Sending...");
+                progressDialog.setCancelable(true);
+                progressDialog.show();
+
+                // Get Firebase instance
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                // Define the collection name for user data
+                String userCollection = "users";
+
+                // Get the current user ID (assuming you have it)
+                String userID = getCurrentUserID(); // Replace with your method to get the user ID
+
+                // Retrieve user's first name and last name from the "users" collection
+                db.collection(userCollection)
+                        .document(userID)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    // Get user's first name and last name
+                                    String firstName = documentSnapshot.getString("First Name");
+                                    String lastName = documentSnapshot.getString("Last Name");
+                                    String address = documentSnapshot.getString("Address");
+                                    Double latitude = documentSnapshot.getDouble("Latitude");
+                                    Double longitude = documentSnapshot.getDouble("Longitude");
+                                    String contactNum = documentSnapshot.getString("Contact Number");
+
+                                    // Create a new document in the "History" collection with user's first name and last name
+                                    Map<String, Object> historyData = new HashMap<>();
+                                    historyData.put("firstName", firstName);
+                                    historyData.put("lastName", lastName);
+                                    historyData.put("address", address);
+                                    historyData.put("latitude", latitude);
+                                    historyData.put("longitude", longitude);
+                                    historyData.put("contactNum", contactNum);
+
+
+                                    db.collection("pendingambulancedept")
+                                            .add(historyData)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    progressDialog.dismiss();
+                                                    Log.d(TAG, "Document added to collection 'pendingambulancedept' with ID: " + documentReference.getId());
                                                     // Perform any additional actions if needed
 
                                                 }
