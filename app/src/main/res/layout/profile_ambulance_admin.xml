@@ -8,23 +8,8 @@
     tools:context=".DashboardUser">
 
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/border_radius"
-        android:drawableStart="@drawable/baseline_arrow_back_24"
-        android:padding="7dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
-
-
     <TextView
-        android:id="@+id/Admin4"
+        android:id="@+id/Admin2"
         android:layout_width="110dp"
         android:layout_height="40dp"
         android:layout_marginTop="28dp"
@@ -35,19 +20,18 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.435"
-        app:layout_constraintStart_toEndOf="@+id/back_button"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlSymmetry,TextSizeCheck" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/ambulance_admin_profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Admin4"
+        app:layout_constraintTop_toBottomOf="@+id/Admin2"
         app:srcCompat="@drawable/profile_final"
         tools:ignore="ContentDescription" />
 
@@ -58,12 +42,12 @@
         android:background="@drawable/profile_border"
         android:drawableTop="@drawable/baseline_camera_alt_24"
         android:padding="3.5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.728"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.829"
+        app:layout_constraintBottom_toBottomOf="@+id/ambulance_admin_profile"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_admin_profile"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ambulance_admin_profile"
+        app:layout_constraintTop_toTopOf="@+id/ambulance_admin_profile"
+        app:layout_constraintVertical_bias="0.816"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
@@ -75,9 +59,9 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_admin_profile"
+        app:layout_constraintStart_toStartOf="@+id/ambulance_admin_profile"
+        app:layout_constraintTop_toBottomOf="@+id/ambulance_admin_profile"
         tools:ignore="VisualLintOverlap" />
 
     <TextView
@@ -89,9 +73,9 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_admin_profile"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/ambulance_admin_profile"
         app:layout_constraintTop_toBottomOf="@+id/ambulance_name_profile" />
 
     <ImageButton
@@ -100,138 +84,77 @@
         android:layout_height="20dp"
         android:background="@drawable/baseline_edit_24"
         app:layout_constraintBottom_toBottomOf="@+id/ambulance_contact_number"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.699"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_admin_profile"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/ambulance_admin_profile"
         app:layout_constraintTop_toBottomOf="@+id/ambulance_name_profile"
-        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
+
     <TextView
-        android:id="@+id/id_num"
+        android:id="@+id/id_num_ambulance"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/oswald_light"
         android:text="@string/id_number_123123"
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.095"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/ambulance_contact_number"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_admin_profile"
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ambulance_department"
         tools:ignore="VisualLintOverlap" />
 
     <TextView
-        android:id="@+id/ambulance_id_num1"
+        android:id="@+id/id_pres_ambulance"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
-
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/oswald_light"
-        android:paddingBottom="1dp"
-        android:textAlignment="textStart"
-        android:textColor="#15224B"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.074"
-        app:layout_constraintStart_toEndOf="@+id/id_num"
-        app:layout_constraintTop_toBottomOf="@+id/ambulance_contact_number" />
-
-    <TextView
-        android:id="@+id/id_pres"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/oswald_light"
         android:text="@string/id_presented_philhealth"
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/id_num"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_admin_profile"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_num_ambulance"
         tools:ignore="VisualLintOverlap" />
 
     <TextView
-        android:id="@+id/id_pres1"
+        android:id="@+id/ambulance_email"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/oswald_light"
-        android:textAlignment="textStart"
-        android:textColor="#15224B"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.074"
-        app:layout_constraintStart_toEndOf="@+id/id_pres"
-        app:layout_constraintTop_toBottomOf="@+id/ambulance_id_num1"
-        tools:ignore="VisualLintOverlap" />
-
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/oswald_light"
         android:text="@string/email3"
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/ambulance_department1"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_admin_profile"
+        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ambulance_contact_number"
         tools:ignore="VisualLintOverlap" />
 
     <TextView
-        android:id="@+id/ambulance_email1"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/oswald_light"
-        android:textAlignment="textStart"
-        android:textColor="#15224B"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.104"
-        app:layout_constraintStart_toEndOf="@+id/email"
-        app:layout_constraintTop_toBottomOf="@+id/ambulance_department1"
-        tools:ignore="VisualLintOverlap" />
-
-    <TextView
-        android:id="@+id/department"
+        android:id="@+id/ambulance_department"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="5dp"
         android:fontFamily="@font/oswald_light"
         android:text="@string/department"
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.059"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/id_pres"
-        tools:ignore="VisualLintOverlap" />
-
-    <TextView
-        android:id="@+id/ambulance_department1"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/oswald_light"
-        android:textAlignment="textStart"
-        android:textColor="#15224B"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.012"
-        app:layout_constraintStart_toEndOf="@+id/department"
-        app:layout_constraintTop_toBottomOf="@+id/id_pres1"
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_admin_profile"
+        app:layout_constraintHorizontal_bias="0.056"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ambulance_email"
         tools:ignore="VisualLintOverlap" />
 
     <Button
@@ -239,7 +162,7 @@
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="145dp"
         android:layout_height="48dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="192dp"
         android:background="@drawable/sign_out"
         android:fontFamily="@font/oswald"
         android:padding="10dp"
@@ -247,10 +170,10 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.014"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintEnd_toEndOf="@+id/ambulance_admin_profile"
+        app:layout_constraintHorizontal_bias="0.36"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_pres_ambulance" />
 
     <Button
         android:id="@+id/about_us"
@@ -264,11 +187,11 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.435"
         app:layout_constraintStart_toEndOf="@+id/sign_out"
         app:layout_constraintTop_toTopOf="@+id/sign_out"
         tools:ignore="TouchTargetSizeCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

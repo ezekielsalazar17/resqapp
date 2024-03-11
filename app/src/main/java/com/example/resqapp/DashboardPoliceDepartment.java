@@ -15,7 +15,7 @@ public class DashboardPoliceDepartment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboardpolicedepartment);
 
-        profile = findViewById(R.id.profile_button);
+        profile = findViewById(R.id.adminrofilepolice);
 
         profile.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), Policeprofile.class));

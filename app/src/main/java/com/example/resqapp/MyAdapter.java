@@ -214,6 +214,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             @Override
             public void onClick(View v) {
                 fetchLocationAndStartActivity(currentItem);
+                ((Activity) v.getContext()).finish();
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.resqapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,14 +28,17 @@ public class Policeprofile extends AppCompatActivity {
     private String userID;
     private View Logout;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_police_admin);
 
+        getSupportActionBar().hide();
+
         contactNum = findViewById(R.id.police_contact_number);
-        department = findViewById(R.id.police_department1);
-        email = findViewById(R.id.police_email1);
+        department = findViewById(R.id.police_department_profile);
+        email = findViewById(R.id.police_email);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -68,8 +72,8 @@ public class Policeprofile extends AppCompatActivity {
 
                     // Update UI elements
                     contactNum.setText(contactNumber);
-                    department.setText(dept);
-                    email.setText(userEmail);
+                    department.setText("Department: " + dept);
+                    email.setText("Email: " + userEmail);
                 } else {
                     Log.d(TAG, "No such document");
                 }
@@ -100,4 +104,3 @@ public class Policeprofile extends AppCompatActivity {
 
     }
 }
-

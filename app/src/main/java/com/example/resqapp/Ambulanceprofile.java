@@ -33,9 +33,11 @@ public class Ambulanceprofile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_ambulance_admin);
 
+        getSupportActionBar().hide();
+
         contactNum = findViewById(R.id.ambulance_contact_number);
-        department = findViewById(R.id.ambulance_department1);
-        email = findViewById(R.id.ambulance_email1);
+        department = findViewById(R.id.ambulance_department);
+        email = findViewById(R.id.ambulance_email);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -69,8 +71,8 @@ public class Ambulanceprofile extends AppCompatActivity {
 
                     // Update UI elements
                     contactNum.setText(contactNumber);
-                    department.setText(dept);
-                    email.setText(userEmail);
+                    department.setText("Department: " + dept);
+                    email.setText("Email: " + userEmail);
                 } else {
                     Log.d(TAG, "No such document");
                 }
@@ -101,4 +103,3 @@ public class Ambulanceprofile extends AppCompatActivity {
 
     }
 }
-

@@ -1,5 +1,6 @@
 package com.example.resqapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,14 +31,17 @@ public class Fireprofile extends AppCompatActivity {
 
     public static String PREFS_NAME = "MyPrefsFile";
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_fire_admin);
 
+        getSupportActionBar().hide();
+
         contactNum = findViewById(R.id.fire_contact_number);
-        department = findViewById(R.id.fire_department1);
-        email = findViewById(R.id.fire_email1);
+        department = findViewById(R.id.fire_department);
+        email = findViewById(R.id.fire_email);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -71,8 +75,8 @@ public class Fireprofile extends AppCompatActivity {
 
                     // Update UI elements
                     contactNum.setText(contactNumber);
-                    department.setText(dept);
-                    email.setText(userEmail);
+                    department.setText("Department: " + dept);
+                    email.setText("Email: " + userEmail);
                 } else {
                     Log.d(TAG, "No such document");
                 }

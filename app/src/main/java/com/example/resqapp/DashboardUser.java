@@ -119,13 +119,13 @@ public class DashboardUser extends AppCompatActivity {
                                     historyData.put("contactNum", contactNum);
 
 
-                                    db.collection("History")
+                                    db.collection("pendingfiredept")
                                             .add(historyData)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
                                                     progressDialog.dismiss();
-                                                    Log.d(TAG, "Document added to collection 'History' with ID: " + documentReference.getId());
+                                                    Log.d(TAG, "Document added to collection 'pendingfiredept' with ID: " + documentReference.getId());
                                                     // Perform any additional actions if needed
 
                                                 }

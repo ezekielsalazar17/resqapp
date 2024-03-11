@@ -32,9 +32,11 @@ public class Coastguardprofile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_coastguard_admin);
 
-        contactNum = findViewById(R.id.coastguard_contact_number);
-        department = findViewById(R.id.coastguard_department1);
-        email = findViewById(R.id.coastguard_email1);
+        getSupportActionBar().hide();
+
+        contactNum = findViewById(R.id.coast_contact_number);
+        department = findViewById(R.id.coast_department);
+        email = findViewById(R.id.coast_email);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -68,8 +70,8 @@ public class Coastguardprofile extends AppCompatActivity {
 
                     // Update UI elements
                     contactNum.setText(contactNumber);
-                    department.setText(dept);
-                    email.setText(userEmail);
+                    department.setText("Department: " + dept);
+                    email.setText("Email: " + userEmail);
                 } else {
                     Log.d(TAG, "No such document");
                 }

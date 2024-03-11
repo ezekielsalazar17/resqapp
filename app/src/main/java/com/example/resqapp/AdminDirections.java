@@ -43,6 +43,8 @@ public class AdminDirections extends AppCompatActivity implements OnMapReadyCall
         super.onCreate(savedInstanceState);
         setContentView(R.layout.directions_admin);
 
+        getSupportActionBar().hide();
+
         lat = findViewById(R.id.userlati1);
         longi = findViewById(R.id.userlongi1);
 
