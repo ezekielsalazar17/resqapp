@@ -39,8 +39,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
@@ -146,7 +148,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
             FirebaseFirestore firestore = FirebaseFirestore.getInstance(); // Get Firestore instance
 
             firestore.collection("admins").document(userId)
-                    .update("Latitude", latitude, "Longitude", longitude, "Address", getAddressFromLocation(latitude, longitude))
+                    .update("Latitude", latitude, "Longitude", longitude, "Admin Address", getAddressFromLocation(latitude, longitude))
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -213,13 +215,78 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*addToFireDeptUserCollection(currentItem);*/
                 fetchLocationAndStartActivity(currentItem);
-
             }
         });
     }
 
+    private void addToFireDeptUserCollection() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Define the collection name for user data
+        String adminCollection = "admins";
+
+        // Get the current user ID (assuming you have it)
+        String userID = getCurrentUserID(); // Replace with your method to get the user ID
+
+        db.collection(adminCollection)
+                .document(userID)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                        if (documentSnapshot.exists()) {
+                            String Department = documentSnapshot.getString("Department");
+                            String Address = documentSnapshot.getString("Admin Address");
+                            Double latitude = documentSnapshot.getDouble("Latitude");
+                            Double longitude = documentSnapshot.getDouble("Longitude");
+                            String contactNum = documentSnapshot.getString("Contact Number");
+
+                            Map<String, Object> historyData = new HashMap<>();
+                            historyData.put("Admin Address", Address);
+                            historyData.put("Department", Department);
+                            historyData.put("Latitude", latitude);
+                            historyData.put("Longitude", longitude);
+                            historyData.put("Contact Number", contactNum);
+
+                            db.collection("firedeptuser")
+                                    .add(historyData)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Log.d(TAG, "Document added to collection 'firedeptuser' with ID: " + documentReference.getId());
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e(TAG, "Error adding document to collection 'firedeptuser': " + e.getMessage());
+                                        }
+                                    });
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    }
+                });
+    }
+    private String getCurrentUserID() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Check if the user is signed in
+        if (user != null) {
+            // Get the user's ID
+            return user.getUid();
+        } else {
+            // User is not signed in, handle this case according to your application logic
+            return null;
+        }
+    }
+
     private void fetchLocationAndStartActivity(Item currentItem) {
+        addToFireDeptUserCollection();
+        getCurrentLocation();
         fetchLocationadmin(new LocationFetchListener() {
             @Override
             public void onLocationFetch(String address, String latitude, String longitude) {
@@ -236,6 +303,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
     private void fetchLocationadmin(LocationFetchListener listener) {
+
         if (fAuth == null) {
             Log.e(TAG, "FirebaseAuth instance is null");
             return;
@@ -253,14 +321,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
                 if (documentSnapshot != null && documentSnapshot.exists()) {
                     // Data retrieved, update UI
-                    String addressAdmin = documentSnapshot.getString("Address");
+                    String addressAdmin = documentSnapshot.getString("Admin Address");
                     double latAdmin = documentSnapshot.getDouble("Latitude");
                     double longAdmin = documentSnapshot.getDouble("Longitude");
 
                     if (addressAdmin != null && !Double.isNaN(latAdmin) && !Double.isNaN(longAdmin)) {
                         // Notify listener with updated location
                         listener.onLocationFetch(addressAdmin, String.valueOf(latAdmin), String.valueOf(longAdmin));
-                    }  else {
+                    } else {
                         Log.d(TAG, "No such document");
                     }
                 }
