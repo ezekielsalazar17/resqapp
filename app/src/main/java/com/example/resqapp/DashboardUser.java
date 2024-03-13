@@ -1,7 +1,5 @@
 package com.example.resqapp;
 
-import static com.example.resqapp.UserRegister.TAG;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -21,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -31,19 +30,28 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class DashboardUser extends AppCompatActivity {
     public static final String SHARED_PREFS = "sharedPrefs";
     private static final int LOCATION_PERMISSION_CODE = 101;
+    private static String TAG;
     Button locationSharing;
     ImageButton firebutton, profilebutton, policebutton, coastbutton, ambulancebutton;
-    private FirebaseAuth fAuth;
-    private FirebaseFirestore fStore;
+    FirebaseAuth fAuth;
+    FirebaseFirestore firestore;
     private String userID;
+    private String addadmin;
+    private String latadmin;
+    private String longiadmin;
+    private MyAdapter.LocationFetchListener locationFetchListener;
 
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
@@ -77,6 +85,9 @@ public class DashboardUser extends AppCompatActivity {
         // Call requestLocationPermission method
         requestLocationPermission();
 
+        fAuth = FirebaseAuth.getInstance(); // Initialize FirebaseAuth
+        firestore = FirebaseFirestore.getInstance(); // Initialize FirebaseFirestore
+
         // Set OnClickListener for firebutton
         firebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +97,8 @@ public class DashboardUser extends AppCompatActivity {
                 progressDialog.setMessage("Sending...");
                 progressDialog.setCancelable(true);
                 progressDialog.show();
+
+                fetchLocationadmin();
 
                 // Get Firebase instance
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -121,16 +134,19 @@ public class DashboardUser extends AppCompatActivity {
                                     historyData.put("longitude", longitude);
                                     historyData.put("contactNum", contactNum);
 
-
                                     db.collection("pendingfiredept")
                                             .add(historyData)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
                                                     progressDialog.dismiss();
+                                                    Intent intent = new Intent(DashboardUser.this, Adminuserlocation.class);
+                                                    intent.putExtra("admin_add", addadmin);
+                                                    intent.putExtra("admin_lat", latadmin);
+                                                    intent.putExtra("admin_longi", longiadmin);
+                                                    startActivity(intent);
+                                                    finish();
                                                     Log.d(TAG, "Document added to collection 'pendingfiredept' with ID: " + documentReference.getId());
-                                                    // Perform any additional actions if needed
-
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -152,6 +168,7 @@ public class DashboardUser extends AppCompatActivity {
                                 // Handle failure
                             }
                         });
+
             }
         });
         policebutton.setOnClickListener(new View.OnClickListener() {
@@ -382,6 +399,45 @@ public class DashboardUser extends AppCompatActivity {
                         });
             }
         });
+    }
+    private void fetchLocationadmin() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String historyCollection = "firedeptuser";
+
+        // Get current user ID
+        userID = fAuth.getCurrentUser().getUid();
+
+        // Fetch data from Firestore
+        db.collection(historyCollection)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if (error != null) {
+                            Log.e(TAG, "Firestore Error: " + error.getMessage());
+                            return;
+                        }
+
+                        for (DocumentSnapshot doc : value.getDocuments()) {
+                            if (doc.getId().equals(userID)) {
+                                // Get admin location details from the document
+                                String address = doc.getString("Admin Address");
+                                String latitude = doc.getString("Latitude");
+                                String longitude = doc.getString("Longitude");
+
+                                // Update UI elements
+                                addadmin = address;
+                                latadmin = latitude;
+                                longiadmin = longitude;
+
+                                // Break the loop once found the user document
+                                break;
+                            }
+                        }
+
+                    }
+                });
     }
 
     private String getCurrentUserID() {
