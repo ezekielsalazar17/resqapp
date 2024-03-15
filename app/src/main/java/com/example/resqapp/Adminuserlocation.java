@@ -77,8 +77,9 @@ public class Adminuserlocation extends AppCompatActivity {
         // Get current user ID
         userID = fAuth.getCurrentUser().getUid();
 
-        // Fetch data from Firestore
+        // Inside the snapshot listener for fetching data from "firedeptuser" collection
         db.collection(historyCollection)
+                .whereEqualTo("processed", false) // Fetch only documents that are not processed
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
@@ -104,10 +105,14 @@ public class Adminuserlocation extends AppCompatActivity {
                             adminlongi.setText(String.valueOf(longitude));
                             contactNum.setText(contactNum1);
 
-                            break;
+                            // Mark the document as processed
+                            markDocumentAsProcessed(document.getId());
+
+                            break; // Assuming you only process one document at a time
                         }
                     }
                 });
+
 
         FirebaseUser user = fAuth.getCurrentUser();
         if (user != null) {
@@ -224,6 +229,26 @@ public class Adminuserlocation extends AppCompatActivity {
             }
         });
 
+    }
+    private void markDocumentAsProcessed(String documentId) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("processed", true);
+
+        FirebaseFirestore.getInstance().collection("firedeptuser")
+                .document(documentId)
+                .update(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Document marked as processed: " + documentId);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "Error marking document as processed: " + e.getMessage());
+                    }
+                });
     }
     private void showDistanceDialog(double distance) {
         // Create and configure the dialog
