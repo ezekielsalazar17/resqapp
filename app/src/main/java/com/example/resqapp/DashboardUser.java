@@ -19,7 +19,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -30,10 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,8 +94,6 @@ public class DashboardUser extends AppCompatActivity {
                 progressDialog.setCancelable(true);
                 progressDialog.show();
 
-                fetchLocationadmin();
-
                 // Get Firebase instance
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -140,13 +134,8 @@ public class DashboardUser extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
                                                     progressDialog.dismiss();
-                                                    Intent intent = new Intent(DashboardUser.this, Adminuserlocation.class);
-                                                    intent.putExtra("admin_add", addadmin);
-                                                    intent.putExtra("admin_lat", latadmin);
-                                                    intent.putExtra("admin_longi", longiadmin);
-                                                    startActivity(intent);
-                                                    finish();
                                                     Log.d(TAG, "Document added to collection 'pendingfiredept' with ID: " + documentReference.getId());
+                                                    startActivity(new Intent(DashboardUser.this, Adminuserlocation.class));
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -399,45 +388,6 @@ public class DashboardUser extends AppCompatActivity {
                         });
             }
         });
-    }
-    private void fetchLocationadmin() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        String historyCollection = "firedeptuser";
-
-        // Get current user ID
-        userID = fAuth.getCurrentUser().getUid();
-
-        // Fetch data from Firestore
-        db.collection(historyCollection)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                        if (error != null) {
-                            Log.e(TAG, "Firestore Error: " + error.getMessage());
-                            return;
-                        }
-
-                        for (DocumentSnapshot doc : value.getDocuments()) {
-                            if (doc.getId().equals(userID)) {
-                                // Get admin location details from the document
-                                String address = doc.getString("Admin Address");
-                                String latitude = doc.getString("Latitude");
-                                String longitude = doc.getString("Longitude");
-
-                                // Update UI elements
-                                addadmin = address;
-                                latadmin = latitude;
-                                longiadmin = longitude;
-
-                                // Break the loop once found the user document
-                                break;
-                            }
-                        }
-
-                    }
-                });
     }
 
     private String getCurrentUserID() {

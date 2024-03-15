@@ -16,6 +16,7 @@ public class UserOrAdminLogin extends AppCompatActivity {
 
     Button user, admin;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
+    private static final int CALL_PERMISSION_REQUEST_CODE = 1002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,7 @@ public class UserOrAdminLogin extends AppCompatActivity {
         });
 
         checkLocationPermissions();
-
-
+        checkCallPermissions();
     }
 
     private void checkLocationPermissions() {
@@ -51,6 +51,16 @@ public class UserOrAdminLogin extends AppCompatActivity {
             checkLocationEnabled();
         }
     }
+
+    private void checkCallPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    CALL_PERMISSION_REQUEST_CODE);
+        }
+    }
+
     private void checkLocationEnabled() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -61,11 +71,16 @@ public class UserOrAdminLogin extends AppCompatActivity {
             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
         }
     }
+
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 checkLocationEnabled();
+            }
+        } else if (requestCode == CALL_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Call permission granted, handle accordingly if needed
             }
         }
     }

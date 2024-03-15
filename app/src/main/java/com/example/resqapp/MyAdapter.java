@@ -37,6 +37,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -91,7 +93,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    private void getCurrentLocation() {
+    private void getCurrentLocation(LocationListener listener) {
         if (isLocationPermissionGranted() && isLocationEnabled()) {
             // Use FusedLocationProviderClient to get the user's current location
             FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
@@ -123,6 +125,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
                                 // Update Firestore with the new location
                                 updateFirestoreWithLocation(latitude, longitude);
+                                listener.onLocationFetched(latitude, longitude);
                             } else {
                                 // Location is null, request location permission if not granted
                                 ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
@@ -215,13 +218,101 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*addToFireDeptUserCollection(currentItem);*/
-                fetchLocationAndStartActivity(currentItem);
+                performOperationsSynchronously(currentItem);
+            }
+        });
+    }
+    private void performOperationsSynchronously(Item currentItem) {
+        getCurrentLocation(new LocationListener() {
+            @Override
+            public void onLocationFetched(double latitude, double longitude) {
+                fetchLocationadmin(new LocationFetchListener() {
+                    @Override
+                    public void onLocationFetch(String address, String latitude, String longitude) {
+                        addToFireDeptUserCollection(new OnCompleteListener() {
+                            @Override
+                            public void onComplete() {
+                                // Start the LocationSharingAdmin activity
+                                inProgressfetching();
+                                startLocationSharingAdminActivity(currentItem, address, latitude, longitude);
+                            }
+                        });
+                    }
+                });
             }
         });
     }
 
-    private void addToFireDeptUserCollection() {
+    private void inProgressfetching(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Fetch documents from "pendingfiredept" collection
+        db.collection("pendingfiredept")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+
+                            String firstName = documentSnapshot.getString("firstName");
+                            String lastName = documentSnapshot.getString("lastName");
+                            String address = documentSnapshot.getString("address");
+                            Double latitude = documentSnapshot.getDouble("latitude");
+                            Double longitude = documentSnapshot.getDouble("longitude");
+                            String contactNum = documentSnapshot.getString("contactNum");
+
+                            // Get document data
+                            Map<String, Object> data = documentSnapshot.getData();
+                            data.put("firstName", firstName);
+                            data.put("lastName", lastName);
+                            data.put("address", address);
+                            data.put("latitude", latitude);
+                            data.put("longitude", longitude);
+                            data.put("contactNum", contactNum);
+
+                            // Add document data to "firedeptHistory" collection
+                            db.collection("inprogressFire")
+                                    .add(data)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            // Document added successfully
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Handle failure
+                                        }
+                                    });
+                            break;
+                        }
+
+                        // Delete documents from "pendingfiredept" collection
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            db.collection("pendingfiredept")
+                                    .document(documentSnapshot.getId())
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Document deleted successfully
+
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            // Handle failure
+                                        }
+                                    });
+                            break;
+                        }
+                    }
+                });
+    }
+
+    private void addToFireDeptUserCollection(OnCompleteListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Define the collection name for user data
@@ -257,6 +348,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
                                             Log.d(TAG, "Document added to collection 'firedeptuser' with ID: " + documentReference.getId());
+                                            listener.onComplete();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -284,22 +376,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         }
     }
 
-    private void fetchLocationAndStartActivity(Item currentItem) {
-        addToFireDeptUserCollection();
-        getCurrentLocation();
-        fetchLocationadmin(new LocationFetchListener() {
-            @Override
-            public void onLocationFetch(String address, String latitude, String longitude) {
-                Intent intent = new Intent(context, LocationSharingAdmin.class);
-                intent.putExtra("Address", currentItem.getAddress());
-                intent.putExtra("Latitude", currentItem.getLatitude());
-                intent.putExtra("Longitude", currentItem.getLongitude());
-                intent.putExtra("Address Admin", address);
-                intent.putExtra("Latitude Admin", latitude);
-                intent.putExtra("Longitude Admin", longitude);
-                context.startActivity(intent);
-            }
-        });
+    private void startLocationSharingAdminActivity(Item currentItem, String address, String latitude, String longitude) {
+        Intent intent = new Intent(context, LocationSharingAdmin.class);
+        intent.putExtra("Address", currentItem.getAddress());
+        intent.putExtra("Latitude", currentItem.getLatitude());
+        intent.putExtra("Longitude", currentItem.getLongitude());
+        intent.putExtra("Address Admin", address);
+        intent.putExtra("Latitude Admin", latitude);
+        intent.putExtra("Longitude Admin", longitude);
+        context.startActivity(intent);
     }
 
     private void fetchLocationadmin(LocationFetchListener listener) {
@@ -336,8 +421,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         });
     }
 
+    interface LocationListener {
+        void onLocationFetched(double latitude, double longitude);
+    }
+
     interface LocationFetchListener {
         void onLocationFetch(String address, String latitude, String longitude);
+    }
+
+    interface OnCompleteListener {
+        void onComplete();
     }
 
     @Override

@@ -104,7 +104,7 @@ public class LocationSharingAdmin extends AppCompatActivity {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                         // Fetch documents from "pendingfiredept" collection
-                        db.collection("pendingfiredept")
+                        db.collection("inprogressFire")
                                 .get()
                                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                     @Override
@@ -142,11 +142,11 @@ public class LocationSharingAdmin extends AppCompatActivity {
                                                             // Handle failure
                                                         }
                                                     });
+                                            break;
                                         }
 
-                                        // Delete documents from "pendingfiredept" collection
                                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                            db.collection("pendingfiredept")
+                                            db.collection("inprogressFire")
                                                     .document(documentSnapshot.getId())
                                                     .delete()
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
