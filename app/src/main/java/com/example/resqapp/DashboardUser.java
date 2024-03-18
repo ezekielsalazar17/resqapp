@@ -11,25 +11,37 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,13 +101,124 @@ public class DashboardUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                ProgressDialog progressDialog = new ProgressDialog(DashboardUser.this);
-                progressDialog.setMessage("Sending...");
-                progressDialog.setCancelable(true);
-                progressDialog.show();
+                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView1 = inflater.inflate(R.layout.popup_window_user, null);
 
-                // Get Firebase instance
+
+                // Create a PopupWindow object
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                boolean focusable = true;
+                PopupWindow popupWindow = new PopupWindow(popupView1, width, height, focusable);
+
+                // Set content for PopupWindow
+                Button ok_button = popupView1.findViewById(R.id.ok_buttonuser);
+                TextView dept = popupView1.findViewById(R.id.department_admin);
+                TextView addressadmin = popupView1.findViewById(R.id.admin_address);
+                TextView lat = popupView1.findViewById(R.id.admin_latitude);
+                TextView longi = popupView1.findViewById(R.id.admin_longitude);
+                @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView contact = popupView1.findViewById(R.id.admin_contactnum1);
+                @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView fetch = popupView1.findViewById(R.id.admin_fetch);
+
+                String historyCollection = "firedeptuser";
+
+                userID = fAuth.getCurrentUser().getUid();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                db.collection(historyCollection)
+                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+                                if (e != null) {
+                                    Log.w(TAG, "Listen failed.", e);
+                                    return;
+                                }
+
+                                if (snapshots != null) {
+                                    for (QueryDocumentSnapshot document : snapshots) {
+                                        // Check if the user email matches the email stored in the firedeptuser collection
+                                        String userEmail = document.getString("User Email");
+                                        if (userEmail != null && userEmail.equals(fAuth.getCurrentUser().getEmail())) {
+                                            String fetched = document.getString("Fetched");
+                                            if ("false".equals(fetched)) {
+                                                // Data is fetched, proceed to fetch the rest of the data
+                                                String address = document.getString("Admin Address");
+                                                address = capitalizeEveryWord(address); // Capitalize the address
+                                                String contactNum1 = document.getString("Contact Number");
+                                                String fetching1 = document.getString("Fetched");
+                                                String department = document.getString("Department");
+
+                                                Double latitudeObj = document.getDouble("Latitude");
+                                                Double longitudeObj = document.getDouble("Longitude");
+
+                                                double latitude = latitudeObj != null ? latitudeObj : 0.0;
+                                                double longitude = longitudeObj != null ? longitudeObj : 0.0;
+
+                                                // Set UI elements
+                                                addressadmin.setText(address);
+                                                lat.setText(String.valueOf(latitude));
+                                                longi.setText(String.valueOf(longitude));
+                                                contact.setText(contactNum1);
+                                                fetch.setText(fetching1);
+                                            } else {
+                                                Toast.makeText(DashboardUser.this, "There's no admin response", Toast.LENGTH_SHORT).show();
+                                            }
+                                            break; // Break the loop after finding the matching user email
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                ok_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                        // Define the collection name for fire department user data
+                        String fireDeptUserCollection = "firedeptuser";
+
+                        // Fetch data from Firestore and update the "Fetched" field
+                        db.collection(fireDeptUserCollection)
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                // Update the "Fetched" field
+                                                document.getReference().update("Fetched", "true")
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                // Update successful
+                                                                Log.d(TAG, "Fetched field updated successfully.");
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                // Handle failure
+                                                                Log.e(TAG, "Error updating Fetched field: " + e.getMessage());
+                                                            }
+                                                        });
+                                                // No need to continue the loop, assuming userID is unique
+                                                break;
+                                            }
+                                        } else {
+                                            Log.e(TAG, "Error getting documents: ", task.getException());
+                                        }
+                                    }
+                                });
+                        if(addressadmin != null) {
+                            startActivity(new Intent(DashboardUser.this, Adminuserlocation.class));
+                        }else{
+                            Toast.makeText(DashboardUser.this, "Please wait for Admin Response", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                // Get Firebase instance
+                FirebaseFirestore db1 = FirebaseFirestore.getInstance();
 
                 // Define the collection name for user data
                 String userCollection = "users";
@@ -104,7 +227,7 @@ public class DashboardUser extends AppCompatActivity {
                 String userID = getCurrentUserID(); // Replace with your method to get the user ID
 
                 // Retrieve user's first name and last name from the "users" collection
-                db.collection(userCollection)
+                db1.collection(userCollection)
                         .document(userID)
                         .get()
                         .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -118,6 +241,7 @@ public class DashboardUser extends AppCompatActivity {
                                     Double latitude = documentSnapshot.getDouble("Latitude");
                                     Double longitude = documentSnapshot.getDouble("Longitude");
                                     String contactNum = documentSnapshot.getString("Contact Number");
+                                    String email = documentSnapshot.getString("Email");
 
                                     // Create a new document in the "History" collection with user's first name and last name
                                     Map<String, Object> historyData = new HashMap<>();
@@ -127,15 +251,14 @@ public class DashboardUser extends AppCompatActivity {
                                     historyData.put("latitude", latitude);
                                     historyData.put("longitude", longitude);
                                     historyData.put("contactNum", contactNum);
+                                    historyData.put("useremail", email);
 
                                     db.collection("pendingfiredept")
                                             .add(historyData)
                                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                 @Override
                                                 public void onSuccess(DocumentReference documentReference) {
-                                                    progressDialog.dismiss();
                                                     Log.d(TAG, "Document added to collection 'pendingfiredept' with ID: " + documentReference.getId());
-                                                    startActivity(new Intent(DashboardUser.this, Adminuserlocation.class));
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
@@ -388,6 +511,24 @@ public class DashboardUser extends AppCompatActivity {
                         });
             }
         });
+    }
+    private String capitalizeEveryWord(String text) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        // Split the text by spaces
+        String[] words = text.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        // Capitalize the first letter of each word
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1).toLowerCase()).append(" ");
+            }
+        }
+        // Remove trailing space
+        return result.toString().trim();
     }
 
     private String getCurrentUserID() {

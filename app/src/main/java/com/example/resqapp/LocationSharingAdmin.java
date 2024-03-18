@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,6 +24,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Map;
 
 public class LocationSharingAdmin extends AppCompatActivity {
+
+    private FirebaseAuth fAuth;
 
     TextView userLocation, adminLocation, userlat, userlong, adminlat, adminlong;
     Button direction, done1;
@@ -86,6 +89,7 @@ public class LocationSharingAdmin extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
+                fAuth = FirebaseAuth.getInstance();
 
                 // Create a PopupWindow object
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -103,67 +107,88 @@ public class LocationSharingAdmin extends AppCompatActivity {
                     public void onClick(View v) {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                        // Fetch documents from "pendingfiredept" collection
-                        db.collection("inprogressFire")
-                                .get()
-                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        db.collection("admin_actions").document("action").update("done", true)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                    public void onSuccess(Void unused) {
+                                        // Fetch documents from "pendingfiredept" collection
+                                        db.collection("inprogressFire")
+                                                .get()
+                                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
 
-                                            String firstName = documentSnapshot.getString("firstName");
-                                            String lastName = documentSnapshot.getString("lastName");
-                                            String address = documentSnapshot.getString("address");
-                                            Double latitude = documentSnapshot.getDouble("latitude");
-                                            Double longitude = documentSnapshot.getDouble("longitude");
-                                            String contactNum = documentSnapshot.getString("contactNum");
+                                                            String firstName = documentSnapshot.getString("firstName");
+                                                            String lastName = documentSnapshot.getString("lastName");
+                                                            String address = documentSnapshot.getString("address");
+                                                            Double latitude = documentSnapshot.getDouble("latitude");
+                                                            Double longitude = documentSnapshot.getDouble("longitude");
+                                                            String contactNum = documentSnapshot.getString("contactNum");
 
-                                            // Get document data
-                                            Map<String, Object> data = documentSnapshot.getData();
-                                            data.put("firstName", firstName);
-                                            data.put("lastName", lastName);
-                                            data.put("address", address);
-                                            data.put("latitude", latitude);
-                                            data.put("longitude", longitude);
-                                            data.put("contactNum", contactNum);
+                                                            // Get document data
+                                                            Map<String, Object> data = documentSnapshot.getData();
+                                                            data.put("firstName", firstName);
+                                                            data.put("lastName", lastName);
+                                                            data.put("address", address);
+                                                            data.put("latitude", latitude);
+                                                            data.put("longitude", longitude);
+                                                            data.put("contactNum", contactNum);
 
-                                            // Add document data to "firedeptHistory" collection
-                                            db.collection("firedeptHistory")
-                                                    .add(data)
-                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                        @Override
-                                                        public void onSuccess(DocumentReference documentReference) {
-                                                            // Document added successfully
+
+
+                                                            // Add document data to "firedeptHistory" collection
+                                                            db.collection("firedeptHistory")
+                                                                    .add(data)
+                                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                        @Override
+                                                                        public void onSuccess(DocumentReference documentReference) {
+                                                                            // Document added successfully
+                                                                        }
+                                                                    })
+                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            // Handle failure
+                                                                        }
+                                                                    });
+                                                            break;
                                                         }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            // Handle failure
-                                                        }
-                                                    });
-                                            break;
-                                        }
+                                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                                            db.collection("inprogressFire")
+                                                                    .document(documentSnapshot.getId())
+                                                                    .delete()
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                            // Document deleted successfully
 
-                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                            db.collection("inprogressFire")
-                                                    .document(documentSnapshot.getId())
-                                                    .delete()
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            // Document deleted successfully
+                                                                        }
+                                                                    })
+                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            // Handle failure
+                                                                        }
+                                                                    });
+                                                            break;
+                                                        }
 
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            // Handle failure
-                                                        }
-                                                    });
-                                            break;
-                                        }
+
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        // Handle failure
+                                                    }
+                                                });
+                                        db.collection("admin_actions").document("action").update("done", false);
+                                        Intent intent = new Intent(LocationSharingAdmin.this, DashboardFireDepartment.class);
+                                        intent.putExtra("admin_triggered", true);
+                                        startActivity(intent);
+
+
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -172,7 +197,7 @@ public class LocationSharingAdmin extends AppCompatActivity {
                                         // Handle failure
                                     }
                                 });
-                        startActivity(new Intent(LocationSharingAdmin.this, DashboardFireDepartment.class));
+
 
                     }
                 });
@@ -191,5 +216,5 @@ public class LocationSharingAdmin extends AppCompatActivity {
         });
 
 
-            }
-        };
+    }
+};

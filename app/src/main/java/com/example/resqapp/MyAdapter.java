@@ -3,6 +3,7 @@ package com.example.resqapp;
 import static com.example.resqapp.AdminRegister.TAG;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -58,6 +59,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private String latitudeadminView;
     private String longitudeadminView;
+
+    private int lastAcceptedPosition = 1;
 
     Geocoder geocoder;
     List<Address> listGeocoder;
@@ -204,24 +207,29 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         return null;
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Item currentItem = items.get(position);
-        holder.nameView.setText("Name: " + currentItem.getFirstName() + " " + currentItem.getLastName());
-        holder.addressView.setText("Address: " + currentItem.getAddress());
-        holder.latitudeView.setText("Latitude: " + (currentItem.getLatitude()));
-        holder.longitudeView.setText("Longitude: " + (currentItem.getLongitude()));
-        holder.contactnumView.setText("Contact Number: " + (currentItem.getContactNum()));
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        Item currentItem = items.get(position); // Retrieve the currentItem based on the position
 
-        // Set OnClickListener for the ImageButton
-        holder.checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performOperationsSynchronously(currentItem);
-            }
-        });
+        if (currentItem != null) {
+            // Bind the item's data to the view
+            holder.nameView.setText("Name: " + currentItem.getFirstName() + " " + currentItem.getLastName());
+            holder.useremailView.setText("User Email: " + currentItem.getUserEmail());
+            holder.addressView.setText("Address: " + currentItem.getAddress());
+            holder.latitudeView.setText("Latitude: " + (currentItem.getLatitude()));
+            holder.longitudeView.setText("Longitude: " + (currentItem.getLongitude()));
+            holder.contactnumView.setText("Contact Number: " + (currentItem.getContactNum()));
+
+            // Set OnClickListener for the ImageButton
+            holder.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    performOperationsSynchronously(currentItem);
+                }
+            });
+        }
     }
+
     private void performOperationsSynchronously(Item currentItem) {
         getCurrentLocation(new LocationListener() {
             @Override
@@ -232,11 +240,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                         addToFireDeptUserCollection(new OnCompleteListener() {
                             @Override
                             public void onComplete() {
-                                // Start the LocationSharingAdmin activity
                                 inProgressfetching();
                                 startLocationSharingAdminActivity(currentItem, address, latitude, longitude);
                             }
-                        });
+                        }, currentItem);
                     }
                 });
             }
@@ -277,6 +284,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                                         @Override
                                         public void onSuccess(DocumentReference documentReference) {
                                             // Document added successfully
+                                            for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                                db.collection("pendingfiredept")
+                                                        .document(documentSnapshot.getId())
+                                                        .delete()
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                // Document deleted successfully
+
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                // Handle failure
+                                                            }
+                                                        });
+                                                break;
+                                            }
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -289,30 +315,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                         }
 
                         // Delete documents from "pendingfiredept" collection
-                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                            db.collection("pendingfiredept")
-                                    .document(documentSnapshot.getId())
-                                    .delete()
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // Document deleted successfully
 
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            // Handle failure
-                                        }
-                                    });
-                            break;
-                        }
                     }
                 });
     }
 
-    private void addToFireDeptUserCollection(OnCompleteListener listener) {
+    private void addToFireDeptUserCollection(OnCompleteListener listener, Item currentItem) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Define the collection name for user data
@@ -334,6 +342,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                             Double latitude = documentSnapshot.getDouble("Latitude");
                             Double longitude = documentSnapshot.getDouble("Longitude");
                             String contactNum = documentSnapshot.getString("Contact Number");
+                            String userEmail = currentItem.getUserEmail();
+                            String fetching = "false";
 
                             Map<String, Object> historyData = new HashMap<>();
                             historyData.put("Admin Address", Address);
@@ -341,6 +351,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                             historyData.put("Latitude", latitude);
                             historyData.put("Longitude", longitude);
                             historyData.put("Contact Number", contactNum);
+                            historyData.put("Fetched", fetching);
+                            historyData.put("User Email", userEmail);
 
                             db.collection("firedeptuser")
                                     .add(historyData)

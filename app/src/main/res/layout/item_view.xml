@@ -29,102 +29,113 @@
 
             >
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/oswald_bold"
-            android:text="NAME:"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/oswald_bold"
+                android:text="NAME:"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="68dp"
-            android:fontFamily="@font/oswald_bold"
-            android:text="ADDRESS: "
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="83dp"
+                android:fontFamily="@font/oswald_bold"
+                android:text="ADDRESS: "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/latitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="38dp"
-            android:fontFamily="@font/oswald_bold"
-            android:text="LATITUDE: "
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/useremail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="38dp"
+                android:fontFamily="@font/oswald_bold"
+                android:text="User Email: "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/longitude"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="53dp"
-            android:fontFamily="@font/oswald_bold"
-            android:text="LONGITUDE: "
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/latitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="53dp"
+                android:fontFamily="@font/oswald_bold"
+                android:text="LATITUDE: "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/contact_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="23dp"
-            android:fontFamily="@font/oswald_bold"
-            android:text="CONTACT NUMBER: "
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/longitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="68dp"
+                android:fontFamily="@font/oswald_bold"
+                android:text="LONGITUDE: "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/address_admin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Address: "
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:visibility="invisible" />
+            <TextView
+                android:id="@+id/contact_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="23dp"
+                android:fontFamily="@font/oswald_bold"
+                android:text="CONTACT NUMBER: "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/latitude_admin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Latitude: "
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:visibility="invisible" />
+            <TextView
+                android:id="@+id/address_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Address: "
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="invisible" />
 
-        <TextView
-            android:id="@+id/longitude_admin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="0dp"
-            android:text="Longitude: "
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:visibility="invisible" />
+            <TextView
+                android:id="@+id/latitude_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Latitude: "
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="invisible" />
 
-        <ImageButton
-            android:id="@+id/accept_button"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="260dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/selector"
-            android:src="@drawable/baseline_check_24"
+            <TextView
+                android:id="@+id/longitude_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:text="Longitude: "
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:visibility="invisible" />
 
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+            <ImageButton
+                android:id="@+id/accept_button"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="260dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/selector"
+                android:src="@drawable/baseline_check_24"
+
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
         </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
 

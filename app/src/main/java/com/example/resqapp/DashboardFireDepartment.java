@@ -30,6 +30,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
     private String userID;
     private ImageButton profileButton;
     private ImageButton imageButton; // Define ImageButton here
+    private MyAdapter adapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -83,6 +84,8 @@ public class DashboardFireDepartment extends AppCompatActivity {
                             firstName = capitalizeEveryWord(firstName);
                             lastName = capitalizeEveryWord(lastName);
 
+                            String userEmail = document.getString("useremail");
+
                             String address = document.getString("address");
                             address = capitalizeEveryWord(address); // Capitalize the address
 
@@ -94,7 +97,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
                             double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
                             double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
 
-                            Item item = new Item(firstName, lastName, address, latitude, longitude, contactNum);
+                            Item item = new Item(userEmail, firstName, lastName, address, latitude, longitude, contactNum);
                             userHistoryList.add(item);
                         }
 

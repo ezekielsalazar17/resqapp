@@ -37,27 +37,19 @@ public class UserOrAdminLogin extends AppCompatActivity {
             startActivity(new Intent(UserOrAdminLogin.this, AdminLogin.class));
         });
 
-        checkLocationPermissions();
-        checkCallPermissions();
+        checkPermissions();
     }
 
-    private void checkLocationPermissions() {
+    private void checkPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE},
                     LOCATION_PERMISSION_REQUEST_CODE);
         } else {
             checkLocationEnabled();
-        }
-    }
-
-    private void checkCallPermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CALL_PHONE},
-                    CALL_PERMISSION_REQUEST_CODE);
         }
     }
 
@@ -77,10 +69,6 @@ public class UserOrAdminLogin extends AppCompatActivity {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 checkLocationEnabled();
-            }
-        } else if (requestCode == CALL_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Call permission granted, handle accordingly if needed
             }
         }
     }

@@ -17,10 +17,12 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     TextView addressadminView;
     TextView latitudeadminView;
     TextView longitudeadminView;
+    TextView useremailView;
     ImageButton checkBox;
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
+        useremailView = itemView.findViewById(R.id.useremail);
         nameView = itemView.findViewById(R.id.name);
         addressView = itemView.findViewById(R.id.address);
         latitudeView = itemView.findViewById(R.id.latitude);

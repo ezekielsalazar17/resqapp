@@ -8,15 +8,21 @@ public class Item {
     private double latitude;
     private double longitude;
     private String contactNum;
+    private String useremail;
 
-    public Item(String firstName, String lastName, String address, double latitude, double longitude, String contactNum) {
+    public Item(String userEmail, String firstName, String lastName, String address, double latitude, double longitude, String contactNum) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;
         this.contactNum = contactNum;
+        this.useremail = userEmail;
 
+    }
+
+    public String getUserEmail() {
+        return useremail;
     }
 
     public String getFirstName() {

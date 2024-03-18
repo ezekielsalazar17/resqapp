@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">resqapp</string>
     <string name="id1">ID</string>
     <string name="id">id</string>

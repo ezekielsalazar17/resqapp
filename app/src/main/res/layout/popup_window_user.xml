@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/holo_blue_bright"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Waiting for Admin Response?"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/department_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Department"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/admin_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin Address"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/admin_latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin Latitude"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/admin_longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin Longitude"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/admin_contactnum1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Number"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+    <TextView
+        android:id="@+id/admin_fetch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fetching"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/ok_buttonuser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK" />
+
+</LinearLayout>
