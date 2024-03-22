@@ -3,6 +3,7 @@ package com.example.resqapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -33,6 +35,9 @@ import java.util.Map;
 public class AdminRegister extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String TAG = "TAG";
     EditText Email, Password, Conpass, Number;
+
+    ImageView passvis, conpassvis;
+
 
     TextView latitude, longitude, address;
 
@@ -62,6 +67,10 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
         Number = findViewById(R.id.admincontact2);
         Conpass = findViewById(R.id.adminconpass1);
         RegisterBtn = findViewById(R.id.register);
+
+        passvis = findViewById(R.id.pass_visible1);
+        conpassvis = findViewById(R.id.conpass_visible1);
+
 
         latitude = findViewById(R.id.latitudeadmin1);
         longitude = findViewById(R.id.longitudeadmin1);
@@ -144,7 +153,41 @@ public class AdminRegister extends AppCompatActivity implements AdapterView.OnIt
 
             }
         });
+        passvis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectionStart = Password.getSelectionStart();
+                int selectionEnd = Password.getSelectionEnd();
+
+                if (Password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    Password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    Password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+
+                // Preserve cursor position
+                Password.setSelection(selectionStart, selectionEnd);
+            }
+        });
+
+        conpassvis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectionStart = Conpass.getSelectionStart();
+                int selectionEnd = Conpass.getSelectionEnd();
+
+                if (Conpass.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    Conpass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    Conpass.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                }
+
+                // Preserve cursor position
+                Conpass.setSelection(selectionStart, selectionEnd);
+            }
+        });
     }
+
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

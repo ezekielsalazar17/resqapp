@@ -4,7 +4,17 @@ import static com.example.resqapp.AdminRegister.TAG;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageButton;
 
@@ -20,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,12 +102,13 @@ public class DashboardAmbulanceDepartment extends AppCompatActivity {
                             Double latitudeObj = document.getDouble("latitude");
                             Double longitudeObj = document.getDouble("longitude");
                             String contactNumObj = document.getString("contactNum");
+                            String timestamp = document.getString("timestamp");
 
                             String contactNum = contactNumObj != null ? String.valueOf(contactNumObj) : "0";
                             double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
                             double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
 
-                            Item item = new Item(userEmail, firstName, lastName, address, latitude, longitude, contactNum);
+                            Item item = new Item(userEmail, firstName, lastName, address, latitude, longitude, contactNum, timestamp);
                             userHistoryList.add(item);
                         }
 
@@ -125,5 +137,53 @@ public class DashboardAmbulanceDepartment extends AppCompatActivity {
         }
         // Remove trailing space
         return result.toString().trim();
+    }
+    ////////// CHANGE AMBULANCE BUTTON IMAGE ///////////
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Fetch the saved image URI from SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("image_pref_ambulance", MODE_PRIVATE);
+        String savedImageUriString = preferences.getString("image_uri_ambulance", null);
+        if (savedImageUriString != null) {
+            Uri savedImageUri = Uri.parse(savedImageUriString);
+            // Load the saved image into ImageView
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), savedImageUri);
+                // Apply circular mask to the bitmap
+                Bitmap circularBitmap = getCircleBitmap(bitmap);
+                profileButton.setImageBitmap(circularBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private Bitmap getCircleBitmap(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        int diameter = Math.min(width, height);
+
+        Bitmap croppedBitmap = Bitmap.createBitmap(bitmap, (width - diameter) / 2, (height - diameter) / 2, diameter, diameter);
+
+        Bitmap output = Bitmap.createBitmap(diameter, diameter, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, diameter, diameter);
+        final RectF rectF = new RectF(rect);
+        final float roundPx = diameter / 2;
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(croppedBitmap, rect, rect, paint);
+
+        return output;
     }
 }

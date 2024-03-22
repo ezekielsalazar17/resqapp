@@ -2,6 +2,7 @@ package com.example.resqapp;
 
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,9 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     TextView latitudeadminView;
     TextView longitudeadminView;
     TextView useremailView;
+    TextView timestampView;
     ImageButton checkBox;
+    ImageView pictureuser;
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -31,7 +34,9 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         addressadminView = itemView.findViewById(R.id.address_admin);
         latitudeadminView = itemView.findViewById(R.id.latitude_admin);
         longitudeadminView = itemView.findViewById(R.id.longitude_admin);
+        timestampView = itemView.findViewById(R.id.timestamp);
         checkBox = itemView.findViewById(R.id.accept_button);
+        pictureuser = itemView.findViewById(R.id.picture_user);
     }
 
 }

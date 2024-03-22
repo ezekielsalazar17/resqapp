@@ -24,6 +24,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -235,22 +237,67 @@ public class UserLogin extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Save email and password in SharedPreferences after successful login
-                                    SharedPreferences sharedPreferences = getSharedPreferences("LoginDetails", MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("email", userEmail);
-                                    editor.putString("password", userPassword);
-                                    editor.apply();
+                                    FirebaseUser user = fAuth.getCurrentUser();
+                                    if (user.isEmailVerified()) {
+                                        // Save email and password in SharedPreferences after successful login
+                                        SharedPreferences sharedPreferences = getSharedPreferences("LoginDetails", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("email", userEmail);
+                                        editor.putString("password", userPassword);
+                                        editor.apply();
 
-                                    // Proceed with your existing logic
-                                    checkTypeofAccount(task.getResult().getUser().getUid());
+                                        // Proceed with your existing logic
+                                        checkTypeofAccount(user.getUid());
+                                    } else {
+                                        Toast.makeText(UserLogin.this, "Please verify your email address first", Toast.LENGTH_SHORT).show();
+                                        // You can also provide an option for the user to resend verification email here
+
+                                        // Create and display a popup window
+                                        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                                        View popupView = inflater.inflate(R.layout.popupwindow_verification, null);
+
+                                        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                                        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                                        boolean focusable = true; // lets taps outside the popup also dismiss it
+
+                                        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+                                        // Set content for popup window
+                                        TextView textView = popupView.findViewById(R.id.textView);
+                                        textView.setText("Send a verification again");
+
+                                        Button sendButton = popupView.findViewById(R.id.sendButton);
+                                        sendButton.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                // Resend verification email
+                                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                if (user != null) {
+                                                    user.sendEmailVerification()
+                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        Toast.makeText(UserLogin.this, "Verification email sent successfully", Toast.LENGTH_SHORT).show();
+                                                                    } else {
+                                                                        Toast.makeText(UserLogin.this, "Failed to send verification email. Please try again later.", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
+                                                }
+                                                popupWindow.dismiss(); // Dismiss the popup window after sending email
+                                            }
+                                        });
+
+                                        // Show the popup window
+                                        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                                    }
                                 } else {
-                                    Toast.makeText(UserLogin.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(UserLogin.this, "Please Register Account First", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
-
-    }
+            }
         });
 
         imageView.setOnClickListener(new View.OnClickListener() {

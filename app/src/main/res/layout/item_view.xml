@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="175dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="10dp"
     android:background="@color/white">
@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="500dp"
-        android:layout_height="155dp"
+        android:layout_height="170dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="5dp"
@@ -21,7 +21,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="320dp"
-            android:layout_height="130dp"
+            android:layout_height="150dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_margin="5dp"
@@ -31,10 +31,10 @@
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/oswald_bold"
                 android:text="NAME:"
                 android:textColor="@color/black"
@@ -42,10 +42,10 @@
 
             <TextView
                 android:id="@+id/address"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="83dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="72dp"
                 android:fontFamily="@font/oswald_bold"
                 android:text="ADDRESS: "
                 android:textColor="@color/black"
@@ -53,43 +53,55 @@
 
             <TextView
                 android:id="@+id/useremail"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="38dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="42dp"
                 android:fontFamily="@font/oswald_bold"
-                android:text="User Email: "
+                android:text="USER EMAIL: "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="57dp"
+                android:fontFamily="@font/oswald_bold"
+                android:text="TIMESTAMP: "
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/latitude"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="53dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
                 android:fontFamily="@font/oswald_bold"
                 android:text="LATITUDE: "
+                android:visibility="invisible"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/longitude"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="68dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
                 android:fontFamily="@font/oswald_bold"
                 android:text="LONGITUDE: "
+                android:visibility="invisible"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/contact_number"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="23dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="27dp"
                 android:fontFamily="@font/oswald_bold"
                 android:text="CONTACT NUMBER: "
                 android:textColor="@color/black"
@@ -126,16 +138,27 @@
                 android:textSize="12sp"
                 android:visibility="invisible" />
 
+
             <ImageButton
                 android:id="@+id/accept_button"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="260dp"
-                android:layout_marginTop="15dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="85dp"
                 android:background="@drawable/selector"
                 android:src="@drawable/baseline_check_24"
-
                 tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+            <ImageView
+                android:id="@+id/picture_user"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/baseline_person_241"
+                />
+
+
         </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
 

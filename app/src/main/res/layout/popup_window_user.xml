@@ -4,14 +4,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@android:color/holo_blue_bright"
+    android:background="@drawable/red_border"
     android:gravity="center">
 
     <TextView
         android:id="@+id/message_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Waiting for Admin Response?"
+        android:text="Waiting for Admin Response"
+        android:fontFamily="@font/oswald_bold"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
@@ -20,13 +22,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Department"
+        android:fontFamily="@font/oswald"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        />
     <TextView
         android:id="@+id/admin_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:textColor="@color/white"
         android:text="Admin Address"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -37,6 +44,8 @@
         android:layout_height="wrap_content"
         android:text="Admin Latitude"
         android:textSize="18sp"
+        android:fontFamily="@font/oswald"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
     <TextView
@@ -44,6 +53,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Admin Longitude"
+        android:fontFamily="@font/oswald"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
@@ -52,22 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contact Number"
+        android:fontFamily="@font/oswald"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
-    <TextView
-        android:id="@+id/admin_fetch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fetching"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
-
-    <Button
-        android:id="@+id/ok_buttonuser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OK" />
-
 </LinearLayout>

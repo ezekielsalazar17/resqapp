@@ -10,12 +10,11 @@
 
     <TextView
         android:id="@+id/Admin2"
-        android:layout_width="110dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/oswald_bold"
         android:letterSpacing="0.03"
-        android:paddingStart="23dp"
         android:text="ADMIN"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -25,7 +24,7 @@
         tools:ignore="RtlSymmetry,TextSizeCheck" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/firepicture"
         android:layout_width="150dp"
         android:layout_height="150dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,20 +34,21 @@
         app:srcCompat="@drawable/profile_final"
         tools:ignore="ContentDescription" />
 
-    <Button
-        android:id="@+id/profile_change"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/profile_border"
-        android:drawableTop="@drawable/baseline_camera_alt_24"
-        android:padding="3.5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fire_profile_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@+id/firepicture"
+        app:layout_constraintEnd_toEndOf="@+id/firepicture"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.816"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        app:layout_constraintStart_toStartOf="@+id/firepicture"
+        app:layout_constraintTop_toBottomOf="@+id/Admin2"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/baseline_camera_alt_24"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/fire_name_profile"
@@ -59,9 +59,9 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/firepicture"
+        app:layout_constraintStart_toStartOf="@+id/firepicture"
+        app:layout_constraintTop_toBottomOf="@+id/firepicture"
         tools:ignore="VisualLintOverlap" />
 
     <TextView
@@ -73,20 +73,20 @@
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/firepicture"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/firepicture"
         app:layout_constraintTop_toBottomOf="@+id/fire_name_profile" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
+    <Button
+        android:id="@+id/edit_contact1"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:background="@drawable/baseline_edit_24"
         app:layout_constraintBottom_toBottomOf="@+id/fire_contact_number"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/firepicture"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/firepicture"
         app:layout_constraintTop_toBottomOf="@+id/fire_name_profile"
         app:layout_constraintVertical_bias="1.0"
         tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -96,14 +96,12 @@
         android:id="@+id/id_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="29dp"
         android:fontFamily="@font/oswald_light"
         android:text="@string/id_number_123123"
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fire_department"
         tools:ignore="VisualLintOverlap" />
@@ -112,14 +110,12 @@
         android:id="@+id/id_pres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/oswald_light"
         android:text="@string/id_presented_philhealth"
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_num"
         tools:ignore="VisualLintOverlap" />
@@ -128,15 +124,13 @@
         android:id="@+id/fire_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/oswald_light"
         android:text="@string/email3"
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fire_contact_number"
         tools:ignore="VisualLintOverlap" />
@@ -145,14 +139,12 @@
         android:id="@+id/fire_department"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="22dp"
         android:fontFamily="@font/oswald_light"
         android:text="@string/department"
         android:textAlignment="center"
         android:textColor="#15224B"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.056"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fire_email"
         tools:ignore="VisualLintOverlap" />
@@ -162,7 +154,8 @@
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="145dp"
         android:layout_height="48dp"
-        android:layout_marginTop="192dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="36dp"
         android:background="@drawable/sign_out"
         android:fontFamily="@font/oswald"
         android:padding="10dp"
@@ -170,16 +163,16 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_pres" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/about_us"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="145dp"
         android:layout_height="48dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="36dp"
         android:background="@drawable/sign_out"
         android:fontFamily="@font/oswald"
         android:padding="10dp"
@@ -187,10 +180,8 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.435"
-        app:layout_constraintStart_toEndOf="@+id/sign_out"
-        app:layout_constraintTop_toTopOf="@+id/sign_out"
         tools:ignore="TouchTargetSizeCheck" />
 
 

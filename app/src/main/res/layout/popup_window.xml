@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="230dp"
+    android:layout_height="230dp"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@android:color/holo_blue_bright"
+    android:background="@drawable/red_border"
     android:gravity="center">
 
     <TextView
@@ -12,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finished Response?"
+        android:textColor="@color/white"
+        android:fontFamily="@font/oswald"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
@@ -20,12 +22,19 @@
         android:id="@+id/yes_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald_bold"
+        android:textColor="@color/white"
+        android:background="@drawable/burger_tab_border"
+        android:layout_marginBottom="5dp"
         android:text="Yes" />
 
     <Button
         android:id="@+id/no_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/oswald"
+        android:textColor="@color/white"
+        android:background="@drawable/burger_tab_border"
         android:text="No" />
 
 </LinearLayout>

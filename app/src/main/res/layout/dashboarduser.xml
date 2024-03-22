@@ -18,13 +18,12 @@
         tools:ignore="MissingConstraints"
         />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/profile_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/profile_button"
         android:padding="5dp"
         android:scaleType="fitCenter"
         android:src="@drawable/baseline_person_241"

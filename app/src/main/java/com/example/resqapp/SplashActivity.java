@@ -1,10 +1,10 @@
 package com.example.resqapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,7 +45,7 @@ SplashActivity extends AppCompatActivity {
                 }
 
             }
-        }, 0, 50);
+        }, 0, 20);
 
 
 

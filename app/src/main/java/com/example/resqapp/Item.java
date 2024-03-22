@@ -1,7 +1,6 @@
 package com.example.resqapp;
 
 public class Item {
-
     private String firstName;
     private String lastName;
     private String address;
@@ -9,8 +8,9 @@ public class Item {
     private double longitude;
     private String contactNum;
     private String useremail;
+    private String timestamp;
 
-    public Item(String userEmail, String firstName, String lastName, String address, double latitude, double longitude, String contactNum) {
+    public Item(String userEmail, String firstName, String lastName, String address, double latitude, double longitude, String contactNum, String timestamp) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -18,6 +18,8 @@ public class Item {
         this.longitude = longitude;
         this.contactNum = contactNum;
         this.useremail = userEmail;
+        this.timestamp = timestamp;
+
 
     }
 
@@ -49,6 +51,10 @@ public class Item {
         return contactNum;
     }
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+
 
 }
-

@@ -13,12 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -28,9 +25,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Adminuserlocation extends AppCompatActivity {
 
@@ -48,6 +42,8 @@ public class Adminuserlocation extends AppCompatActivity {
     private static final long CHECK_INTERVAL = 5000; // Check every 5 seconds
     private Handler checkHandler;
     private Runnable checkRunnable;
+
+    private AlertDialog dialog;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -83,7 +79,7 @@ public class Adminuserlocation extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         // Fetch data from Firestore
-       db.collection(historyCollection)
+        db.collection(historyCollection)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
@@ -92,35 +88,32 @@ public class Adminuserlocation extends AppCompatActivity {
                             return;
                         }
 
+                        checkIfDocumentDeleted(snapshots);
+
                         for (QueryDocumentSnapshot document : snapshots) {
-                            String fetched = document.getString("Fetched");
-                            if (fetched == "true") {
-                                // Data is fetched, proceed to fetch the rest of the  data
-                                String address = document.getString("Admin Address");
-                                address = capitalizeEveryWord(address); // Capitalize the address
-                                String contactNum1 = document.getString("Contact Number");
-                                String fetching1 = document.getString("Fetched");
-                                String department = document.getString("Department");
+                            // Data is fetched, proceed to fetch the rest of the data
+                            String address = document.getString("Admin Address");
+                            address = capitalizeEveryWord(address); // Capitalize the address
+                            String contactNum1 = document.getString("Contact Number");
+                            String fetching1 = document.getString("Fetched");
 
-                                Double latitudeObj = document.getDouble("Latitude");
-                                Double longitudeObj = document.getDouble("Longitude");
+                            Double latitudeObj = document.getDouble("Latitude");
+                            Double longitudeObj = document.getDouble("Longitude");
 
-                                double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
-                                double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
+                            double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
+                            double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
 
-                                adminloc.setText(address);
-                                adminlat1.setText(String.valueOf(latitude));
-                                adminlongi.setText(String.valueOf(longitude));
-                                contactNum.setText(contactNum1);
-                                fetched1.setText(fetching1);
-
-                                break;
-                            }else{
-                                Toast.makeText(Adminuserlocation.this, "Theres no admin response", Toast.LENGTH_SHORT).show();
-                            }
+                            adminloc.setText(address);
+                            adminlat1.setText(String.valueOf(latitude));
+                            adminlongi.setText(String.valueOf(longitude));
+                            contactNum.setText(contactNum1);
+                            fetched1.setText(fetching1);
+                            break;
                         }
+
                     }
                 });
+
 
         FirebaseUser user = fAuth.getCurrentUser();
         if (user != null) {
@@ -132,14 +125,6 @@ public class Adminuserlocation extends AppCompatActivity {
             // Example: startActivity(new Intent(this, LoginActivity.class));
         }
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Schedule the next execution after .5 seconds
-                handler.postDelayed(this, 3000);
-            }
-        }, 1000); // .5 seconds delay
 
 
         checkAdminloc.setOnClickListener(new View.OnClickListener() {
@@ -162,117 +147,57 @@ public class Adminuserlocation extends AppCompatActivity {
         call1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (phoneNumber != null) {
-                    String phoneNumber = contactNum.getText().toString();
+                if (phoneNumber != null && !phoneNumber.isEmpty()) {
                     callContactNumber(phoneNumber);
                 } else {
-                    Toast.makeText(Adminuserlocation.this, "Waiting for Admins Response to get their Contact Number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Adminuserlocation.this, "Waiting for Admin's Response to get their Contact Number", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
-        DocumentReference adminActionRef = db.collection("admin_actions").document("action");
-        adminActionRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    Boolean isAdminActionDone = snapshot.getBoolean("done");
-                    if (isAdminActionDone != null && isAdminActionDone) {
-                        // Admin action is done, proceed with user screen synchronization
-                        db.collection("firedeptuser")
-                                .get()
-                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                            // Retrieve relevant data from the user's document
-                                            String Department = documentSnapshot.getString("Department");
-                                            String Address = documentSnapshot.getString("Admin Address");
-                                            Double latitude = documentSnapshot.getDouble("Latitude");
-                                            Double longitude = documentSnapshot.getDouble("Longitude");
-                                            String contactNum = documentSnapshot.getString("Contact Number");
-
-                                            // Save the data to admin response
-                                            Map<String, Object> historyData = new HashMap<>();
-                                            historyData.put("Admin Address", Address);
-                                            historyData.put("Department", Department);
-                                            historyData.put("Latitude", latitude);
-                                            historyData.put("Longitude", longitude);
-                                            historyData.put("Contact Number", contactNum);
-
-
-                                            // Add document data to "adminresponse" collection
-                                            db.collection("adminresponse")
-                                                    .add(historyData)
-                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                        @Override
-                                                        public void onSuccess(DocumentReference documentReference) {
-                                                            // Delete documents from "firedeptuser" collection
-                                                            Log.d(TAG, "Document added to collection 'adminresponse' with ID: " + documentReference.getId());
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.e(TAG, "Error adding document to collection 'adminresponse': " + e.getMessage());
-                                                        }
-                                                    });
-                                            break;
-                                        }
-                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                            db.collection("firedeptuser")
-                                                    .document(documentSnapshot.getId())
-                                                    .delete()
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            // Document deleted successfully
-                                                            Log.d(TAG, "Document deleted successfully from 'firedeptuser'");
-
-
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            // Handle failure
-                                                            Log.e(TAG, "Error deleting document from 'firedeptuser': " + e.getMessage());
-                                                        }
-                                                    });
-                                            // Assuming you only want to delete one document
-                                            break;
-                                        }
-
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // Handle failure
-                                        Log.e(TAG, "Error getting documents from 'firedeptuser': " + e.getMessage());
-                                    }
-                                });
-                        // Update user's screen by redirecting to DashboardUser
-                        db.collection("admin_actions").document("action").update("done", false);
-                        startActivity(new Intent(Adminuserlocation.this, DashboardUser.class));
-                        finish();
-                        // if (getIntent().getBooleanExtra("admin_triggered", false)) {
-                        //    startActivity(new Intent(Adminuserlocation.this, DashboardUser.class));
-                        //   finish();
-                    }
-
-                }
-                // }
-            }
-
-        });
     }
+    private void checkIfDocumentDeleted(QuerySnapshot snapshots) {
+        if (snapshots.isEmpty()) {
+            // Document is deleted or not available
+            showPopupDialog();
+        }
+    }
+
+    private void deleteLastTransaction() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss(); // Dismiss the last dialog if it's still showing
+        }
+    }
+
+
+    private void showPopupDialog() {
+        // Delete the last transaction before showing a new one
+        deleteLastTransaction();
+
+        // Check if the activity is running and not in a finishing or destroyed state
+        if (!isFinishing() && !isDestroyed()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("REQUEST");
+            builder.setMessage("Your request is done");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Dismiss the dialog before starting a new activity
+                    dialog.dismiss();
+                    // Proceed to another activity
+                    Intent intent = new Intent(Adminuserlocation.this, DashboardUser.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+            dialog = builder.create();
+            // Show the dialog
+            dialog.show();
+        }
+    }
+
 
 
     private void showDistanceDialog(double distance) {
@@ -386,5 +311,17 @@ public class Adminuserlocation extends AppCompatActivity {
         // Do nothing (disable back button)
         // Alternatively, you can show a toast message indicating the back button is disabled
         Toast.makeText(this, "Back button disabled in this screen", Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        deleteLastTransaction();
+    }
+
+    // Override onStop to dismiss dialog when activity is stopped
+    @Override
+    protected void onStop() {
+        super.onStop();
+        deleteLastTransaction();
     }
 }

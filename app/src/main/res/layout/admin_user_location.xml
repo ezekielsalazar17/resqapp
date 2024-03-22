@@ -150,26 +150,40 @@
         tools:layout_editor_absoluteX="38dp"
         tools:layout_editor_absoluteY="89dp"
         tools:ignore="MissingConstraints"
-        android:visibility="invisible"/>/>
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/useraddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="132dp"
+        android:layout_marginTop="240dp"
         android:text="contactNumber"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/fetch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:visibility="invisible"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="21dp" />/>
+        tools:layout_editor_absoluteY="21dp" />
+
+    <TextView
+        android:id="@+id/emailuser2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:text="email"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

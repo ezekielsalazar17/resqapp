@@ -8,20 +8,6 @@
     tools:ignore="ExtraText">
 
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/border_radius"
-        android:drawableStart="@drawable/baseline_arrow_back_24"
-        android:padding="7dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,VisualLintBounds" />
-
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="300dp"
@@ -45,6 +31,7 @@
         android:inputType="text"
         android:letterSpacing="0.09"
         android:textAlignment="textStart"
+        android:paddingStart="10dp"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -266,6 +253,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register" />
+
+    <ImageView
+        android:id="@+id/pass_visible1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contextClickable="true"
+        android:src="@drawable/baseline_visibility_25"
+        app:layout_constraintBottom_toBottomOf="@+id/adminpass1"
+        app:layout_constraintEnd_toEndOf="@+id/adminpass1"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="@+id/adminpass1"
+        app:layout_constraintTop_toTopOf="@+id/adminpass1" />
+
+    <ImageView
+        android:id="@+id/conpass_visible1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:contextClickable="true"
+        android:src="@drawable/baseline_visibility_25"
+        app:layout_constraintBottom_toBottomOf="@+id/adminconpass1"
+        app:layout_constraintEnd_toEndOf="@+id/adminconpass1"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="@+id/adminconpass1"
+        app:layout_constraintTop_toTopOf="@+id/adminconpass1"
+        app:layout_constraintVertical_bias="0.611" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -296,6 +309,8 @@
         android:layout_marginStart="20dp"
         android:visibility="invisible"
         tools:ignore="MissingConstraints" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

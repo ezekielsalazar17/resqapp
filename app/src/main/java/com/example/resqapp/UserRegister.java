@@ -137,12 +137,28 @@ public class UserRegister extends AppCompatActivity implements AdapterView.OnIte
                 }
 
 
-                progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.VISIBLE); // Show progress bar while processing
 
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // Send email verification
+                            fAuth.getCurrentUser().sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> emailTask) {
+                                            if (emailTask.isSuccessful()) {
+                                                Log.d(TAG, "Email verification sent.");
+                                                Toast.makeText(UserRegister.this, "Email verification sent. Please check your email.", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Log.e(TAG, "Error sending email verification", emailTask.getException());
+                                                Toast.makeText(UserRegister.this, "Error sending email verification: " + emailTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+                            // Continue with user data storage
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = firestore.collection("users").document(userID);
                             Map<String, Object> user = new HashMap<>();
