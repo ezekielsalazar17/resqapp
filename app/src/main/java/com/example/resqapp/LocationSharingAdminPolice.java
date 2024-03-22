@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -24,25 +25,32 @@ import java.util.Map;
 
 public class LocationSharingAdminPolice extends AppCompatActivity {
 
-    TextView userLocation, adminLocation, userlat, userlong, adminlat, adminlong;
-    Button direction, done1;
+    private FirebaseAuth fAuth;
+
+    public Button done1;
+    private PopupWindow popupWindow;
+
+    TextView userLocation, adminLocation, userlat, userlong, adminlat, adminlong, userEmail;
+    Button direction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location_sharing_admin_police);
+        setContentView(R.layout.location_sharing_admin);
 
         getSupportActionBar().hide();
 
-        userLocation = findViewById(R.id.user_loc_police);
-        userlat = findViewById(R.id.userlatitudes_police);
-        userlong = findViewById(R.id.userlongitudes_police);
+        userLocation = findViewById(R.id.user_loc);
+        userlat = findViewById(R.id.userlatitudes);
+        userlong = findViewById(R.id.userlongitudes);
 
-        adminLocation = findViewById(R.id.admin_loc_police);
-        adminlat = findViewById(R.id.adminlatitudes_police);
-        adminlong = findViewById(R.id.adminlongitudes_police);
+        adminLocation = findViewById(R.id.admin_loc);
+        adminlat = findViewById(R.id.adminlatitudes);
+        adminlong = findViewById(R.id.adminlongitudes);
 
-        direction = findViewById(R.id.go_to_gmaps_police);
-        done1 = findViewById(R.id.done_police);
+        direction = findViewById(R.id.go_to_gmaps);
+        done1 = findViewById(R.id.done);
+
+        userEmail = findViewById(R.id.emailuser1);
 
         String userloc = getIntent().getStringExtra("Address");
         userLocation.setText(userloc);
@@ -57,6 +65,9 @@ public class LocationSharingAdminPolice extends AppCompatActivity {
         String adminlongi1 = getIntent().getStringExtra("Longitude Admin");
         adminlat.setText(adminlat1);
         adminlong.setText(adminlongi1);
+
+        String userEmail = getIntent().getStringExtra("UserEmail");
+        adminlat.setText(adminlat1);
 
 
         direction.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +97,7 @@ public class LocationSharingAdminPolice extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView = inflater.inflate(R.layout.popup_window, null);
 
+                fAuth = FirebaseAuth.getInstance();
 
                 // Create a PopupWindow object
                 int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -103,20 +115,19 @@ public class LocationSharingAdminPolice extends AppCompatActivity {
                     public void onClick(View v) {
                         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                        // Fetch documents from "pendingpolicedept" collection
-                        db.collection("pendingpolicedept")
+                        db.collection("inprogressPolice")
                                 .get()
                                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                     @Override
                                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-
                                             String firstName = documentSnapshot.getString("firstName");
                                             String lastName = documentSnapshot.getString("lastName");
                                             String address = documentSnapshot.getString("address");
                                             Double latitude = documentSnapshot.getDouble("latitude");
                                             Double longitude = documentSnapshot.getDouble("longitude");
                                             String contactNum = documentSnapshot.getString("contactNum");
+                                            String userEmail = documentSnapshot.getString("useremail");
 
                                             // Get document data
                                             Map<String, Object> data = documentSnapshot.getData();
@@ -126,8 +137,11 @@ public class LocationSharingAdminPolice extends AppCompatActivity {
                                             data.put("latitude", latitude);
                                             data.put("longitude", longitude);
                                             data.put("contactNum", contactNum);
+                                            data.put("useremail", userEmail);
 
-                                            // Add document data to "policedeptHistory" collection
+
+
+                                            // Add document data to "firedeptHistory" collection
                                             db.collection("policedeptHistory")
                                                     .add(data)
                                                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -142,17 +156,84 @@ public class LocationSharingAdminPolice extends AppCompatActivity {
                                                             // Handle failure
                                                         }
                                                     });
-                                        }
 
-                                        // Delete documents from "pendingpolicedept" collection
-                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                            db.collection("pendingpolicedept")
+                                            // Delete document from "inprogressFire" collection
+                                            db.collection("inprogressPolice")
                                                     .document(documentSnapshot.getId())
                                                     .delete()
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
-                                                            // Document deleted successfully
+
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            // Handle failure
+                                                        }
+                                                    });
+                                            break;
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Handle failure
+                                    }
+                                });
+                        FirebaseFirestore db1 = FirebaseFirestore.getInstance();
+
+                        db1.collection("policedeptuser")
+                                .get()
+                                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                            String firstName = documentSnapshot.getString("firstName");
+                                            String lastName = documentSnapshot.getString("lastName");
+                                            String address = documentSnapshot.getString("address");
+                                            Double latitude = documentSnapshot.getDouble("latitude");
+                                            Double longitude = documentSnapshot.getDouble("longitude");
+                                            String contactNum = documentSnapshot.getString("contactNum");
+                                            String userEmail = documentSnapshot.getString("useremail");
+
+                                            // Get document data
+                                            Map<String, Object> data = documentSnapshot.getData();
+                                            data.put("firstName", firstName);
+                                            data.put("lastName", lastName);
+                                            data.put("address", address);
+                                            data.put("latitude", latitude);
+                                            data.put("longitude", longitude);
+                                            data.put("contactNum", contactNum);
+                                            data.put("useremail", userEmail);
+
+
+
+                                            // Add document data to "firedeptHistory" collection
+                                            db1.collection("adminresponsepolice")
+                                                    .add(data)
+                                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                        @Override
+                                                        public void onSuccess(DocumentReference documentReference) {
+                                                            // Document added successfully
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            // Handle failure
+                                                        }
+                                                    });
+
+                                            // Delete document from "inprogressFire" collection
+                                            db.collection("policedeptuser")
+                                                    .document(documentSnapshot.getId())
+                                                    .delete()
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
 
                                                         }
                                                     })
@@ -173,7 +254,7 @@ public class LocationSharingAdminPolice extends AppCompatActivity {
                                     }
                                 });
                         startActivity(new Intent(LocationSharingAdminPolice.this, DashboardPoliceDepartment.class));
-
+                        finish();
                     }
                 });
 
@@ -191,5 +272,23 @@ public class LocationSharingAdminPolice extends AppCompatActivity {
         });
 
 
+    }
+
+    private void deleteLastTransaction() {
+        if (popupWindow != null && popupWindow.isShowing()) {
+            popupWindow.dismiss(); // Dismiss the last dialog if it's still showing
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        deleteLastTransaction();
+    }
+
+    // Override onStop to dismiss dialog when activity is stopped
+    @Override
+    protected void onStop() {
+        super.onStop();
+        deleteLastTransaction();
     }
 };

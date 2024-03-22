@@ -15,7 +15,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.CALL_PHONE"
+    <uses-permission
+        android:name="android.permission.CALL_PHONE"
         tools:ignore="PermissionImpliesUnsupportedChromeOsHardware" />
 
     <application
@@ -29,9 +30,17 @@
         android:theme="@style/Theme.Resqapp"
         tools:ignore="CoarseFineLocation"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Adminuserlocationcoast"
+            android:exported="false" />
+        <activity
+            android:name=".Adminuserlocationpolice"
+            android:exported="false" />
         <activity
             android:name=".Adminuserlocation"
+            android:exported="false" />
+        <activity
+            android:name=".Adminuserlocationambulance"
             android:exported="false" />
         <activity
             android:name=".UserRegister"
@@ -98,6 +107,15 @@
             android:exported="false" />
         <activity
             android:name=".DashboardFireDepartment"
+            android:exported="false" />
+        <activity
+            android:name=".LocationSharingAdminPolice"
+            android:exported="false" />
+        <activity
+            android:name=".LocationSharingAdminAmbulance"
+            android:exported="false" />
+        <activity
+            android:name=".LocationSharingAdminCoast"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

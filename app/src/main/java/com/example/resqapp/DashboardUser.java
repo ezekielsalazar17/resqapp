@@ -300,6 +300,7 @@ public class DashboardUser extends AppCompatActivity {
                                     String contactNum = documentSnapshot.getString("Contact Number");
                                     String email = documentSnapshot.getString("Email");
 
+
                                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                     String time = dateFormat.format(new Date());
 
@@ -341,7 +342,6 @@ public class DashboardUser extends AppCompatActivity {
                                 // Handle failure
                             }
                         });
-
                 LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView1 = inflater.inflate(R.layout.popup_window_user, null);
 
@@ -358,7 +358,7 @@ public class DashboardUser extends AppCompatActivity {
                 TextView longi = popupView1.findViewById(R.id.admin_longitude);
                 TextView contact = popupView1.findViewById(R.id.admin_contactnum1);
 
-                String historyCollection = "firedeptuser";
+                String historyCollection = "policedeptuser";
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -398,11 +398,13 @@ public class DashboardUser extends AppCompatActivity {
                                             new Handler().postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    Intent intent = new Intent(DashboardUser.this, Adminuserlocation.class);
+                                                    Intent intent = new Intent(DashboardUser.this, Adminuserlocationpolice.class);
                                                     startActivity(intent);
                                                     finish();
                                                 }
                                             }, 2000);
+
+                                            popupWindow.dismiss();
 
 
                                         }
@@ -422,6 +424,7 @@ public class DashboardUser extends AppCompatActivity {
 
                 getCurrentLocation();
 
+                // Get Firebase instance
                 FirebaseFirestore db1 = FirebaseFirestore.getInstance();
 
                 // Define the collection name for user data
@@ -446,6 +449,7 @@ public class DashboardUser extends AppCompatActivity {
                                     Double longitude = documentSnapshot.getDouble("Longitude");
                                     String contactNum = documentSnapshot.getString("Contact Number");
                                     String email = documentSnapshot.getString("Email");
+
 
                                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                     String time = dateFormat.format(new Date());
@@ -488,7 +492,6 @@ public class DashboardUser extends AppCompatActivity {
                                 // Handle failure
                             }
                         });
-
                 LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView1 = inflater.inflate(R.layout.popup_window_user, null);
 
@@ -505,7 +508,7 @@ public class DashboardUser extends AppCompatActivity {
                 TextView longi = popupView1.findViewById(R.id.admin_longitude);
                 TextView contact = popupView1.findViewById(R.id.admin_contactnum1);
 
-                String historyCollection = "firedeptuser";
+                String historyCollection = "coastdeptuser";
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -545,11 +548,13 @@ public class DashboardUser extends AppCompatActivity {
                                             new Handler().postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    Intent intent = new Intent(DashboardUser.this, Adminuserlocation.class);
+                                                    Intent intent = new Intent(DashboardUser.this, Adminuserlocationcoast.class);
                                                     startActivity(intent);
                                                     finish();
                                                 }
-                                            }, 1000);
+                                            }, 2000);
+
+                                            popupWindow.dismiss();
 
 
                                         }
@@ -569,6 +574,7 @@ public class DashboardUser extends AppCompatActivity {
 
                 getCurrentLocation();
 
+                // Get Firebase instance
                 FirebaseFirestore db1 = FirebaseFirestore.getInstance();
 
                 // Define the collection name for user data
@@ -593,6 +599,7 @@ public class DashboardUser extends AppCompatActivity {
                                     Double longitude = documentSnapshot.getDouble("Longitude");
                                     String contactNum = documentSnapshot.getString("Contact Number");
                                     String email = documentSnapshot.getString("Email");
+
 
                                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                     String time = dateFormat.format(new Date());
@@ -635,7 +642,6 @@ public class DashboardUser extends AppCompatActivity {
                                 // Handle failure
                             }
                         });
-
                 LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                 View popupView1 = inflater.inflate(R.layout.popup_window_user, null);
 
@@ -652,7 +658,7 @@ public class DashboardUser extends AppCompatActivity {
                 TextView longi = popupView1.findViewById(R.id.admin_longitude);
                 TextView contact = popupView1.findViewById(R.id.admin_contactnum1);
 
-                String historyCollection = "firedeptuser";
+                String historyCollection = "ambulancedeptuser";
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -692,11 +698,13 @@ public class DashboardUser extends AppCompatActivity {
                                             new Handler().postDelayed(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    Intent intent = new Intent(DashboardUser.this, Adminuserlocation.class);
+                                                    Intent intent = new Intent(DashboardUser.this, Adminuserlocationambulance.class);
                                                     startActivity(intent);
                                                     finish();
                                                 }
-                                            }, 1000);
+                                            }, 2000);
+
+                                            popupWindow.dismiss();
 
 
                                         }

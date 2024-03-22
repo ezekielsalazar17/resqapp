@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -31,8 +32,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DashboardCoastGuardDepartment extends AppCompatActivity {
 
@@ -62,7 +70,7 @@ public class DashboardCoastGuardDepartment extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize empty list of items
-        List<Item> items = new ArrayList<>();
+        List<Itemcoast> items = new ArrayList<>();
 
         profileButton.setOnClickListener((v) -> {
             startActivity(new Intent(getApplicationContext(), Coastguardprofile.class));
@@ -73,50 +81,75 @@ public class DashboardCoastGuardDepartment extends AppCompatActivity {
 
         String historyCollection = "pendingcoastdept";
 
-        // Get current user ID
-        userID = fAuth.getCurrentUser().getUid();
+        // Check if user is signed in
+        FirebaseUser currentUser = fAuth.getCurrentUser();
+        if(currentUser != null) {
+            userID = currentUser.getUid();
+            // Fetch data from Firestore
+            db.collection(historyCollection)
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+                            if (e != null) {
+                                Log.w(TAG, "Listen failed.", e);
+                                return;
+                            }
 
-        // Fetch data from Firestore
-        db.collection(historyCollection)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
+                            List<Itemcoast> userHistoryList = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : snapshots) {
+                                // Retrieve data from Firestore document
+                                String firstName = document.getString("firstName");
+                                String lastName = document.getString("lastName");
+                                firstName = capitalizeEveryWord(firstName);
+                                lastName = capitalizeEveryWord(lastName);
+
+                                String userEmail = document.getString("useremail");
+
+                                String address = document.getString("address");
+                                address = capitalizeEveryWord(address); // Capitalize the address
+
+                                Double latitudeObj = document.getDouble("latitude");
+                                Double longitudeObj = document.getDouble("longitude");
+                                String contactNumObj = document.getString("contactNum");
+
+                                String timestamp = document.getString("timestamp");
+
+                                String contactNum = contactNumObj != null ? String.valueOf(contactNumObj) : "0";
+                                double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
+                                double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
+
+                                Itemcoast item = new Itemcoast(userEmail, firstName, lastName, address, latitude, longitude, contactNum, timestamp);
+                                userHistoryList.add(item);
+                            }
+
+                            // Sort the list based on timestamp
+                            Collections.sort(userHistoryList, new Comparator<Itemcoast>() {
+                                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US); // Adjust format according to your timestamp format
+
+                                @Override
+                                public int compare(Itemcoast item1, Itemcoast item2) {
+                                    try {
+                                        Date date1 = dateFormat.parse(item1.getTimestamp());
+                                        Date date2 = dateFormat.parse(item2.getTimestamp());
+                                        return date1.compareTo(date2);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                        return 0;
+                                    }
+                                }
+                            });
+
+                            // Update RecyclerView adapter with the new data
+                            MyAdaptercoast adapter = new MyAdaptercoast(DashboardCoastGuardDepartment.this, userHistoryList);
+                            recyclerView.setAdapter(adapter);
                         }
-
-                        List<Item> userHistoryList = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : snapshots) {
-                            // Retrieve data from Firestore document
-                            String firstName = document.getString("firstName");
-                            String lastName = document.getString("lastName");
-                            firstName = capitalizeEveryWord(firstName);
-                            lastName = capitalizeEveryWord(lastName);
-
-                            String userEmail = document.getString("useremail");
-
-                            String address = document.getString("address");
-                            address = capitalizeEveryWord(address); // Capitalize the address
-
-                            Double latitudeObj = document.getDouble("latitude");
-                            Double longitudeObj = document.getDouble("longitude");
-                            String contactNumObj = document.getString("contactNum");
-                            String timestamp = document.getString("timestamp");
-
-                            String contactNum = contactNumObj != null ? String.valueOf(contactNumObj) : "0";
-                            double latitude = latitudeObj != null ? latitudeObj.doubleValue() : 0.0;
-                            double longitude = longitudeObj != null ? longitudeObj.doubleValue() : 0.0;
-
-                            Item item = new Item(userEmail, firstName, lastName, address, latitude, longitude, contactNum, timestamp);
-                            userHistoryList.add(item);
-                        }
-
-                        // Update RecyclerView adapter with the new data
-                        MyAdapter adapter = new MyAdapter(DashboardCoastGuardDepartment.this, userHistoryList);
-                        recyclerView.setAdapter(adapter);
-                    }
-                });
+                    });
+        } else {
+            // Handle the case when the user is not signed in
+            // You might want to redirect the user to the login screen or take appropriate action
+            // For now, let's just log the error
+            Log.e(TAG, "User not signed in.");
+        }
     }
 
     // Method to capitalize every word in a string
