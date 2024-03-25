@@ -34,6 +34,9 @@
             android:name=".Adminuserlocationcoast"
             android:exported="false" />
         <activity
+            android:name=".About"
+            android:exported="false" />
+        <activity
             android:name=".Adminuserlocationpolice"
             android:exported="false" />
         <activity

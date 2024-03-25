@@ -2,6 +2,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@drawable/red_border"
     android:padding="16dp">
 
     <TextView
@@ -9,13 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send a verification again"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send"
+        android:textColor="@color/white"
+        android:background="@drawable/burger_tab_border"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="16dp"/>
 
 </LinearLayout>

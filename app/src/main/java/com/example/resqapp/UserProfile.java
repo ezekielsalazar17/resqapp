@@ -59,7 +59,7 @@ public class UserProfile extends AppCompatActivity {
     private StorageReference storageRef;
     private static final String TAG = "UserProfile";
 
-    Button Logout, editcon;
+    Button Logout, editcon, aboutus;
     ImageView preview;
     FloatingActionButton select;
 
@@ -79,6 +79,7 @@ public class UserProfile extends AppCompatActivity {
         Logout = findViewById(R.id.sign_out);
         preview = findViewById(R.id.previewimage);
         select = findViewById(R.id.selectimg);
+        aboutus = findViewById(R.id.about_us);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
@@ -86,6 +87,13 @@ public class UserProfile extends AppCompatActivity {
         storageRef = storage.getReference();
         savedImageUri = null;
 
+
+        aboutus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserProfile.this, About.class));
+            }
+        });
 
         select.setOnClickListener(new View.OnClickListener() {
             @Override

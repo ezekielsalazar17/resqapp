@@ -147,14 +147,14 @@ public class Adminuserlocation extends AppCompatActivity {
         call1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (phoneNumber != null && !phoneNumber.isEmpty()) {
-                    callContactNumber(phoneNumber);
+                if (contactNum != null && !contactNum.getText().toString().isEmpty()) {
+                    callContactNumber(contactNum.getText().toString());
                 } else {
-                    Toast.makeText(Adminuserlocation.this, "Waiting for Admin's Response to get their Contact Number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Adminuserlocation.this, "Contact number not available", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
+
 
     }
     private void checkIfDocumentDeleted(QuerySnapshot snapshots) {
@@ -283,6 +283,8 @@ public class Adminuserlocation extends AppCompatActivity {
             Toast.makeText(Adminuserlocation.this, "Contact number not available", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
 
     private String capitalizeEveryWord(String text) {

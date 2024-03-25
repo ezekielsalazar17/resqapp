@@ -56,7 +56,7 @@
     <string name="logout">Logout</string>
     <string name="remember_me">Remember Me?</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="what_account">What account are you creating?</string>
+    <string name="what_account">What account are you using?</string>
     <string name="user">USER</string>
     <string name="or">or</string>
     <string name="admin">ADMIN</string>
