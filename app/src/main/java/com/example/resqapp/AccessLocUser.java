@@ -2,13 +2,16 @@ package com.example.resqapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +27,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,6 +53,21 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
     FirebaseAuth fAuth;
     FirebaseFirestore firestore;
 
+    Handler handler;
+    long refreshTime = 5000; // 5secs refresh time
+    Runnable runnable;
+    public static BitmapDescriptor setIcon(Context context, int resourceId) {
+        // Decode the drawable resource into a Bitmap
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId);
+        if (bitmap == null) {
+            // Log an error or handle the case where the bitmap is null
+            // For simplicity, we'll return the default marker
+            return BitmapDescriptorFactory.defaultMarker();
+        }
+        // Create a BitmapDescriptor from the Bitmap
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
     private static final int LOCATION_PERMISSION_CODE = 101;
     private TextView addressTextView;
 
@@ -65,18 +85,30 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
         addressTextView = findViewById(R.id.show_address);
 
         showLocationButton = findViewById(R.id.showLocation);
-        showLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showLocation();
-            }
-        });
+
+
+
         geocoder = new Geocoder(this, Locale.getDefault());
         if (isLocationPermissionGranted()) {
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
             mapFragment.getMapAsync(this);
+
+
         }
-    }
+                handler = new Handler();
+                handler.postDelayed(runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        handler.postDelayed(runnable, refreshTime);
+                        isLocationPermissionGranted();
+                        showLocation();
+                    }
+                }, refreshTime);
+
+        }
+
+
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -118,10 +150,15 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
                                 getAddressFromLocation(latitude, longitude);
 
                                 LatLng userLocation = new LatLng(latitude, longitude);
-                                gMap.clear();
-                                gMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location"));
-                                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 15));
 
+                                gMap.moveCamera(CameraUpdateFactory.newLatLng(userLocation));
+                                gMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+                                if(gMap != null){
+                                    gMap.clear();
+                                    gMap.addMarker(new MarkerOptions().position(userLocation).title("Your Location").icon(setIcon(AccessLocUser.this, R.drawable.red_marker_location)));
+                                    Log.i("XOXO", "" + latitude + "" + longitude);
+                                }
                                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                                 if (currentUser != null) {
                                     String userId = currentUser.getUid();
@@ -133,6 +170,7 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
+
                                                     Log.i("Firebase", "Latitude and longitude stored successfully");
                                                 }
                                             })
@@ -156,6 +194,9 @@ public class AccessLocUser extends AppCompatActivity implements OnMapReadyCallba
             ActivityCompat.requestPermissions(AccessLocUser.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
         }
     }
+
+
+
 
     private Object getAddressFromLocation(double latitude, double longitude) {
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());

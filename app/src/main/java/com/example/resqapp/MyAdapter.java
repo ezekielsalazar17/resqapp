@@ -351,12 +351,16 @@
                                 historyData.put("Contact Number", contactNum);
                                 historyData.put("User Email", userEmail);
 
+                                // Get the document ID from admins collection
+                                String adminDocumentID = documentSnapshot.getId();
+
                                 db.collection("firedeptuser")
-                                        .add(historyData)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        .document(adminDocumentID) // Use the same document ID
+                                        .set(historyData) // Set data directly with document ID
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
-                                                Log.d(TAG, "Document added to collection 'firedeptuser' with ID: " + documentReference.getId());
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "Document added to collection 'firedeptuser' with ID: " + adminDocumentID);
                                                 listener.onComplete();
                                             }
                                         })
@@ -371,6 +375,7 @@
                             }
                         }
                     });
+
         }
         private String getCurrentUserID() {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

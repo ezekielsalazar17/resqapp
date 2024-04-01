@@ -137,108 +137,20 @@
         app:layout_constraintTop_toBottomOf="@+id/pw2"
         tools:ignore="TextSizeCheck" />
 
-    <CheckBox
-        android:id="@+id/fire_checkbox"
-        android:layout_width="30dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="28dp"
-        android:buttonTint="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/remember_me_checkboxadmin"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <TextView
-        android:id="@+id/fire_checkbox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/oswald"
-        android:text="@string/fire_department1"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/fire_checkbox"
-        app:layout_constraintTop_toTopOf="@+id/fire_checkbox"
-        tools:ignore="TextSizeCheck" />
-
-    <CheckBox
-        android:id="@+id/ambulance_checkbox"
-        android:layout_width="30dp"
-        android:layout_height="20dp"
-        android:buttonTint="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/fire_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/fire_checkbox"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <TextView
-        android:id="@+id/ambulance_checkbox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/oswald"
-        android:text="@string/ambulance_department1"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/ambulance_checkbox"
-        app:layout_constraintTop_toTopOf="@+id/ambulance_checkbox"
-        tools:ignore="TextSizeCheck" />
-
-    <CheckBox
-        android:id="@+id/police_checkbox"
-        android:layout_width="30dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="152dp"
-        android:buttonTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgotpass"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <TextView
-        android:id="@+id/police_checkbox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/oswald"
-        android:text="@string/police_department1"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/police_checkbox"
-        app:layout_constraintTop_toTopOf="@+id/police_checkbox"
-        tools:ignore="TextSizeCheck" />
-
-    <CheckBox
-        android:id="@+id/coastguard_checkbox"
-        android:layout_width="30dp"
-        android:layout_height="20dp"
-        android:buttonTint="@color/white"
-        app:layout_constraintStart_toStartOf="@+id/police_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/police_checkbox"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <TextView
-        android:id="@+id/coastguard_checkbox1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/oswald"
-        android:text="@string/coastguard_department1"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/coastguard_checkbox"
-        app:layout_constraintTop_toTopOf="@+id/coastguard_checkbox"
-        tools:ignore="TextSizeCheck" />
-
     <Button
         android:id="@+id/login_button1"
         android:layout_width="204dp"
         android:layout_height="41dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="160dp"
         android:background="@drawable/burger_tab_border"
         android:fontFamily="@font/oswald_bold"
         android:hint="@string/login"
         android:letterSpacing="0.2"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/pw2"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="@+id/pw2"
-        app:layout_constraintTop_toBottomOf="@+id/ambulance_checkbox1"
+        app:layout_constraintTop_toBottomOf="@+id/pw2"
         tools:ignore="HardcodedText,TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
 
     <TextView

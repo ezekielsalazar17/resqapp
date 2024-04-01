@@ -60,6 +60,26 @@
         android:visibility="invisible"/>
 
     <TextView
+        android:id="@+id/userLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="29dp"
+        tools:ignore="MissingConstraints"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/adminLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="70dp"
+        tools:ignore="MissingConstraints"
+        android:visibility="invisible"/>
+
+    <TextView
         android:id="@+id/adminlat1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

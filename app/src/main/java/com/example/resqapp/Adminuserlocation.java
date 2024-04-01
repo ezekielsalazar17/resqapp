@@ -1,9 +1,14 @@
 package com.example.resqapp;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,9 +18,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,10 +43,14 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class Adminuserlocation extends AppCompatActivity {
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
-    TextView adminloc, adminlat1, adminlongi,contactNum, useradd, userlat, userlongi, fetched1;
-    Button checkAdminloc, call1, done1;
+public class Adminuserlocation extends AppCompatActivity implements OnMapReadyCallback {
+
+    TextView adminloc, adminlat1, adminlongi,contactNum, useradd, userlat, userlongi;
+    Button call1;
 
     private String adminlocs;
     private String userID;
@@ -44,6 +65,13 @@ public class Adminuserlocation extends AppCompatActivity {
     private Runnable checkRunnable;
 
     private AlertDialog dialog;
+    Geocoder geocoder;
+    private GoogleMap gMap;
+    private static final int LOCATION_PERMISSION_CODE = 101;
+
+    Handler handler;
+    long refreshTime = 5000;
+    Runnable runnable;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -62,15 +90,27 @@ public class Adminuserlocation extends AppCompatActivity {
         useradd = findViewById(R.id.useraddress);
         userlat = findViewById(R.id.userlatt);
         userlongi = findViewById(R.id.userlongii);
-        done1 = findViewById(R.id.done);
 
-        fetched1 = findViewById(R.id.fetch);
-
-        checkAdminloc = findViewById(R.id.go_to_gmaps);
         call1 = findViewById(R.id.call);
 
         fAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+
+        geocoder = new Geocoder(this, Locale.getDefault());
+        if (isLocationPermissionGranted()) {
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapsuser);
+            mapFragment.getMapAsync(this);
+        }
+
+        handler = new Handler();
+        handler.postDelayed(runnable = new Runnable() {
+            @Override
+            public void run() {
+                handler.postDelayed(runnable, refreshTime);
+                isLocationPermissionGranted();
+                showLocation();
+            }
+        }, refreshTime);
 
         String historyCollection = "firedeptuser";
 
@@ -107,7 +147,6 @@ public class Adminuserlocation extends AppCompatActivity {
                             adminlat1.setText(String.valueOf(latitude));
                             adminlongi.setText(String.valueOf(longitude));
                             contactNum.setText(contactNum1);
-                            fetched1.setText(fetching1);
                             break;
                         }
 
@@ -126,24 +165,6 @@ public class Adminuserlocation extends AppCompatActivity {
         }
 
 
-
-        checkAdminloc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                double adminLat = Double.parseDouble(adminlat1.getText().toString());
-                double adminLon = Double.parseDouble(adminlongi.getText().toString());
-
-                double userLat = Double.parseDouble(userlat.getText().toString());
-                double userLon = Double.parseDouble(userlongi.getText().toString());
-
-                double distance = calculateDistance(adminLat, adminLon, userLat, userLon);
-
-                // Show popup dialog with the calculated distance
-                showDistanceDialog(distance);
-
-            }
-        });
         call1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,26 +219,6 @@ public class Adminuserlocation extends AppCompatActivity {
         }
     }
 
-
-
-    private void showDistanceDialog(double distance) {
-        // Create and configure the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(Adminuserlocation.this);
-        builder.setTitle("Distance");
-        builder.setMessage("The distance between admin and user locations is " + distance + " kilometers.");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Dismiss the dialog
-                dialog.dismiss();
-            }
-        });
-
-        // Show the dialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
     private void fetchUserData(String userID) {
         DocumentReference documentReference = firestore.collection("users").document(userID);
         documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -249,20 +250,6 @@ public class Adminuserlocation extends AppCompatActivity {
         });
     }
 
-    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-        final int R = 6371; // Radius of the Earth
-
-        double latDistance = Math.toRadians(lat2 - lat1);
-        double lonDistance = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
-                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = R * c;
-
-        return distance;
-    }
-
     private void callContactNumber(String phoneNumber) {
         // Check if phone number is not empty
         if (phoneNumber != null && !phoneNumber.isEmpty()) {
@@ -284,9 +271,6 @@ public class Adminuserlocation extends AppCompatActivity {
         }
     }
 
-
-
-
     private String capitalizeEveryWord(String text) {
         if (text == null || text.isEmpty()) {
             return text;
@@ -305,6 +289,97 @@ public class Adminuserlocation extends AppCompatActivity {
         // Remove trailing space
         return result.toString().trim();
     }
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        gMap = googleMap;
+
+        double latitude1 = Double.parseDouble(adminlat1.getText().toString());
+        double longitude1 = Double.parseDouble(adminlongi.getText().toString());
+
+        LatLng adminLatlong = new LatLng(latitude1, longitude1);
+        gMap.addMarker(new MarkerOptions().position(adminLatlong).title("Admin"));
+
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            gMap.setMyLocationEnabled(true);
+        }
+
+        gMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+    }
+
+    private boolean isLocationPermissionGranted() {
+        return ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @SuppressLint("MissingPermission")
+    public void showLocation() {
+        if (isLocationPermissionGranted()) {
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+
+                                double latitude = location.getLatitude();
+                                double longitude = location.getLongitude();
+
+                                userlat.setText("Latitude: " + latitude);
+                                userlongi.setText("Longitude: " + longitude);
+
+                                getAddressFromLocation(latitude, longitude);
+
+                                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                                if (currentUser != null) {
+                                    String userId = currentUser.getUid();
+
+                                    firestore = FirebaseFirestore.getInstance();
+
+                                    firestore.collection("users").document(userId)
+                                            .update("Latitude", latitude, "Longitude", longitude, "Address", getAddressFromLocation(latitude, longitude))
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.i("Firebase", "Latitude and longitude stored successfully");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("Firebase", "Error storing latitude and longitude", e);
+                                                }
+                                            });
+                                } else {
+                                    // Handle case where user is not authenticated
+                                    Log.e("Firebase", "User not authenticated");
+                                }
+                            } else {
+                                // Request location permission if not granted
+                                // ...
+                            }
+                        }
+                    });
+        } else {
+            ActivityCompat.requestPermissions(Adminuserlocation.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
+        }
+    }
+
+    private Object getAddressFromLocation(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses != null && addresses.size() > 0) {
+                Address address = addresses.get(0);
+                String addressLine = address.getAddressLine(0);
+                useradd.setText("Address: " + addressLine);
+                return addressLine;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     // Override onBackPressed method to disable the back button functionality
     @SuppressLint("MissingSuperCall")
@@ -318,6 +393,7 @@ public class Adminuserlocation extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         deleteLastTransaction();
+
     }
 
     // Override onStop to dismiss dialog when activity is stopped
@@ -325,5 +401,6 @@ public class Adminuserlocation extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         deleteLastTransaction();
-    }
+        }
+
 }

@@ -1,7 +1,15 @@
 package com.example.resqapp;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +20,34 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class LocationSharingAdmin extends AppCompatActivity {
 
     private FirebaseAuth fAuth;
+    private FirebaseFirestore firestore;
+    private static final int LOCATION_PERMISSION_CODE = 101;
+
+    Handler handler;
+    long refreshTime = 5000;
+    Runnable runnable;
 
     public Button done1;
     private PopupWindow popupWindow;
@@ -66,9 +88,15 @@ public class LocationSharingAdmin extends AppCompatActivity {
         adminlat.setText(adminlat1);
         adminlong.setText(adminlongi1);
 
-        String userEmail = getIntent().getStringExtra("UserEmail");
-        adminlat.setText(adminlat1);
-
+        handler = new Handler();
+        handler.postDelayed(runnable = new Runnable() {
+            @Override
+            public void run() {
+                handler.postDelayed(runnable, refreshTime);
+                isLocationPermissionGranted();
+                showLocationadmin();
+            }
+        }, refreshTime);
 
         direction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,7 +168,6 @@ public class LocationSharingAdmin extends AppCompatActivity {
                                             data.put("useremail", userEmail);
 
 
-
                                             // Add document data to "firedeptHistory" collection
                                             db.collection("firedeptHistory")
                                                     .add(data)
@@ -210,7 +237,6 @@ public class LocationSharingAdmin extends AppCompatActivity {
                                             data.put("useremail", userEmail);
 
 
-
                                             // Add document data to "firedeptHistory" collection
                                             db1.collection("adminresponse")
                                                     .add(data)
@@ -274,6 +300,198 @@ public class LocationSharingAdmin extends AppCompatActivity {
 
     }
 
+    private boolean isLocationPermissionGranted() {
+        return ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @SuppressLint("MissingPermission")
+    public void showLocationadmin() {
+        if (isLocationPermissionGranted()) {
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+
+                                double latitudeadmin = location.getLatitude();
+                                double longitudeadmin = location.getLongitude();
+
+                                adminlat.setText("Latitude: " + latitudeadmin);
+                                adminlong.setText("Longitude: " + longitudeadmin);
+
+                                getAddressFromLocation(latitudeadmin, longitudeadmin);
+
+
+                                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                                if (currentUser != null) {
+                                    String userId = currentUser.getUid();
+
+                                    firestore = FirebaseFirestore.getInstance();
+
+                                    firestore.collection("admins").document(userId)
+                                            .update("Latitude", latitudeadmin, "Longitude", longitudeadmin, "Admin Address", getAddressFromLocation(latitudeadmin, longitudeadmin))
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.i("Firebase", "Latitude and longitude stored successfully");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("Firebase", "Error storing latitude and longitude", e);
+                                                }
+                                            });
+                                    firestore = FirebaseFirestore.getInstance();
+
+                                    firestore.collection("firedeptuser").document(userId)
+                                            .update("Latitude", latitudeadmin, "Longitude", longitudeadmin, "Admin Address", getAddressFromLocation(latitudeadmin, longitudeadmin))
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.i("Firebase", "Latitude and longitude stored successfully");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("Firebase", "Error storing latitude and longitude", e);
+                                                }
+                                            });
+                                } else {
+                                    // Handle case where user is not authenticated
+                                    Log.e("Firebase", "User not authenticated");
+                                }
+                            } else {
+                                // Request location permission if not granted
+                                // ...
+                            }
+                        }
+                    });
+        } else {
+            ActivityCompat.requestPermissions(LocationSharingAdmin.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
+        }
+    }
+
+/*@SuppressLint("MissingPermission")
+    public void showLocationadmin() {
+        if (isLocationPermissionGranted()) {
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                double latitudeadmin = location.getLatitude();
+                                double longitudeadmin = location.getLongitude();
+
+                                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                                if (currentUser != null) {
+                                    String userId = currentUser.getUid();
+                                    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+                                    // Update document in admins collection
+                                    firestore.collection("admins").document(userId)
+                                            .update("Latitude", latitudeadmin, "Longitude", longitudeadmin, "Admin Address", getAddressFromLocation(latitudeadmin, longitudeadmin))
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.i("Firebase", "Admin document updated successfully");
+
+                                                    // Check if document exists in firedeptuser collection
+                                                    firestore.collection("firedeptuser").document(userId)
+                                                            .get()
+                                                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                                @Override
+                                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                                    if (documentSnapshot.exists()) {
+                                                                        // Update existing document
+                                                                        firestore.collection("firedeptuser").document(userId)
+                                                                                .update("Latitude", latitudeadmin, "Longitude", longitudeadmin, "Admin Address", getAddressFromLocation(latitudeadmin, longitudeadmin))
+                                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onSuccess(Void aVoid) {
+                                                                                        Log.i("Firebase", "Firedeptuser document updated successfully");
+                                                                                    }
+                                                                                })
+                                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                                    @Override
+                                                                                    public void onFailure(@NonNull Exception e) {
+                                                                                        Log.e("Firebase", "Error updating firedeptuser document", e);
+                                                                                    }
+                                                                                });
+                                                                    } else {
+                                                                        // Document doesn't exist, create new document
+                                                                        Map<String, Object> userLocation = new HashMap<>();
+                                                                        userLocation.put("Latitude", latitudeadmin);
+                                                                        userLocation.put("Longitude", longitudeadmin);
+                                                                        userLocation.put("Admin Address", getAddressFromLocation(latitudeadmin, longitudeadmin));
+
+                                                                        firestore.collection("firedeptuser").document(userId)
+                                                                                .set(userLocation)
+                                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onSuccess(Void aVoid) {
+                                                                                        Log.i("Firebase", "New Firedeptuser document created successfully");
+                                                                                    }
+                                                                                })
+                                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                                    @Override
+                                                                                    public void onFailure(@NonNull Exception e) {
+                                                                                        Log.e("Firebase", "Error creating new firedeptuser document", e);
+                                                                                    }
+                                                                                });
+                                                                    }
+                                                                }
+                                                            })
+                                                            .addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Log.e("Firebase", "Error checking firedeptuser document existence", e);
+                                                                }
+                                                            });
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.e("Firebase", "Error updating admin document", e);
+                                                }
+                                            });
+                                } else {
+                                    // Handle case where user is not authenticated
+                                    Log.e("Firebase", "User not authenticated");
+                                }
+                            } else {
+                                // Request location permission if not granted
+                                // ...
+                            }
+                        }
+                    });
+        } else {
+            ActivityCompat.requestPermissions(LocationSharingAdmin.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_CODE);
+        }
+    }*/
+
+
+    private Object getAddressFromLocation(double latitudeadmin, double longitudeadmin) {
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitudeadmin, longitudeadmin, 1);
+            if (addresses != null && addresses.size() > 0) {
+                Address address = addresses.get(0);
+                String addressLine = address.getAddressLine(0);
+                adminLocation.setText(addressLine);
+                return addressLine;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private void deleteLastTransaction() {
         if (popupWindow != null && popupWindow.isShowing()) {
             popupWindow.dismiss(); // Dismiss the last dialog if it's still showing
@@ -291,4 +509,4 @@ public class LocationSharingAdmin extends AppCompatActivity {
         super.onStop();
         deleteLastTransaction();
     }
-};
+}

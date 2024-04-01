@@ -2,23 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="Adminuserlocation">
+      <entry key="pixel">
         <State />
       </entry>
-      <entry key="app">
+      <entry key="samsungphone">
         <State>
-          <targetSelectedWithDropDown>
+          <runningDeviceTargetsSelectedWithDialog>
             <Target>
-              <type value="QUICK_BOOT_TARGET" />
+              <type value="RUNNING_DEVICE_TARGET" />
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Andrew Mellevo\.android\avd\Pixel_6_API_34.avd" />
+                  <value value="C:\Users\Adrianne\.android\avd\Pixel_3a_API_34_extension_level_7_x86_64.avd" />
                 </Key>
               </deviceKey>
             </Target>
-          </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-02-20T19:40:27.074758500Z" />
+          </runningDeviceTargetsSelectedWithDialog>
         </State>
       </entry>
     </value>

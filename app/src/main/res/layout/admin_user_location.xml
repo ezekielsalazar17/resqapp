@@ -41,65 +41,22 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
         tools:ignore="RtlSymmetry,TextSizeCheck" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="-7dp"
-        android:layout_marginTop="30dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="20dp"
+
+    <Button
+        android:id="@+id/call"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/border_white"
+        android:fontFamily="@font/oswald"
+        android:text="@string/call"
+        android:textAlignment="center"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_loc">
-
-        <androidx.cardview.widget.CardView
-
-            android:layout_width="240dp"
-            android:layout_height="190dp"
-            android:layout_margin="5dp"
-            app:cardBackgroundColor="#2C385D"
-            app:cardCornerRadius="20dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:id="@+id/go_to_gmaps"
-                    android:layout_width="180dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/border_white"
-                    android:fontFamily="@font/oswald"
-                    android:text="Admin Location KM"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="ButtonStyle" />
-
-                <Button
-                    android:id="@+id/call"
-                    android:layout_width="180dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/border_white"
-                    android:fontFamily="@font/oswald"
-                    android:text="@string/call"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/go_to_gmaps"
-                    tools:ignore="ButtonStyle" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.cardview.widget.CardView>
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toBottomOf="@+id/admin_loc"
+        tools:ignore="ButtonStyle" />
 
     <TextView
         android:id="@+id/adminlatt"
@@ -182,8 +139,30 @@
         android:text="email"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView"
-
         tools:ignore="MissingConstraints" />
+
+
+
+    <TextView
+        android:id="@+id/adressuser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="email"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/useraddress"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mapsuser"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="390dp"
+        android:layout_height="330dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/call" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
