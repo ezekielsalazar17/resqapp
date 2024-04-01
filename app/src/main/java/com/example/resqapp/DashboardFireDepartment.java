@@ -16,8 +16,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,6 +57,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
     private MyAdapter adapter;
     private static final String PREF_NAME = "user_image_pref";
     private static final String KEY_IMAGE_URI = "image_uri";
+    Switch account;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -70,6 +74,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
         profileButton = findViewById(R.id.adminprofilefire);
         imageButton = findViewById(R.id.accept_button); // Initialize ImageButton
         picture_user = findViewById(R.id.picture_user);
+        account = findViewById(R.id.accountonoff);
 
         // Initialize RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -256,4 +261,13 @@ public class DashboardFireDepartment extends AppCompatActivity {
             return null;
         }
     }
+
+    public void onSwitchClick(View view) {
+        if (account.isChecked()) {
+            Toast.makeText(this, "Notification On", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Notification Off", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

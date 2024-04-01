@@ -187,6 +187,7 @@ public class Fireprofile extends AppCompatActivity {
                     SharedPreferences preferences = getSharedPreferences("checkboxadmin", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("remember", "false");
+                    editor.putLong("lastLoginTime", System.currentTimeMillis());
                     editor.apply();
 
                     FirebaseAuth.getInstance().signOut();

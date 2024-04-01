@@ -227,6 +227,7 @@ public class Coastguardprofile extends AppCompatActivity {
                     SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("remember", "false");
+                    editor.putLong("lastLoginTime", System.currentTimeMillis());
                     editor.apply();
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(getApplicationContext(), UserOrAdminLogin.class));
