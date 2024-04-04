@@ -81,6 +81,7 @@ public class AdminLogin extends AppCompatActivity {
                 Toast.makeText(this, "Session expired. Please sign in again.", Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(AdminLogin.this, UserOrAdminLogin.class); // Redirect to login activity
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
             } else {
@@ -95,20 +96,24 @@ public class AdminLogin extends AppCompatActivity {
                             if (department != null) {
                                 if (department.equals("Fire")) {
                                     Intent intent = new Intent(AdminLogin.this, DashboardFireDepartment.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
                                 } else if (department.equals("Coast Guard")) {
                                     Intent intent = new Intent(AdminLogin.this, DashboardCoastGuardDepartment.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
                                 }
                                 else if (department.equals("Ambulance")) {
                                     Intent intent = new Intent(AdminLogin.this, DashboardAmbulanceDepartment.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
                                 }
                                 else if (department.equals("Police")) {
                                     Intent intent = new Intent(AdminLogin.this, DashboardPoliceDepartment.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
                                     finish();
                                 }else {
@@ -210,7 +215,7 @@ public class AdminLogin extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), AdminRegister.class));
+                startActivity(new Intent(AdminLogin.this, AdminRegister.class));
             }
         });
 
@@ -270,13 +275,13 @@ public class AdminLogin extends AppCompatActivity {
                                     String department = documentSnapshot.getString("Department");
                                     if (department != null) {
                                         if ("Fire".equals(department)) {
-                                            startActivity(new Intent(getApplicationContext(), DashboardFireDepartment.class));
+                                            startActivity(new Intent(AdminLogin.this, DashboardFireDepartment.class));
                                         } else if ("Ambulance".equals(department)) {
-                                            startActivity(new Intent(getApplicationContext(), DashboardAmbulanceDepartment.class));
+                                            startActivity(new Intent(AdminLogin.this, DashboardAmbulanceDepartment.class));
                                         } else if ("Police".equals(department)) {
-                                            startActivity(new Intent(getApplicationContext(), DashboardPoliceDepartment.class));
+                                            startActivity(new Intent(AdminLogin.this, DashboardPoliceDepartment.class));
                                         } else if ("Coast Guard".equals(department)) {
-                                            startActivity(new Intent(getApplicationContext(), DashboardCoastGuardDepartment.class));
+                                            startActivity(new Intent(AdminLogin.this, DashboardCoastGuardDepartment.class));
                                         } else {
                                             showToast("Invalid department found for the user");
                                         }

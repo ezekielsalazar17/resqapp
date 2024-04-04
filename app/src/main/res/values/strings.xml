@@ -105,7 +105,7 @@
     <string name="call">CALL</string>
     <string name="get_location">Get Location</string>
     <string name="google_maps_key">AIzaSyC7m6Ggei6Q9SysKXbmqEHPt-W_nyQ42Vg</string>
-
+    <string name="switch_text">Notification</string>
     <string-array name="department1">
         <item>Fire</item>
         <item>Police</item>

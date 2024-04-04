@@ -114,11 +114,11 @@ public class DashboardUser extends AppCompatActivity {
         ambulancebutton = findViewById(R.id.ambulance_button);
 
         locationSharing.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), AccessLocUser.class));
+            startActivity(new Intent(DashboardUser.this, AccessLocUser.class));
         });
 
         profilebutton.setOnClickListener((v) -> {
-            startActivity(new Intent(getApplicationContext(), UserProfile.class));
+            startActivity(new Intent(DashboardUser.this, UserProfile.class));
         });
 
         // Call OnGPS method
@@ -269,6 +269,7 @@ public class DashboardUser extends AppCompatActivity {
                                                 @Override
                                                 public void run() {
                                                     Intent intent = new Intent(DashboardUser.this, Adminuserlocation.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     startActivity(intent);
                                                     finish();
                                                 }
@@ -317,7 +318,7 @@ public class DashboardUser extends AppCompatActivity {
                         public void onAuthenticationError(int errorCode,
                                                           @NonNull CharSequence errString) {
                             super.onAuthenticationError(errorCode, errString);
-                            Toast.makeText(getApplicationContext(),
+                            Toast.makeText(DashboardUser.this,
                                             "Authentication error: " + errString, Toast.LENGTH_SHORT)
                                     .show();
                             deleteLastTransaction();
@@ -326,7 +327,7 @@ public class DashboardUser extends AppCompatActivity {
                         @Override
                         public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                             super.onAuthenticationSucceeded(result);
-                            Toast.makeText(getApplicationContext(), "Biometric Authentication succeeded!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DashboardUser.this, "Biometric Authentication succeeded!", Toast.LENGTH_SHORT).show();
                             deleteLastTransaction();
                             getCurrentLocation();
                             // Get Firebase instance
@@ -454,6 +455,7 @@ public class DashboardUser extends AppCompatActivity {
                                                             @Override
                                                             public void run() {
                                                                 Intent intent = new Intent(DashboardUser.this, Adminuserlocationpolice.class);
+                                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                 startActivity(intent);
                                                                 finish();
                                                             }
@@ -475,7 +477,7 @@ public class DashboardUser extends AppCompatActivity {
                         @Override
                         public void onAuthenticationFailed() {
                             super.onAuthenticationFailed();
-                            Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DashboardUser.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                             deleteLastTransaction();
                         }
                     });
@@ -518,7 +520,7 @@ public class DashboardUser extends AppCompatActivity {
                         public void onAuthenticationError(int errorCode,
                                                           @NonNull CharSequence errString) {
                             super.onAuthenticationError(errorCode, errString);
-                            Toast.makeText(getApplicationContext(),
+                            Toast.makeText(DashboardUser.this,
                                             "Authentication error: " + errString, Toast.LENGTH_SHORT)
                                     .show();
                             deleteLastTransaction();
@@ -527,7 +529,7 @@ public class DashboardUser extends AppCompatActivity {
                         @Override
                         public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                             super.onAuthenticationSucceeded(result);
-                            Toast.makeText(getApplicationContext(), "Biometric Authentication succeeded!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DashboardUser.this, "Biometric Authentication succeeded!", Toast.LENGTH_SHORT).show();
                             deleteLastTransaction();
                             getCurrentLocation();
                             // Get Firebase instance
@@ -655,6 +657,7 @@ public class DashboardUser extends AppCompatActivity {
                                                             @Override
                                                             public void run() {
                                                                 Intent intent = new Intent(DashboardUser.this, Adminuserlocationcoast.class);
+                                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                 startActivity(intent);
                                                                 finish();
                                                             }
@@ -676,7 +679,7 @@ public class DashboardUser extends AppCompatActivity {
                         @Override
                         public void onAuthenticationFailed() {
                             super.onAuthenticationFailed();
-                            Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DashboardUser.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                             deleteLastTransaction();
                         }
                     });
@@ -719,7 +722,7 @@ public class DashboardUser extends AppCompatActivity {
                         public void onAuthenticationError(int errorCode,
                                                           @NonNull CharSequence errString) {
                             super.onAuthenticationError(errorCode, errString);
-                            Toast.makeText(getApplicationContext(),
+                            Toast.makeText(DashboardUser.this,
                                             "Authentication error: " + errString, Toast.LENGTH_SHORT)
                                     .show();
                             deleteLastTransaction();
@@ -728,7 +731,7 @@ public class DashboardUser extends AppCompatActivity {
                         @Override
                         public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                             super.onAuthenticationSucceeded(result);
-                            Toast.makeText(getApplicationContext(), "Biometric Authentication succeeded!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DashboardUser.this, "Biometric Authentication succeeded!", Toast.LENGTH_SHORT).show();
                             getCurrentLocation();
                             deleteLastTransaction();
                             // Get Firebase instance
@@ -856,6 +859,7 @@ public class DashboardUser extends AppCompatActivity {
                                                             @Override
                                                             public void run() {
                                                                 Intent intent = new Intent(DashboardUser.this, Adminuserlocationambulance.class);
+                                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                 startActivity(intent);
                                                                 finish();
                                                             }
@@ -877,7 +881,7 @@ public class DashboardUser extends AppCompatActivity {
                         @Override
                         public void onAuthenticationFailed() {
                             super.onAuthenticationFailed();
-                            Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DashboardUser.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                             deleteLastTransaction();
                         }
                     });

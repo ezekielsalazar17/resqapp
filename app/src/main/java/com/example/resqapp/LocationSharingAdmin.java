@@ -111,7 +111,7 @@ public class LocationSharingAdmin extends AppCompatActivity {
                 intent.putExtra("admin_location", adminloc);
                 intent.putExtra("admin_latitude", adminlat1);
                 intent.putExtra("admin_longitude", adminlongi1);
-
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
 
             }

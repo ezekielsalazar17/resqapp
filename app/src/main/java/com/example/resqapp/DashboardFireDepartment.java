@@ -3,20 +3,29 @@ package com.example.resqapp;
 import static com.example.resqapp.AdminRegister.TAG;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -24,6 +33,9 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,6 +70,8 @@ public class DashboardFireDepartment extends AppCompatActivity {
     private static final String PREF_NAME = "user_image_pref";
     private static final String KEY_IMAGE_URI = "image_uri";
     Switch account;
+    private static final int PERMISSION_REQUEST_CODE = 1001;
+    private static final String SWITCH_STATE_KEY = "switch_state";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -88,6 +102,30 @@ public class DashboardFireDepartment extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), Fireprofile.class));
         });
 
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+        boolean previousSwitchState = sharedPreferences.getBoolean(SWITCH_STATE_KEY, false);
+        account.setChecked(previousSwitchState);
+
+        account.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // Switch is turned on, set background color to green
+                    Toast.makeText(DashboardFireDepartment.this, "Turn on Notification", Toast.LENGTH_SHORT).show();
+                    account.getThumbDrawable().setColorFilter(getResources().getColor(R.color.green), PorterDuff.Mode.MULTIPLY);
+                    account.getTrackDrawable().setColorFilter(getResources().getColor(R.color.light_green), PorterDuff.Mode.MULTIPLY);
+                    checkForNewEmergency();
+                } else{
+                    // Switch is turned off, set background color to red
+                    Toast.makeText(DashboardFireDepartment.this, "Turn off Notification", Toast.LENGTH_SHORT).show();
+                    account.getThumbDrawable().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.MULTIPLY);
+                    account.getTrackDrawable().setColorFilter(getResources().getColor(R.color.light_red), PorterDuff.Mode.MULTIPLY);
+                }
+                sharedPreferences.edit().putBoolean(SWITCH_STATE_KEY, isChecked).apply();
+            }
+        });
+
         // Initialize Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -95,7 +133,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
 
         // Check if user is signed in
         FirebaseUser currentUser = fAuth.getCurrentUser();
-        if(currentUser != null) {
+        if (currentUser != null) {
             userID = currentUser.getUid();
             // Fetch data from Firestore
             db.collection(historyCollection)
@@ -164,6 +202,78 @@ public class DashboardFireDepartment extends AppCompatActivity {
         }
 
     }
+
+    public void resetSwitchState() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(SWITCH_STATE_KEY, false).apply();
+        // Update the UI accordingly
+        account.setChecked(false);
+        account.getThumbDrawable().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.MULTIPLY);
+        account.getTrackDrawable().setColorFilter(getResources().getColor(R.color.light_red), PorterDuff.Mode.MULTIPLY);
+    }
+
+    private void checkForNewEmergency() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Check for new documents added to the "pendingfiredept" collection
+        db.collection("pendingfiredept")
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
+                    }
+
+                    if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
+                        // If there are new documents, call the showNotification function
+                        showNotification();
+                    }
+                });
+    }
+
+    private void showNotification() {
+        final String CHANNEL_ID = "channel1";
+        final int NOTIFICATION_ID = 1;
+
+        Intent activityIntent = new Intent(this, DashboardFireDepartment.class);
+        PendingIntent playContentIntent = PendingIntent.getActivity(this, 0, activityIntent, PendingIntent.FLAG_IMMUTABLE);
+
+        // Create the notification channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notification";
+            String description = "FIRE DEPARTMENT";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        // Build the notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.notification)
+                .setContentTitle("New Emergency")
+                .setContentText("EMERGENCY")
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText("We need you to respond now!"))
+                .addAction(R.mipmap.ic_launcher, "Go to Fire Dashboard", playContentIntent)
+                .setColor(Color.RED)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
 
     // Method to capitalize every word in a string
     private String capitalizeEveryWord(String text) {

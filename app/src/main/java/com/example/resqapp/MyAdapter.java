@@ -399,6 +399,7 @@
             intent.putExtra("Latitude Admin", latitude);
             intent.putExtra("Longitude Admin", longitude);
             intent.putExtra("UserEmail", currentItem.getUserEmail());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         }
 

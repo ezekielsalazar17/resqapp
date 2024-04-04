@@ -22,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +53,7 @@ public class AdminDirections extends AppCompatActivity implements OnMapReadyCall
     List<Address> listGeocoder;
     FirebaseAuth fAuth;
     FirebaseFirestore firestore;
+    private Marker adminMarker; // Add marker reference for admin
 
     private List<LatLng> routeCoordinates = new ArrayList<>();
 
@@ -105,8 +107,10 @@ public class AdminDirections extends AppCompatActivity implements OnMapReadyCall
         LatLng adminLatLong = new LatLng(latitude1, longitude1);
 
         gMapadmin.addMarker(new MarkerOptions().position(userLatlong).title("Emergency Location (User)"));
-        gMapadmin.addMarker(new MarkerOptions().position(adminLatLong).title("Admin Location"));
+        adminMarker = gMapadmin.addMarker(new MarkerOptions().position(adminLatLong).title("Admin Location"));
         gMapadmin.moveCamera(CameraUpdateFactory.newLatLngZoom(userLatlong, 10));
+
+
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -239,4 +243,5 @@ public class AdminDirections extends AppCompatActivity implements OnMapReadyCall
         }
         return poly;
     }
+
 }
