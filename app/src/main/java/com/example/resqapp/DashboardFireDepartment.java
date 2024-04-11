@@ -18,7 +18,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -201,15 +200,6 @@ public class DashboardFireDepartment extends AppCompatActivity {
             Log.e(TAG, "User not signed in.");
         }
 
-    }
-
-    public void resetSwitchState() {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        sharedPreferences.edit().putBoolean(SWITCH_STATE_KEY, false).apply();
-        // Update the UI accordingly
-        account.setChecked(false);
-        account.getThumbDrawable().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.MULTIPLY);
-        account.getTrackDrawable().setColorFilter(getResources().getColor(R.color.light_red), PorterDuff.Mode.MULTIPLY);
     }
 
     private void checkForNewEmergency() {

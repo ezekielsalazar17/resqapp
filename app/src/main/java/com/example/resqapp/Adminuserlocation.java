@@ -1,5 +1,6 @@
 package com.example.resqapp;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,7 +21,6 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.Manifest;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -124,7 +124,7 @@ public class Adminuserlocation extends AppCompatActivity implements OnMapReadyCa
             public void run() {
                 handler.postDelayed(runnable, refreshTime);
                 isLocationPermissionGranted();
-
+                showLocation();
             }
         }, refreshTime);
         updateAdminLocation("Admin");
@@ -411,6 +411,8 @@ public class Adminuserlocation extends AppCompatActivity implements OnMapReadyCa
             LatLng adminLatlong = new LatLng(latitude1, longitude1);
             LatLng userLatlong = new LatLng(latitudeuser, longitudeuser);
 
+            // Clear previous markers
+            //  gMap.clear();
 
             // Add new markers
             gMap.addMarker(new MarkerOptions().position(adminLatlong).title("Admin"));
