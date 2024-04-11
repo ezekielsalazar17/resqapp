@@ -6,7 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -18,12 +20,16 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.Manifest;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +39,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -429,7 +437,7 @@ public class Adminuserlocation extends AppCompatActivity implements OnMapReadyCa
                 == PackageManager.PERMISSION_GRANTED;
     }
 
-    /*@SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission")
     public void showLocation() {
         if (isLocationPermissionGranted()) {
             FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -496,7 +504,7 @@ public class Adminuserlocation extends AppCompatActivity implements OnMapReadyCa
             e.printStackTrace();
         }
         return null;
-    }*/
+    }
 
     private void getRouteCoordinates(LatLng start, LatLng end) {
         String apiKey = "AIzaSyC7m6Ggei6Q9SysKXbmqEHPt-W_nyQ42Vg";
