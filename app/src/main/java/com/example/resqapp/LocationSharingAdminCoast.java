@@ -298,6 +298,7 @@ public class LocationSharingAdminCoast extends AppCompatActivity {
         if(System.currentTimeMillis() - TimeBack > 1000){
             TimeBack = System.currentTimeMillis();
             Toast.makeText(getApplicationContext(), "Press Again to Exit", Toast.LENGTH_SHORT).show();
+            return;
         }
         super.onBackPressed();
     }
