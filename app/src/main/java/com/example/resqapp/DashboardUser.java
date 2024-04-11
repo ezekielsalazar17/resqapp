@@ -138,155 +138,209 @@ public class DashboardUser extends AppCompatActivity {
 
 
 
-        // Set OnClickListener for firebutton
+// Set OnClickListener for firebutton
         firebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCurrentLocation();
 
-                // Get Firebase instance
-                FirebaseFirestore db1 = FirebaseFirestore.getInstance();
+                if (!isFinishing() && !isDestroyed()) {
 
-                // Define the collection name for user data
-                String userCollection = "users";
+                    BiometricManager biometricManager = BiometricManager.from(DashboardUser.this);
+                    switch (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG | BiometricManager.Authenticators.DEVICE_CREDENTIAL)) {
+                        case BiometricManager.BIOMETRIC_SUCCESS:
+                            break;
+                        case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
+                            Toast.makeText(DashboardUser.this, "Biometric sensor not available", Toast.LENGTH_SHORT).show();
+                            break;
+                        case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
+                            Toast.makeText(DashboardUser.this, "Biometric sensor is busy", Toast.LENGTH_SHORT).show();
+                            break;
+                        case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
+                            final Intent enrollIntent = new Intent(Settings.ACTION_BIOMETRIC_ENROLL);
+                            enrollIntent.putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                                    BiometricManager.Authenticators.BIOMETRIC_STRONG | BiometricManager.Authenticators.DEVICE_CREDENTIAL);
+                            startActivityForResult(enrollIntent, REQUEST_CODE);
+                            break;
+                    }
 
-                // Get the current user ID (assuming you have it)
-                String userID = getCurrentUserID(); // Replace with your method to get the user ID
+                    executor = ContextCompat.getMainExecutor(DashboardUser.this);
+                    biometricPrompt = new BiometricPrompt(DashboardUser.this,
+                            executor, new BiometricPrompt.AuthenticationCallback() {
+                        @Override
+                        public void onAuthenticationError(int errorCode,
+                                                          @NonNull CharSequence errString) {
+                            super.onAuthenticationError(errorCode, errString);
+                            Toast.makeText(getApplicationContext(),
+                                            "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                                    .show();
+                            deleteLastTransaction();
+                        }
 
-                // Retrieve user's first name and last name from the "users" collection
-                db1.collection(userCollection)
-                        .document(userID)
-                        .get()
-                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if (documentSnapshot.exists()) {
-                                    // Get user's first name and last name
-                                    String firstName = documentSnapshot.getString("First Name");
-                                    String lastName = documentSnapshot.getString("Last Name");
-                                    String address = documentSnapshot.getString("Address");
-                                    Double latitude = documentSnapshot.getDouble("Latitude");
-                                    Double longitude = documentSnapshot.getDouble("Longitude");
-                                    String contactNum = documentSnapshot.getString("Contact Number");
-                                    String email = documentSnapshot.getString("Email");
+                        @Override
+                        public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                            super.onAuthenticationSucceeded(result);
+                            Toast.makeText(getApplicationContext(), "Biometric Authentication succeeded!", Toast.LENGTH_SHORT).show();
+                            deleteLastTransaction();
+                            getCurrentLocation();
+                            // Get Firebase instance
+                            FirebaseFirestore db1 = FirebaseFirestore.getInstance();
 
+                            // Define the collection name for user data
+                            String userCollection = "users";
 
-                                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                                    String time = dateFormat.format(new Date());
+                            // Get the current user ID (assuming you have it)
+                            String userID = getCurrentUserID(); // Replace with your method to get the user ID
 
-                                    // Create a new document in the "History" collection with user's first name and last name
-                                    Map<String, Object> historyData = new HashMap<>();
-                                    historyData.put("firstName", firstName);
-                                    historyData.put("lastName", lastName);
-                                    historyData.put("address", address);
-                                    historyData.put("latitude", latitude);
-                                    historyData.put("longitude", longitude);
-                                    historyData.put("contactNum", contactNum);
-                                    historyData.put("useremail", email);
-                                    historyData.put("timestamp", time);
-
-                                    db1.collection("pendingfiredept")
-                                            .add(historyData)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    Log.d(TAG, "Document added to collection 'pendingfiredept' with ID: " + documentReference.getId());
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.e(TAG, "Error adding document to collection 'History': " + e.getMessage());
-                                                    // Handle failure
-                                                }
-                                            });
-                                } else {
-                                    Log.d(TAG, "No such document");
-                                }
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.e(TAG, "Error getting user document: " + e.getMessage());
-                                // Handle failure
-                            }
-                        });
-                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView1 = inflater.inflate(R.layout.popup_window_user, null);
-
-                // Create a PopupWindow object
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true;
-                PopupWindow popupWindow = new PopupWindow(popupView1, width, height, focusable);
-
-                // Set content for PopupWindow
-                TextView dept = popupView1.findViewById(R.id.department_admin);
-                TextView addressadmin = popupView1.findViewById(R.id.admin_address);
-                TextView lat = popupView1.findViewById(R.id.admin_latitude);
-                TextView longi = popupView1.findViewById(R.id.admin_longitude);
-                TextView contact = popupView1.findViewById(R.id.admin_contactnum1);
-
-                String historyCollection = "firedeptuser";
-
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                db.collection(historyCollection)
-                        .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                            @Override
-                            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
-                                if (e != null) {
-                                    Log.w(TAG, "Listen failed.", e);
-                                    return;
-                                }
-
-                                if (snapshots != null) {
-                                    for (QueryDocumentSnapshot document : snapshots) {
-                                        // Check if the user email matches the email stored in the firedeptuser collection
-                                        String userEmail = document.getString("User Email");
-                                        if (userEmail != null && userEmail.equals(fAuth.getCurrentUser().getEmail())) {
-                                            // Data is fetched, proceed to fetch the rest of the data
-                                            String address = document.getString("Admin Address");
-                                            address = capitalizeEveryWord(address); // Capitalize the address
-                                            String contactNum1 = document.getString("Contact Number");
-                                            String department = document.getString("Department");
-
-                                            Double latitudeObj = document.getDouble("Latitude");
-                                            Double longitudeObj = document.getDouble("Longitude");
-
-                                            double latitude = latitudeObj != null ? latitudeObj : 0.0;
-                                            double longitude = longitudeObj != null ? longitudeObj : 0.0;
-
-                                            // Set UI elements
-                                            addressadmin.setText(address);
-                                            lat.setText(String.valueOf(latitude));
-                                            longi.setText(String.valueOf(longitude));
-                                            contact.setText(contactNum1);
-                                            dept.setText(department);
-
-                                            new Handler().postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    Intent intent = new Intent(DashboardUser.this, Adminuserlocation.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                    startActivity(intent);
-                                                    finish();
-                                                }
-                                            }, 2000);
-
-                                            popupWindow.dismiss();
+                            // Retrieve user's first name and last name from the "users" collection
+                            db1.collection(userCollection)
+                                    .document(userID)
+                                    .get()
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            if (documentSnapshot.exists()) {
+                                                // Get user's first name and last name
+                                                String firstName = documentSnapshot.getString("First Name");
+                                                String lastName = documentSnapshot.getString("Last Name");
+                                                String address = documentSnapshot.getString("Address");
+                                                Double latitude = documentSnapshot.getDouble("Latitude");
+                                                Double longitude = documentSnapshot.getDouble("Longitude");
+                                                String contactNum = documentSnapshot.getString("Contact Number");
+                                                String email = documentSnapshot.getString("Email");
 
 
+                                                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                                String time = dateFormat.format(new Date());
+
+                                                // Create a new document in the "History" collection with user's first name and last name
+                                                Map<String, Object> historyData = new HashMap<>();
+                                                historyData.put("firstName", firstName);
+                                                historyData.put("lastName", lastName);
+                                                historyData.put("address", address);
+                                                historyData.put("latitude", latitude);
+                                                historyData.put("longitude", longitude);
+                                                historyData.put("contactNum", contactNum);
+                                                historyData.put("useremail", email);
+                                                historyData.put("timestamp", time);
+
+                                                db1.collection("pendingfiredept")
+                                                        .add(historyData)
+                                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                            @Override
+                                                            public void onSuccess(DocumentReference documentReference) {
+                                                                Log.d(TAG, "Document added to collection 'pendingfiredept' with ID: " + documentReference.getId());
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.e(TAG, "Error adding document to collection 'History': " + e.getMessage());
+                                                                // Handle failure
+                                                            }
+                                                        });
+                                            } else {
+                                                Log.d(TAG, "No such document");
+                                            }
                                         }
-                                        break;
-                                    }
-                                }
-                            }
-                        });
-                popupWindow.setOutsideTouchable(false); // Prevent dismissing when touching outside
-                popupWindow.setFocusable(false);
-                popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.e(TAG, "Error getting user document: " + e.getMessage());
+                                            // Handle failure
+                                        }
+                                    });
+                            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                            View popupView1 = inflater.inflate(R.layout.popup_window_user, null);
+
+                            // Create a PopupWindow object
+                            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                            boolean focusable = true;
+                            PopupWindow popupWindow = new PopupWindow(popupView1, width, height, focusable);
+
+                            // Set content for PopupWindow
+                            TextView dept = popupView1.findViewById(R.id.department_admin);
+                            TextView addressadmin = popupView1.findViewById(R.id.admin_address);
+                            TextView lat = popupView1.findViewById(R.id.admin_latitude);
+                            TextView longi = popupView1.findViewById(R.id.admin_longitude);
+                            TextView contact = popupView1.findViewById(R.id.admin_contactnum1);
+
+                            String historyCollection = "firedeptuser";
+
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                            db.collection(historyCollection)
+                                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+                                            if (e != null) {
+                                                Log.w(TAG, "Listen failed.", e);
+                                                return;
+                                            }
+
+                                            if (snapshots != null) {
+                                                for (QueryDocumentSnapshot document : snapshots) {
+                                                    // Check if the user email matches the email stored in the firedeptuser collection
+                                                    String userEmail = document.getString("User Email");
+                                                    if (userEmail != null && userEmail.equals(fAuth.getCurrentUser().getEmail())) {
+                                                        // Data is fetched, proceed to fetch the rest of the data
+                                                        String address = document.getString("Admin Address");
+                                                        address = capitalizeEveryWord(address); // Capitalize the address
+                                                        String contactNum1 = document.getString("Contact Number");
+                                                        String department = document.getString("Department");
+
+                                                        Double latitudeObj = document.getDouble("Latitude");
+                                                        Double longitudeObj = document.getDouble("Longitude");
+
+                                                        double latitude = latitudeObj != null ? latitudeObj : 0.0;
+                                                        double longitude = longitudeObj != null ? longitudeObj : 0.0;
+
+                                                        // Set UI elements
+                                                        addressadmin.setText(address);
+                                                        lat.setText(String.valueOf(latitude));
+                                                        longi.setText(String.valueOf(longitude));
+                                                        contact.setText(contactNum1);
+                                                        dept.setText(department);
+
+                                                        new Handler().postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                Intent intent = new Intent(DashboardUser.this, Adminuserlocation.class);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            }
+                                                        }, 2000);
+
+                                                        popupWindow.dismiss();
+
+                                                    }
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    });
+                            popupWindow.setOutsideTouchable(false); // Prevent dismissing when touching outside
+                            popupWindow.setFocusable(false);
+                            popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+                        }
+
+                        @Override
+                        public void onAuthenticationFailed() {
+                            super.onAuthenticationFailed();
+                            Toast.makeText(getApplicationContext(), "Authentication failed", Toast.LENGTH_SHORT).show();
+                            deleteLastTransaction();
+
+                        }
+                    });
+
+                    promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                            .setTitle("Biometric login for my app")
+                            .setSubtitle("Log in using your biometric credential")
+                            .setNegativeButtonText("Use account password")
+                            .build();
+                    biometricPrompt.authenticate(promptInfo);
+                }
             }
         });
         policebutton.setOnClickListener(new View.OnClickListener() {

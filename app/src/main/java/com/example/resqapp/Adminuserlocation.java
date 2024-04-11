@@ -403,8 +403,6 @@ public class Adminuserlocation extends AppCompatActivity implements OnMapReadyCa
             LatLng adminLatlong = new LatLng(latitude1, longitude1);
             LatLng userLatlong = new LatLng(latitudeuser, longitudeuser);
 
-            // Clear previous markers
-          //  gMap.clear();
 
             // Add new markers
             gMap.addMarker(new MarkerOptions().position(adminLatlong).title("Admin"));

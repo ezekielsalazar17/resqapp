@@ -31,7 +31,7 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Admin4"
-        app:srcCompat="@drawable/profile_final"
+        app:srcCompat="@drawable/baseline_person_241"
         tools:ignore="ContentDescription" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
