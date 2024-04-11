@@ -302,7 +302,7 @@ public class UserProfile extends AppCompatActivity {
                     editor.apply();
 
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(UserProfile.this, UserOrAdminLogin.class));
+                    startActivity(new Intent(UserProfile.this, UserLogin.class));
                     finish();
                 }
             }

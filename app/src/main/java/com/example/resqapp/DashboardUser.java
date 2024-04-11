@@ -94,6 +94,7 @@ public class DashboardUser extends AppCompatActivity {
     long refreshTime = 5000; // 5secs refresh time
     Runnable runnable;
     boolean isLocationRefreshEnabled = false;
+    private long TimeBack;
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
@@ -1036,12 +1037,13 @@ public class DashboardUser extends AppCompatActivity {
             }
         }
     }
-    @SuppressLint("MissingSuperCall")
     @Override
     public void onBackPressed() {
-        // Do nothing (disable back button)
-        // Alternatively, you can show a toast message indicating the back button is disabled
-        Toast.makeText(this, "Back button disabled in this screen", Toast.LENGTH_SHORT).show();
+        if(System.currentTimeMillis() - TimeBack > 1000){
+            TimeBack = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "Press Again to Exit", Toast.LENGTH_SHORT).show();
+        }
+        super.onBackPressed();
     }
 
     private boolean isLocationPermissionGranted() {

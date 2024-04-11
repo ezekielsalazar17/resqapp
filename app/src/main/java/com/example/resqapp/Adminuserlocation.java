@@ -274,6 +274,7 @@ public class Adminuserlocation extends AppCompatActivity implements OnMapReadyCa
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("REQUEST");
             builder.setMessage("Your request is done");
+            onBackPressed();
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

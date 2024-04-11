@@ -3,11 +3,14 @@ package com.example.resqapp;
 import static androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG;
 import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -35,6 +38,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.resqapp.Utility.NetworkChangeListener;
@@ -56,6 +60,7 @@ public class UserLogin extends AppCompatActivity {
     private Executor executor;
     private BiometricPrompt biometricPrompt;
     private BiometricPrompt.PromptInfo promptInfo;
+    private long TimeBack;
     EditText email, password;
     Button login;
     CheckBox rememberme;
@@ -64,6 +69,10 @@ public class UserLogin extends AppCompatActivity {
     ConstraintLayout constraintLayout;
     ImageView fingerprint;
     NetworkChangeListener networkChangeListener = new NetworkChangeListener();
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
+    private static final int CALL_PERMISSION_REQUEST_CODE = 1002;
+    private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1003;
 
 
     @SuppressLint("MissingInflatedId")
@@ -329,6 +338,41 @@ public class UserLogin extends AppCompatActivity {
                 showPasswordResetDialog();
             }
         });
+        checkPermissions();
+    }
+    private void checkPermissions() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+                        != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.CALL_PHONE, Manifest.permission.POST_NOTIFICATIONS},
+                    NOTIFICATION_PERMISSION_REQUEST_CODE);
+        } else {
+            checkLocationEnabled();
+        }
+    }
+
+    private void checkLocationEnabled() {
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (!gpsEnabled && !networkEnabled) {
+            // Prompt the user to enable location services
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE || requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE) { // Update condition to include notification permission code
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                checkLocationEnabled();
+            }
+        }
     }
     public void checkTypeofAccount(String uid) {
         fAuth = FirebaseAuth.getInstance();
@@ -453,5 +497,13 @@ public class UserLogin extends AppCompatActivity {
     protected void onStop() {
         unregisterReceiver(networkChangeListener);
         super.onStop();
+    }
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - TimeBack > 1000){
+            TimeBack = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "Press Again to Exit", Toast.LENGTH_SHORT).show();
+        }
+        super.onBackPressed();
     }
 }

@@ -66,6 +66,7 @@ public class DashboardFireDepartment extends AppCompatActivity {
     private ImageView picture_user;
     private ImageView imageButton;
     private MyAdapter adapter;
+    private long TimeBack;
     private static final String PREF_NAME = "user_image_pref";
     private static final String KEY_IMAGE_URI = "image_uri";
     Switch account;
@@ -369,5 +370,12 @@ public class DashboardFireDepartment extends AppCompatActivity {
             Toast.makeText(this, "Notification Off", Toast.LENGTH_SHORT).show();
         }
     }
-
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - TimeBack > 1000){
+            TimeBack = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "Press Again to Exit", Toast.LENGTH_SHORT).show();
+        }
+        super.onBackPressed();
+    }
 }

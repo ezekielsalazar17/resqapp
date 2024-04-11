@@ -45,6 +45,7 @@ public class AdminLogin extends AppCompatActivity {
     FirebaseAuth fAuth;
     ImageView imageView;
     FirebaseFirestore firestore;
+    private long TimeBack;
     public static final String SHARED_PREFS = "sharedPrefs";
 
     private static final String PREFS_NAME = "MyPrefs";
@@ -357,5 +358,13 @@ public class AdminLogin extends AppCompatActivity {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeListener, filter);
         super.onStart();
+    }
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - TimeBack > 1000){
+            TimeBack = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "Press Again to Exit", Toast.LENGTH_SHORT).show();
+        }
+        super.onBackPressed();
     }
 }

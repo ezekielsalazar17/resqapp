@@ -63,6 +63,7 @@ public class DashboardCoastGuardDepartment extends AppCompatActivity {
     private ImageButton profileButton;
     private ImageButton imageButton; // Define ImageButton here
     Switch account3;
+    private long TimeBack;
     private static final String SWITCH_STATE_KEY = "switch_state";
 
     @SuppressLint("MissingInflatedId")
@@ -320,5 +321,13 @@ public class DashboardCoastGuardDepartment extends AppCompatActivity {
         canvas.drawBitmap(croppedBitmap, rect, rect, paint);
 
         return output;
+    }
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - TimeBack > 1000){
+            TimeBack = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "Press Again to Exit", Toast.LENGTH_SHORT).show();
+        }
+        super.onBackPressed();
     }
 }
