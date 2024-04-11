@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +49,7 @@ public class LocationSharingAdmin extends AppCompatActivity {
     Handler handler;
     long refreshTime = 5000;
     Runnable runnable;
+    private long TimeBack;
 
     public Button done1;
     private PopupWindow popupWindow;
@@ -508,5 +510,13 @@ public class LocationSharingAdmin extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         deleteLastTransaction();
+    }
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - TimeBack > 1000){
+            TimeBack = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "Press Again to Exit", Toast.LENGTH_SHORT).show();
+        }
+        super.onBackPressed();
     }
 }

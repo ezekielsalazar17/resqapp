@@ -191,7 +191,7 @@ public class Fireprofile extends AppCompatActivity {
                     editor.apply();
 
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(Fireprofile.this, UserOrAdminLogin.class));
+                    startActivity(new Intent(Fireprofile.this, AdminLogin.class));
                     finish();
                 }
             }

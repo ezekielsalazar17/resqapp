@@ -220,7 +220,7 @@ public class DashboardAmbulanceDepartment extends AppCompatActivity {
         // Create the notification channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notification";
-            String description = "FIRE DEPARTMENT";
+            String description = "AMBULANCE DEPARTMENT";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
@@ -236,7 +236,7 @@ public class DashboardAmbulanceDepartment extends AppCompatActivity {
                 .setContentText("EMERGENCY")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("We need you to respond now!"))
-                .addAction(R.mipmap.ic_launcher, "Go to Fire Dashboard", playContentIntent)
+                .addAction(R.mipmap.ic_launcher, "Go to Ambulance Dashboard", playContentIntent)
                 .setColor(Color.RED)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 

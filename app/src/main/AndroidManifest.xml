@@ -27,7 +27,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/resqapplogo"
-        android:label="ResQApp"
+        android:label="ResQApp Admin"
         android:roundIcon="@drawable/resqapplogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Resqapp"

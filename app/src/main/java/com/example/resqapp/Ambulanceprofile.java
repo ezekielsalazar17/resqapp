@@ -229,7 +229,7 @@ public class Ambulanceprofile extends AppCompatActivity {
                     editor.putLong("lastLoginTime", System.currentTimeMillis());
                     editor.apply();
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getApplicationContext(), UserOrAdminLogin.class));
+                    startActivity(new Intent(getApplicationContext(), AdminLogin.class));
                     finish();
                 }
             }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class LocationSharingAdminPolice extends AppCompatActivity {
 
     public Button done1;
     private PopupWindow popupWindow;
+    private long TimeBack;
 
     TextView userLocation, adminLocation, userlat, userlong, adminlat, adminlong, userEmail;
     Button direction;
@@ -290,5 +292,13 @@ public class LocationSharingAdminPolice extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         deleteLastTransaction();
+    }
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - TimeBack > 1000){
+            TimeBack = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "Press Again to Exit", Toast.LENGTH_SHORT).show();
+        }
+        super.onBackPressed();
     }
 };
